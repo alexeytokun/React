@@ -9,7 +9,17 @@ class SignUp extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            username: '',
+            firstname: '',
+            lastname: '',
+            pass: '',
+            passcheck: ''
+        }
+
         this.onLinkClick = this.onLinkClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     onLinkClick(e) {
@@ -21,6 +31,20 @@ class SignUp extends Component {
         this.setState({ [name]: value });
     }
 
+    validate (userName, firstName, lastName, pass, passCheck) {
+        return true;
+    }
+
+    handleSubmit() {
+        if (!this.validate(this.state.username,
+            this.state.firstname,
+            this.state.lastname,
+            this.state.pass,
+            this.state.passcheck
+        )) return;
+        console.log('ok');
+    }
+
     render() {
         return (
             <Container className="login_wrapper">
@@ -28,21 +52,21 @@ class SignUp extends Component {
                     <Image className="login_logo"  size='large' centered src={logo}/>
                     <Form>
                         <Form.Field>
-                            <input name='username' placeholder='Username' />
+                            <input name='username' value={this.state.username} onChange={this.handleChange} placeholder='Username' />
                         </Form.Field>
                         <Form.Field>
-                            <input name='first_name' placeholder='First name' />
+                            <input name='firstname' value={this.state.firstname} onChange={this.handleChange} placeholder='First name' />
                         </Form.Field>
                         <Form.Field>
-                            <input name='last_name' placeholder='Last name' />
+                            <input name='lastname' value={this.state.lastname} onChange={this.handleChange} placeholder='Last name' />
                         </Form.Field>
                         <Form.Field>
-                            <input name='pass' type='password' placeholder='Password' />
+                            <input name='pass' value={this.state.pass} onChange={this.handleChange} type='password' placeholder='Password' />
                         </Form.Field>
                         <Form.Field>
-                            <input name='pass_check' type='password' placeholder='Password' />
+                            <input name='passcheck' value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Password' />
                         </Form.Field>
-                        <Button fluid={true} type='submit'>Sign Up</Button>
+                        <Button onClick={this.handleSubmit} fluid={true} type='submit'>Sign Up</Button>
                     </Form>
                     <p className="login_text">
                         Already have account?
