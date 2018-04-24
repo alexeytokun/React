@@ -26,11 +26,6 @@ class Login extends Component {
     }
 
     validateField(fieldName, value) {
-        // let validation = {
-        //     username: this.state.validation.username,
-        //     pass: this.state.validation.pass,
-        //     isFormValid: this.state.validation.isFormValid
-        // };
         let validation = {...this.state.validation};
 
         switch(fieldName) {
@@ -51,7 +46,22 @@ class Login extends Component {
     handleSubmit() {
         const isFormValid = this.state.validation.username
             && this.state.validation.pass;
-        if (isFormValid) console.log('ok');
+        if (!isFormValid) return;
+        const body = JSON.stringify({
+            username: this.state.username,
+            pass: this.state.pass
+        });
+
+        fetch('http://127.0.0.1:8000/signin', {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: body
+            })
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
     }
 
     onLinkClick(e) {

@@ -78,7 +78,26 @@ class SignUp extends Component {
             && this.state.validation.pass
             && this.state.validation.passcheck;
 
-        if (isFormValid) console.log('ok');
+        if (!isFormValid) return;
+
+        const body = JSON.stringify({
+            username: this.state.username,
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            pass: this.state.pass
+        });
+
+        fetch('http://127.0.0.1:8000/user', {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: body
+        })
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
     }
 
     render() {
