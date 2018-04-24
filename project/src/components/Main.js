@@ -9,11 +9,6 @@ class Main extends Component {
         this.onLinkClick = this.onLinkClick.bind(this);
     }
 
-    // handleChange(e) {
-    //     const { name, value } = e.target;
-    //     this.setState({ [name]: value });
-    // }
-
     onLinkClick(e) {
         this.props.changeLocation(e.target.dataset.location);
     }

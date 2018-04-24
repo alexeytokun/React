@@ -13,8 +13,17 @@ class SignUp extends Component {
             username: '',
             firstname: '',
             lastname: '',
+            email: '',
             pass: '',
-            passcheck: ''
+            passcheck: '',
+            validation: {
+                username: false,
+                firstname: false,
+                lastname: false,
+                email: false,
+                pass: false,
+                passcheck: false
+            }
         }
 
         this.onLinkClick = this.onLinkClick.bind(this);
@@ -28,21 +37,48 @@ class SignUp extends Component {
 
     handleChange(e) {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value }, () => { this.validateField(name, value) });
     }
 
-    validate (userName, firstName, lastName, pass, passCheck) {
-        return true;
+    validateField(fieldName, value) {
+        let validation = {...this.state.validation};
+
+        switch(fieldName) {
+            case 'username':
+                validation.username = value.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+                break;
+            case 'firstname':
+                validation.firstname = value.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+                break;
+            case 'lastname':
+                validation.lastname = value.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+                break;
+            case 'email':
+                validation.email = value.match(/^(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})$/);
+                break;
+            case 'pass':
+                validation.pass = value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
+                break;
+            case 'passcheck':
+                validation.passcheck = this.state.pass === this.state.passcheck;
+                break;
+            default:
+                break;
+        }
+
+        this.setState({validation: validation});
+
     }
 
     handleSubmit() {
-        if (!this.validate(this.state.username,
-            this.state.firstname,
-            this.state.lastname,
-            this.state.pass,
-            this.state.passcheck
-        )) return;
-        console.log('ok');
+        const isFormValid = this.state.validation.username
+            && this.state.validation.firstname
+            && this.state.validation.lastname
+            && this.state.validation.email
+            && this.state.validation.pass
+            && this.state.validation.passcheck;
+
+        if (isFormValid) console.log('ok');
     }
 
     render() {
@@ -52,19 +88,22 @@ class SignUp extends Component {
                     <Image className="login_logo"  size='large' centered src={logo}/>
                     <Form>
                         <Form.Field>
-                            <input name='username' value={this.state.username} onChange={this.handleChange} placeholder='Username' />
+                            <Form.Input name='username' error={!this.state.validation.username} value={this.state.username} onChange={this.handleChange} placeholder='Username' autoComplete='off'/>
                         </Form.Field>
                         <Form.Field>
-                            <input name='firstname' value={this.state.firstname} onChange={this.handleChange} placeholder='First name' />
+                            <Form.Input name='firstname' error={!this.state.validation.firstname} value={this.state.firstname} onChange={this.handleChange} placeholder='First name' />
                         </Form.Field>
                         <Form.Field>
-                            <input name='lastname' value={this.state.lastname} onChange={this.handleChange} placeholder='Last name' />
+                            <Form.Input name='lastname' error={!this.state.validation.lastname} value={this.state.lastname} onChange={this.handleChange} placeholder='Last name' />
                         </Form.Field>
                         <Form.Field>
-                            <input name='pass' value={this.state.pass} onChange={this.handleChange} type='password' placeholder='Password' />
+                            <Form.Input name='email' error={!this.state.validation.email} value={this.state.email} onChange={this.handleChange} placeholder='Email' />
                         </Form.Field>
                         <Form.Field>
-                            <input name='passcheck' value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Password' />
+                            <Form.Input name='pass' error={!this.state.validation.pass} value={this.state.pass} onChange={this.handleChange} type='password' placeholder='Password' />
+                        </Form.Field>
+                        <Form.Field>
+                            <Form.Input name='passcheck' error={!this.state.validation.passcheck} value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Password' />
                         </Form.Field>
                         <Button onClick={this.handleSubmit} fluid={true} type='submit'>Sign Up</Button>
                     </Form>

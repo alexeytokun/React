@@ -9,25 +9,49 @@ class Login extends Component {
         super(props);
         this.state = {
             username: '',
-            pass: ''
+            pass: '',
+            validation: {
+                username: false,
+                pass: false
+            }
         };
         this.onLinkClick = this.onLinkClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    validate (username, pass) {
-        return !!username && !!pass;
-    }
-
     handleChange(e) {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value }, () => { this.validateField(name, value) });
+    }
+
+    validateField(fieldName, value) {
+        // let validation = {
+        //     username: this.state.validation.username,
+        //     pass: this.state.validation.pass,
+        //     isFormValid: this.state.validation.isFormValid
+        // };
+        let validation = {...this.state.validation};
+
+        switch(fieldName) {
+            case 'username':
+                validation.username = value.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+                break;
+            case 'pass':
+                validation.pass = value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
+                break;
+            default:
+                break;
+        }
+
+        this.setState({validation: validation});
+
     }
 
     handleSubmit() {
-        if (!this.validate(this.state.username,this.state.pass)) return;
-        console.log('ok');
+        const isFormValid = this.state.validation.username
+            && this.state.validation.pass;
+        if (isFormValid) console.log('ok');
     }
 
     onLinkClick(e) {
@@ -41,13 +65,13 @@ class Login extends Component {
                     <Image className="login_logo"  size='large' centered src={logo}/>
                     <Form>
                         <Form.Field>
-                            <input value={this.state.username} onChange={this.handleChange} name='username' placeholder='Username'/>
+                            <Form.Input error={!this.state.validation.username} value={this.state.username} onChange={this.handleChange} name='username' placeholder='Username' autoComplete='off'/>
                         </Form.Field>
                         <Form.Field>
-                            <input value={this.state.pass} onChange={this.handleChange} name='pass' type='password' placeholder='Password' />
+                            <Form.Input error={!this.state.validation.pass} value={this.state.pass} onChange={this.handleChange} name='pass' type='password' placeholder='Password' />
                         </Form.Field>
                         <p className="login_password_hint"><a>Forgot your Password?</a></p>
-                        <Button onClick={this.handleSubmit} fluid={true} type='submit'>Login</Button>
+                        <Button onClick={this.handleSubmit} fluid={true} type='button'>Login</Button>
                     </Form>
                     <p className="login_text">
                         Don`t have an account?

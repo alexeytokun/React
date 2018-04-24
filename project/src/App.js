@@ -21,7 +21,7 @@ class App extends Component {
           location = <SignUp/>;
           break;
         default:
-          location = <Login/>;
+          location = <Main/>;
     }
 
     return (
