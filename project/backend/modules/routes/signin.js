@@ -3,6 +3,7 @@ var router = express.Router();
 var dbObj = require('../db/users');
 var errorsObj = require('../config/errors');
 var hashingObj = require('../config/hashing');
+var jwt = require('jsonwebtoken');
 
 function login(user) {
     return dbObj.getUserData(user.username)
@@ -26,7 +27,6 @@ router.post('/', function (req, res, next) {
     login(req.body)
         .then(function (result) {
             return dbObj.setToken(result);
-            console.log('ok');
         })
         .then(function (result) {
             return res.json({
@@ -35,7 +35,6 @@ router.post('/', function (req, res, next) {
         })
         .catch(function (result) {
             res.status(result.status).json({ message: result.message });
-            console.log('not ok')
         });
 });
 

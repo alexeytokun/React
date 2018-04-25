@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dbObj = require('../db/users');
 var errorsObj = require('../config/errors');
+var jwt = require('jsonwebtoken');
 
 router.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
