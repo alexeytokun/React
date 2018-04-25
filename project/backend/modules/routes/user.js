@@ -5,6 +5,14 @@ var errorsObj = require('../config/errors');
 var validate = require('../config/validation');
 
 router.post('/', function (req, res, next) {
+    dbObj.isUnique(req.body.username)
+        .then(function () {
+            next();
+        })
+        .catch(function (result) {
+            return res.status(result.status).json({ message: result.message });
+        });
+}, function (req, res, next) {
     if (validate(req.body)) {
         dbObj.addUserToDb(
             req.body.username, req.body.firstname, req.body.lastname, req.body.email, req.body.pass)

@@ -38,12 +38,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     changeLocation: (location) => {
-//       dispatch(changeLocation(location));
-//     }
-//   }
-// }
-
 export default connect(mapStateToProps)(App);
