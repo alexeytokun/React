@@ -3,6 +3,7 @@ var router = express.Router();
 var dbObj = require('../db/users');
 var errorsObj = require('../config/errors');
 var validate = require('../config/validation');
+var hashingObj = require('../config/hashing');
 
 router.post('/', function (req, res, next) {
     dbObj.isUnique(req.body.username)
@@ -13,18 +14,26 @@ router.post('/', function (req, res, next) {
             return res.status(result.status).json({ message: result.message });
         });
 }, function (req, res, next) {
-    if (validate(req.body)) {
-        dbObj.addUserToDb(
-            req.body.username, req.body.firstname, req.body.lastname, req.body.email, req.body.pass)
-            .then(function (result) {
-                return res.json({ message: result.insertId });
-            })
-            .catch(function (result) {
-                return res.status(result.status).json({ message: result.message });
-            });
+    if (!validate(req.body)) {
+        return res.status(406).json({ message: errorsObj.VALIDATION });
     } else next();
-}, function (req, res) {
-    res.status(406).json({ message: errorsObj.VALIDATION });
+}, function (req, res, next) {
+    hashingObj.hash(req.body.pass)
+        .then(function (result) {
+            req.body.pass = result;
+            next();
+        })
+        .catch(function (result) {
+            return res.status(result.status).json({ message: result.message });
+        });
+}, function (req, res, next) {
+    dbObj.addUserToDb(req.body.username, req.body.firstname, req.body.lastname, req.body.email, req.body.pass)
+        .then(function (result) {
+            return res.json({ message: result.insertId });
+        })
+        .catch(function (result) {
+            return res.status(result.status).json({ message: result.message });
+        });
 });
 
 // router.post('/', function (req, res, next) {

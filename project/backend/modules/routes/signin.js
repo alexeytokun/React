@@ -2,17 +2,25 @@ var express = require('express');
 var router = express.Router();
 var dbObj = require('../db/users');
 var errorsObj = require('../config/errors');
+var hashingObj = require('../config/hashing');
 
 function login(user) {
-    return dbObj.checkUserData(user.username, user.pass)
+    return dbObj.getUserData(user.username)
         .then(function (results) {
             if (results.length) return results;
             throw ({ status: 406, message: errorsObj.AUTH });
         })
+        .then(function (results) {
+            return hashingObj.compare(user.pass, results[0].password)
+                .then(function (result) {
+                    if (result) return results;
+                    throw ({ status: 406, message: errorsObj.AUTH });
+                });
+        })
         .catch(function (result) {
             throw ({ status: result.status, message: result.message });
         });
-}
+};
 
 router.post('/', function (req, res, next) {
     login(req.body)

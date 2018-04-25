@@ -38,9 +38,9 @@ dbObj.addUserToDb = function (username, firstname, lastname, email, pass) {
     return query(sql, userData);
 };
 
-dbObj.checkUserData = function (username, password) {
-    var sql = 'SELECT ' + '`id`, `username`, `password`' + ' FROM `users` WHERE `username` = ? AND `password` = ?';
-    var prop = [username, password];
+dbObj.getUserData = function (username) {
+    var sql = 'SELECT ' + '`id`, `username`, `password`' + ' FROM `users` WHERE `username` = ?';
+    var prop = [username];
     return query(sql, prop);
 };
 
