@@ -4,17 +4,18 @@ var dbObj = require('../db/users');
 var errorsObj = require('../config/errors');
 var hashingObj = require('../config/hashing');
 var jwt = require('jsonwebtoken');
+var jwtKey = require('../config/jwt_key');
 
 function login(user) {
     return dbObj.getUserData(user.username)
         .then(function (results) {
-            if (results.length) return results;
+            if (results.length) return results[0];
             throw ({ status: 406, message: errorsObj.AUTH });
         })
-        .then(function (results) {
-            return hashingObj.compare(user.pass, results[0].password)
+        .then(function (userData) {
+            return hashingObj.compare(user.pass, userData.password)
                 .then(function (result) {
-                    if (result) return results;
+                    if (result) return userData;
                     throw ({ status: 406, message: errorsObj.AUTH });
                 });
         })
@@ -26,7 +27,10 @@ function login(user) {
 router.post('/', function (req, res, next) {
     login(req.body)
         .then(function (result) {
-            return dbObj.setToken(result);
+            return jwt.sign({ role: result.role }, jwtKey, { expiresIn: 60 * 60 });
+        })
+        .catch(function (result) {
+            throw ({ status: 406, message: errorsObj.AUTH });
         })
         .then(function (result) {
             return res.json({
@@ -37,17 +41,5 @@ router.post('/', function (req, res, next) {
             res.status(result.status).json({ message: result.message });
         });
 });
-
-// router.get('/role', function (req, res, next) {
-//     dbObj.getRole(req.headers['user-auth-token'])
-//         .then(function (result) {
-//             return res.json({
-//                 role: result[0].role
-//             });
-//         })
-//         .catch(function (result) {
-//             res.status(result.status).json({ message: result.message });
-//         });
-// });
 
 module.exports = router;
