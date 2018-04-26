@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
+import { Redirect, NavLink } from 'react-router-dom';
+
 
 class Home extends Component {
     constructor(props) {
         super(props);
-
-        this.onLinkClick = this.onLinkClick.bind(this);
-    }
-
-    onLinkClick(e) {
-        this.props.changeLocation(e.target.dataset.location);
+        this.state = {
+            redirect: false
+        }
     }
 
     render() {
         return (
             <div>
                 <p className="login_text">
-                    <a data-location="LOGIN" onClick={this.onLinkClick}>LOGIN</a>
+                    <NavLink to="/login">LOGIN</NavLink>
                 </p>
                 <p className="login_text">
-                    <a data-location="SIGN_UP" onClick={this.onLinkClick}>SIGN UP</a>
+                    <NavLink to="/signup">SIGN UP</NavLink>
                 </p>
             </div>
         )

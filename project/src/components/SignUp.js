@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Form, Container, Image } from 'semantic-ui-react';
 import logo from "../logo-placeholder.png";
+import { Redirect, NavLink } from 'react-router-dom';
+
 
 class SignUp extends Component {
 
@@ -8,6 +10,7 @@ class SignUp extends Component {
         super(props);
 
         this.state = {
+            redirect: false,
             username: '',
             firstname: '',
             lastname: '',
@@ -24,14 +27,14 @@ class SignUp extends Component {
             }
         }
 
-        this.onLinkClick = this.onLinkClick.bind(this);
+        // this.onLinkClick = this.onLinkClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    onLinkClick(e) {
-        this.props.changeLocation(e.target.dataset.location);
-    }
+    // onLinkClick(e) {
+    //     this.setState({redirect: e.target.dataset.location});
+    // }
 
     handleChange(e) {
         const { name, value } = e.target;
@@ -99,6 +102,10 @@ class SignUp extends Component {
     }
 
     render() {
+        // if (this.state.redirect) {
+        //     return <Redirect push to={this.state.redirect} />;
+        // }
+
         return (
             <Container className="login_wrapper">
                 <Container>
@@ -126,10 +133,10 @@ class SignUp extends Component {
                     </Form>
                     <p className="login_text">
                         Already have account?
-                        <a data-location='LOGIN' onClick={this.onLinkClick}> Sign In</a>
+                        <NavLink to='/login'> Sign In</NavLink>
                     </p>
                     <p className="login_text">
-                        <a data-location='MAIN' onClick={this.onLinkClick}>Skip ></a>
+                        <NavLink to='/'>Skip ></NavLink>
                     </p>
                 </Container>
             </Container>

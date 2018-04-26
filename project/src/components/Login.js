@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Form, Container, Image } from 'semantic-ui-react';
 import logo from "../logo-placeholder.png";
+import { Redirect, NavLink } from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            redirect: false,
             username: '',
             pass: '',
             validation: {
@@ -13,7 +15,7 @@ class Login extends Component {
                 pass: false
             }
         };
-        this.onLinkClick = this.onLinkClick.bind(this);
+        // this.onLinkClick = this.onLinkClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -62,11 +64,15 @@ class Login extends Component {
             .catch((err) => console.log(err));
     }
 
-    onLinkClick(e) {
-       this.props.changeLocation(e.target.dataset.location);
-    }
+    // onLinkClick(e) {
+    //     this.setState({redirect: e.target.dataset.location});
+    // }
 
     render() {
+        // if (this.state.redirect) {
+        //     return <Redirect push to={this.state.redirect} />;
+        // }
+
         return (
             <Container className="login_wrapper">
                 <Container>
@@ -83,10 +89,10 @@ class Login extends Component {
                     </Form>
                     <p className="login_text">
                         Don`t have an account?
-                        <a data-location="SIGN_UP" onClick={this.onLinkClick}> Create now</a>
+                        <NavLink to="/signup"> Create now</NavLink>
                     </p>
                     <p className="login_text">
-                        <a data-location="MAIN" onClick={this.onLinkClick}>Skip ></a>
+                        <NavLink to="/">Skip ></NavLink>
                     </p>
                 </Container>
             </Container>
