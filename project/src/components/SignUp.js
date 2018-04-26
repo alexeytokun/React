@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Container, Image } from 'semantic-ui-react';
 import logo from "../logo-placeholder.png";
-import { changeLocation } from '../actions/locationActions';
-import {connect} from "react-redux";
 
 class SignUp extends Component {
 
@@ -139,12 +137,4 @@ class SignUp extends Component {
     };
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        changeLocation: (location) => {
-            dispatch(changeLocation(location));
-        }
-    }
-}
-
-export default connect(null, mapDispatchToProps)(SignUp);
+export default SignUp;

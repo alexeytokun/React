@@ -1,38 +1,22 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { changeLocation } from '../actions/locationActions';
+import { Switch, Route } from 'react-router-dom'
+import Login from "./Login";
+import SignUp from "./SignUp";
+import Home from "./Home";
 
 class Main extends Component {
-    constructor(props) {
-        super(props);
-
-        this.onLinkClick = this.onLinkClick.bind(this);
-    }
-
-    onLinkClick(e) {
-        this.props.changeLocation(e.target.dataset.location);
-    }
 
     render() {
         return (
-            <div>
-                <p className="login_text">
-                    <a data-location="LOGIN" onClick={this.onLinkClick}>LOGIN</a>
-                </p>
-                <p className="login_text">
-                    <a data-location="SIGN_UP" onClick={this.onLinkClick}>SIGN UP</a>
-                </p>
-            </div>
-        )
+            <main>
+                <Switch>
+                    <Route exact path='/' component={Home}/>
+                    <Route path='/login' component={Login}/>
+                    <Route path='/signup' component={SignUp}/>
+                </Switch>
+            </main>
+        );
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        changeLocation: (location) => {
-            dispatch(changeLocation(location));
-        }
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Main);
+export default Main;
