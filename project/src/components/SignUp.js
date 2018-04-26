@@ -107,38 +107,36 @@ class SignUp extends Component {
         // }
 
         return (
-            <Container className="login_wrapper">
-                <Container>
-                    <Image className="login_logo"  size='large' centered src={logo}/>
-                    <Form>
-                        <Form.Field>
-                            <Form.Input name='username' error={!this.state.validation.username} value={this.state.username} onChange={this.handleChange} placeholder='Username' autoComplete='off'/>
-                        </Form.Field>
-                        <Form.Field>
-                            <Form.Input name='firstname' error={!this.state.validation.firstname} value={this.state.firstname} onChange={this.handleChange} placeholder='First name' />
-                        </Form.Field>
-                        <Form.Field>
-                            <Form.Input name='lastname' error={!this.state.validation.lastname} value={this.state.lastname} onChange={this.handleChange} placeholder='Last name' />
-                        </Form.Field>
-                        <Form.Field>
-                            <Form.Input name='email' error={!this.state.validation.email} value={this.state.email} onChange={this.handleChange} placeholder='Email' />
-                        </Form.Field>
-                        <Form.Field>
-                            <Form.Input name='pass' error={!this.state.validation.pass} value={this.state.pass} onChange={this.handleChange} type='password' placeholder='Password' />
-                        </Form.Field>
-                        <Form.Field>
-                            <Form.Input name='passcheck' error={!this.state.validation.passcheck} value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Password' />
-                        </Form.Field>
-                        <Button onClick={this.handleSubmit} fluid={true} type='submit'>Sign Up</Button>
-                    </Form>
-                    <p className="login_text">
-                        Already have account?
-                        <NavLink to='/login'> Sign In</NavLink>
-                    </p>
-                    <p className="login_text">
-                        <NavLink to='/'>Skip ></NavLink>
-                    </p>
-                </Container>
+            <Container className="reg_wrapper">
+                <Image className="reg_logo"  size='large' centered src={logo}/>
+                <Form>
+                    <Form.Field>
+                        <Form.Input name='username' error={!this.state.validation.username} value={this.state.username} onChange={this.handleChange} placeholder='Username' autoComplete='off'/>
+                    </Form.Field>
+                    <Form.Field>
+                        <Form.Input name='firstname' error={!this.state.validation.firstname} value={this.state.firstname} onChange={this.handleChange} placeholder='First name' />
+                    </Form.Field>
+                    <Form.Field>
+                        <Form.Input name='lastname' error={!this.state.validation.lastname} value={this.state.lastname} onChange={this.handleChange} placeholder='Last name' />
+                    </Form.Field>
+                    <Form.Field>
+                        <Form.Input name='email' error={!this.state.validation.email} value={this.state.email} onChange={this.handleChange} placeholder='Email' />
+                    </Form.Field>
+                    <Form.Field>
+                        <Form.Input name='pass' error={!this.state.validation.pass} value={this.state.pass} onChange={this.handleChange} type='password' placeholder='Password' />
+                    </Form.Field>
+                    <Form.Field>
+                        <Form.Input name='passcheck' error={!this.state.validation.passcheck} value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Password' />
+                    </Form.Field>
+                    <Button onClick={this.handleSubmit} fluid={true} type='submit'>Sign Up</Button>
+                </Form>
+                <p className="reg_text">
+                    Already have account?
+                    <NavLink to='/login'> Sign In</NavLink>
+                </p>
+                <p className="reg_text">
+                    <NavLink to='/'>Skip ></NavLink>
+                </p>
             </Container>
         )
     };

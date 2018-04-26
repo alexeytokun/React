@@ -74,27 +74,25 @@ class Login extends Component {
         // }
 
         return (
-            <Container className="login_wrapper">
-                <Container>
-                    <Image className="login_logo"  size='large' centered src={logo}/>
-                    <Form>
-                        <Form.Field>
-                            <Form.Input error={!this.state.validation.username} value={this.state.username} onChange={this.handleChange} name='username' placeholder='Username' autoComplete='off'/>
-                        </Form.Field>
-                        <Form.Field>
-                            <Form.Input error={!this.state.validation.pass} value={this.state.pass} onChange={this.handleChange} name='pass' type='password' placeholder='Password' />
-                        </Form.Field>
-                        <p className="login_password_hint"><a>Forgot your Password?</a></p>
-                        <Button onClick={this.handleSubmit} fluid={true} type='button'>Login</Button>
-                    </Form>
-                    <p className="login_text">
-                        Don`t have an account?
-                        <NavLink to="/signup"> Create now</NavLink>
-                    </p>
-                    <p className="login_text">
-                        <NavLink to="/">Skip ></NavLink>
-                    </p>
-                </Container>
+            <Container className="reg_wrapper">
+                <Image className="reg_logo"  size='large' centered src={logo}/>
+                <Form>
+                    <Form.Field>
+                        <Form.Input error={!this.state.validation.username} value={this.state.username} onChange={this.handleChange} name='username' placeholder='Username' autoComplete='off'/>
+                    </Form.Field>
+                    <Form.Field>
+                        <Form.Input error={!this.state.validation.pass} value={this.state.pass} onChange={this.handleChange} name='pass' type='password' placeholder='Password' />
+                    </Form.Field>
+                    <p className="reg_password_hint"><a>Forgot your Password?</a></p>
+                    <Button onClick={this.handleSubmit} fluid={true} type='button'>Login</Button>
+                </Form>
+                <p className="reg_text">
+                    Don`t have an account?
+                    <NavLink to="/signup"> Create now</NavLink>
+                </p>
+                <p className="reg_text">
+                    <NavLink to="/">Skip ></NavLink>
+                </p>
             </Container>
         )
     }
