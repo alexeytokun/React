@@ -4,12 +4,13 @@ import logo from "../logo-placeholder.png";
 import { NavLink } from 'react-router-dom';
 import UserDataForm from "./UserDataForm";
 
-
-class SignUp extends Component {
+class EditUser extends Component {
 
     constructor(props) {
         super(props);
-
+        this.state = {
+            userData: {}
+        }
         // this.onLinkClick = this.onLinkClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -35,15 +36,28 @@ class SignUp extends Component {
             .catch((err) => console.log(err));
     }
 
+    componentDidMount() {
+        fetch('http://127.0.0.1:8000/user/1', {
+            method: 'GET'
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                this.setState({userData: res})
+            })
+            .catch((err) => console.log(err));
+    }
+
     render() {
         // if (this.state.redirect) {
         //     return <Redirect push to={this.state.redirect} />;
         // }
+        console.log(this.state.userData);
 
         return (
             <Container className="reg_wrapper">
                 <Image className="reg_logo"  size='large' centered src={logo}/>
-                <UserDataForm handleSubmit={this.handleSubmit}/>
+                <UserDataForm handleSubmit={this.handleSubmit} userData={this.state.userData}/>
                 <p className="reg_text">
                     Already have account?
                     <NavLink to='/login'> Sign In</NavLink>
@@ -56,4 +70,4 @@ class SignUp extends Component {
     };
 }
 
-export default SignUp;
+export default EditUser;

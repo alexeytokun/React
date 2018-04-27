@@ -1,6 +1,6 @@
 var uuidv4 = require('uuid/v4');
 var errorsObj = require('../config/errors');
-var usersFields = '`id`, `username`, `firstname`, `lastname`, `email`, `role`, `password`';
+var usersFields = '`id`, `username`, `firstname`, `lastname`, `email`, `role`';
 // var usersInfoFields = '`id`, `username`, `surname`, DATE_FORMAT(age,"%Y%-%m%-%d") AS date, `role`, `bio`';
 var tokensFields = '`id`, `uuid`, `timestamp`';
 var pool = require('../config/connection').pool;
@@ -39,7 +39,7 @@ dbObj.addUserToDb = function (username, firstname, lastname, email, pass) {
 };
 
 dbObj.getUserData = function (username) {
-    var sql = 'SELECT ' + '`id`, `username`, `password`, `role`' + ' FROM `users` WHERE `username` = ?';
+    var sql = 'SELECT ' + usersFields + ', `password`' + ' FROM `users` WHERE `username` = ?';
     var prop = [username];
     return query(sql, prop);
 };

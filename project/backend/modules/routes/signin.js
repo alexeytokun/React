@@ -26,15 +26,18 @@ function login(user) {
 
 router.post('/', function (req, res, next) {
     login(req.body)
-        .then(function (result) {
-            return jwt.sign({ role: result.role }, jwtKey, { expiresIn: 60 * 60 });
+        .then(function (userData) {
+            delete userData.password;
+            let token = jwt.sign({ role: userData.role }, jwtKey, { expiresIn: 60 * 60 });
+            return { token: token, userdata: userData };
         })
         .catch(function (result) {
             throw ({ status: 406, message: errorsObj.AUTH });
         })
         .then(function (result) {
             return res.json({
-                authtoken: result
+                authtoken: result.token,
+                userdata: result.userdata
             });
         })
         .catch(function (result) {

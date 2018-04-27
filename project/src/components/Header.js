@@ -8,7 +8,7 @@ class Header extends Component {
         return (
             <Menu secondary size='large'>
                 <Container>
-                    <Menu.Item ><NavLink className='menu_item' to='/'>Home</NavLink></Menu.Item>
+                    <Menu.Item><NavLink className='menu_item' to='/'>Home</NavLink></Menu.Item>
                     <Menu.Item >
                         <Dropdown text='Categories' labeled button icon='archive'>
                             <Dropdown.Menu>
@@ -21,9 +21,9 @@ class Header extends Component {
                     <Menu.Item >
                         <Dropdown text='User' labeled button icon='user'>
                             <Dropdown.Menu>
-                                <Dropdown.Item>Add Lot</Dropdown.Item>
-                                <Dropdown.Item>Your Lots</Dropdown.Item>
-                                <Dropdown.Item>Edit Profile</Dropdown.Item>
+                                <Dropdown.Item as={NavLink} to='/lot'>Add Lot</Dropdown.Item>
+                                <Dropdown.Item as={NavLink} to='/lots/:username'>Your Lots</Dropdown.Item>
+                                <Dropdown.Item as={NavLink} to='/user/:username'>Edit Profile</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </Menu.Item>
