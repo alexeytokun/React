@@ -37,9 +37,20 @@
 
 .menu_item {
   cursor: pointer;
-  color: gray;
+  color: rgba(0,0,0,.6);
+  font-weight: 700;
 }
 
-body, html {
-  height: 100vh;
+.menu_item:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.user.icon {
+  margin-left: 10% !important;
+}
+
+.ui.basic.button {
+  color: rgba(0,0,0,.6) !important;
+  font-weight: 700 !important;
 }
