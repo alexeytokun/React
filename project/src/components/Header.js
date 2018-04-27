@@ -9,16 +9,21 @@ class Header extends Component {
             <Menu secondary size='large'>
                 <Container>
                     <Menu.Item ><NavLink className='menu_item' to='/'>Home</NavLink></Menu.Item>
-                    <Menu.Item ><NavLink className='menu_item' to='/'>Categories</NavLink></Menu.Item>
                     <Menu.Item >
-                        <Dropdown text='User'  labeled button icon='user'>
+                        <Dropdown text='Categories' labeled button icon='archive'>
+                            <Dropdown.Menu>
+                                <Dropdown.Item>Category 1</Dropdown.Item>
+                                <Dropdown.Item>Category 2</Dropdown.Item>
+                                <Dropdown.Item>Category 3</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Menu.Item>
+                    <Menu.Item >
+                        <Dropdown text='User' labeled button icon='user'>
                             <Dropdown.Menu>
                                 <Dropdown.Item>Add Lot</Dropdown.Item>
                                 <Dropdown.Item>Your Lots</Dropdown.Item>
-                                <Dropdown.Item > Edit Profile </Dropdown.Item>
-                                <Dropdown.Divider />
-                                <Dropdown.Header>Exit</Dropdown.Header>
-                                <Dropdown.Item>Log out</Dropdown.Item>
+                                <Dropdown.Item>Edit Profile</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </Menu.Item>

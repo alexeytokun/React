@@ -46,8 +46,9 @@
   color: black;
 }
 
-.user.icon {
-  margin-left: 10% !important;
+.user.icon,
+.archive.icon {
+  margin-left: 5px !important;
 }
 
 .ui.basic.button {
