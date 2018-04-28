@@ -1,11 +1,11 @@
-const initialState = {name: 'A'};
+const initialState = {};
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "USER_SET_NAME":
+        case "USER_SAVE_USERDATA":
             state = {
                 ...state,
-                name: action.payload
+                userdata: action.payload
             };
             break;
         default:

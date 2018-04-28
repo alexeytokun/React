@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Image } from 'semantic-ui-react';
-import logo from "../logo-placeholder.png";
+import { Container, Image, Button } from 'semantic-ui-react';
+import avatar from "../default-avatar.png";
 import { NavLink } from 'react-router-dom';
 import UserDataForm from "./UserDataForm";
+import { connect } from 'react-redux';
+import FileUpload from './FileUpload';
 
 class EditUser extends Component {
 
@@ -36,28 +38,28 @@ class EditUser extends Component {
             .catch((err) => console.log(err));
     }
 
-    componentDidMount() {
-        fetch('http://127.0.0.1:8000/user/1', {
-            method: 'GET'
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res);
-                this.setState({userData: res})
-            })
-            .catch((err) => console.log(err));
-    }
+    // componentDidMount() {
+    //     fetch('http://127.0.0.1:8000/user/1', {
+    //         method: 'GET'
+    //     })
+    //         .then((res) => res.json())
+    //         .then((res) => {
+    //             console.log(res);
+    //             this.setState({userData: res})
+    //         })
+    //         .catch((err) => console.log(err));
+    // }
 
     render() {
         // if (this.state.redirect) {
         //     return <Redirect push to={this.state.redirect} />;
         // }
-        console.log(this.state.userData);
 
         return (
             <Container className="reg_wrapper">
-                <Image className="reg_logo"  size='large' centered src={logo}/>
-                <UserDataForm handleSubmit={this.handleSubmit} userData={this.state.userData}/>
+                <Image className="reg_logo"  size='small' centered src={avatar}/>
+                <FileUpload/>
+                <UserDataForm handleSubmit={this.handleSubmit} userData={this.props.userData}/>
                 <p className="reg_text">
                     Already have account?
                     <NavLink to='/login'> Sign In</NavLink>
@@ -70,4 +72,8 @@ class EditUser extends Component {
     };
 }
 
-export default EditUser;
+const mapStateToProps = (store) => {
+    return { userData: store.user.userdata };
+}
+
+export default connect(mapStateToProps, null)(EditUser);

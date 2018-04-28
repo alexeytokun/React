@@ -1,6 +1,6 @@
-export function setName(name) {
+export function saveUserdata(userdata) {
     return {
-        type: 'USER_SET_NAME',
-        payload: name
+        type: 'USER_SAVE_USERDATA',
+        payload: userdata
     };
 }

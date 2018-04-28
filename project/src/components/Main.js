@@ -14,7 +14,7 @@ class Main extends Component {
                     <Route exact path='/' component={Home}/>
                     <Route path='/login' component={Login}/>
                     <Route path='/signup' component={SignUp}/>
-                    <Route path='/user/:username' component={EditUser}/>
+                    <Route path='/user/:id' component={EditUser}/>
                 </Switch>
             </main>
         );

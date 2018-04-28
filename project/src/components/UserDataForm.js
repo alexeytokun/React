@@ -105,6 +105,19 @@ class UserDataForm extends Component {
         this.props.handleSubmit(this.state.isFormVaild, user);
     }
 
+    componentWillMount() {
+        if (this.props.userData) {
+            let userData = this.props.userData;
+            this.setState({
+                username: userData.username || '',
+                firstname: userData.firstname  || '',
+                lastname: userData.lastname  || '',
+                email: userData.email || ''
+            });
+
+        }
+    }
+
     render() {
         return (
             <Form>

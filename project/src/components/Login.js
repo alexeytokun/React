@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Form, Container, Image } from 'semantic-ui-react';
 import logo from "../logo-placeholder.png";
 import { Redirect, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { saveUserdata } from '../actions/userActions'
 
 class Login extends Component {
     constructor(props) {
@@ -60,7 +62,7 @@ class Login extends Component {
             body: body
             })
             .then((res) => res.json())
-            .then((res) => console.log(res))
+            .then((res) => this.props.saveUserdata(res.userdata))
             .catch((err) => console.log(err));
     }
 
@@ -94,8 +96,17 @@ class Login extends Component {
                     <NavLink to="/">Skip ></NavLink>
                 </p>
             </Container>
-        )
+        );
     }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return { userData: state.userdata };
+}
+
+const dispatchStateToProps = (dispatch) => {
+    return { saveUserdata: userdata => dispatch(saveUserdata(userdata)) };
+}
+
+
+export default connect(mapStateToProps, dispatchStateToProps)(Login);
