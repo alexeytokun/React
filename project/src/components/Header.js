@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import {Menu, Button, Container, Dropdown} from 'semantic-ui-react'
+import {Menu, Button, Container, Dropdown, Image } from 'semantic-ui-react'
+import logo from "../logo-placeholder.png";
 
 class Header extends Component {
 
@@ -8,6 +9,7 @@ class Header extends Component {
         return (
             <Menu secondary size='large'>
                 <Container>
+                    <Menu.Item><Image size='tiny' centered src={logo}/></Menu.Item>
                     <Menu.Item><NavLink className='menu_item' to='/'>Home</NavLink></Menu.Item>
                     <Menu.Item >
                         <Dropdown text='Categories' labeled button icon='archive'>
