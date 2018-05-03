@@ -11,7 +11,7 @@ var fileType = require('file-type');
 var gm = require('gm').subClass({imageMagick: true});
 // var storage = multer.diskStorage({
 //     destination: (req, file, cb) => {
-//         cb(null, 'uploads/fullsize');
+//         cb(null, 'public/avatars');
 //     },
 //     filename: (req, file, cb) => {
 //         cb(null, file.fieldname + '-' + Date.now());
@@ -19,7 +19,7 @@ var gm = require('gm').subClass({imageMagick: true});
 // });
 
 var storage = multer.diskStorage({
-    destination: './uploads/fullsize',
+    destination: './public/avatars',
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
@@ -76,10 +76,7 @@ router.get('/avatar/:id', function (req, res, next) {
     dbObj.getAvatar(req.params.id)
         .then(function (result) {
             if (result.length) {
-                var img = fs.readFileSync(result[0].avatar);
-                var mime = fileType(img).mime;
-                res.writeHead(200, {'Content-Type': mime });
-                res.end(img, 'binary');
+                res.json({source: result[0].avatar});
             } else {
                 res.status(400).json({ message: errorsObj.WRONG_ID });
             }
@@ -117,9 +114,9 @@ router.post('/avatar/:id', function (req, res, next) {
     //         res.redirect("/");
     //         res.end();
     //     } else {
-    //         var newPath = __dirname + "/../../uploads/fullsize/" + imageName;
+    //         var newPath = __dirname + "/../../public/avatars/" + imageName;
     //         fs.writeFile(newPath, data, function (err) {
-    //             res.redirect("/uploads/fullsize/" + imageName);
+    //             res.redirect("/public/avatars/" + imageName);
     //         });
     //     }
     // });

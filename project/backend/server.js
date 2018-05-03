@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use('/public', express.static(__dirname + '/public'));
 
 app.use('/', auth);
 app.use('/signin', signin);

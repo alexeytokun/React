@@ -1,7 +1,6 @@
 var uuidv4 = require('uuid/v4');
 var errorsObj = require('../config/errors');
 var usersFields = '`id`, `username`, `firstname`, `lastname`, `email`, `role`';
-// var usersInfoFields = '`id`, `username`, `surname`, DATE_FORMAT(age,"%Y%-%m%-%d") AS date, `role`, `bio`';
 var tokensFields = '`id`, `uuid`, `timestamp`';
 var pool = require('../config/connection').pool;
 
@@ -26,10 +25,6 @@ var query = function (sql, props) {
 
 var dbObj = {};
 
-// function countTimestamp(min) {
-//     return Date.now() + (60000 * min);
-// }
-
 dbObj.addUserToDb = function (username, firstname, lastname, email, pass) {
     var sql = 'INSERT INTO `users` (`username`, `firstname`, `lastname`, `email`, `password`)' +
         ' VALUES (?, ?, ?, ?, ?)';
@@ -39,7 +34,7 @@ dbObj.addUserToDb = function (username, firstname, lastname, email, pass) {
 };
 
 dbObj.getUserData = function (username) {
-    var sql = 'SELECT ' + usersFields + ', `password`' + ' FROM `users` WHERE `username` = ?';
+    var sql = 'SELECT ' + usersFields + ', `password`, `avatar`' + ' FROM `users` WHERE `username` = ?';
     var prop = [username];
     return query(sql, prop);
 };

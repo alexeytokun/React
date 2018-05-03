@@ -5,9 +5,16 @@ export function saveUserdata(userdata) {
     };
 }
 
-export function saveUserAvatar(img) {
+export function saveUserAvatar(src) {
     return {
         type: 'USER_SAVE_AVATAR',
-        payload: img
+        payload: src
+    };
+}
+
+export function userLogOut() {
+    return {
+        type: "USER_LOG_OUT",
+        payload: ''
     };
 }

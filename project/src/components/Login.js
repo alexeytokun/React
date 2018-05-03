@@ -3,7 +3,7 @@ import { Button, Form, Container, Image } from 'semantic-ui-react';
 import logo from "../logo-placeholder.png";
 import { Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { saveUserdata } from '../actions/userActions'
+import { saveUserdata } from '../actions/userActions';
 
 class Login extends Component {
     constructor(props) {
@@ -69,8 +69,8 @@ class Login extends Component {
             })
             .then((res) => res.json())
             .then((res) => {
+                if (res.userdata.avatar) res.userdata.avatar = 'http://127.0.0.1:8000/' + res.userdata.avatar;
                 this.props.saveUserdata(res.userdata);
-                console.log(res.userdata);
             })
             .catch((err) => console.log(err));
     }
@@ -109,13 +109,16 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return { userData: state.userdata };
-}
+const mapStateToProps = (store) => {
+    return {
+        userData: store.user.userdata,
+        loggedIn: store.user.loggedIn
+    };
+};
 
 const dispatchStateToProps = (dispatch) => {
     return { saveUserdata: userdata => dispatch(saveUserdata(userdata)) };
-}
+};
 
 
 export default connect(mapStateToProps, dispatchStateToProps)(Login);

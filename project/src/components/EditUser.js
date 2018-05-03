@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Image, Button } from 'semantic-ui-react';
-import avatar from "../default-avatar.png";
-import { NavLink } from 'react-router-dom';
+import defaultAvatar from "../default-avatar.png";
 import UserDataForm from "./UserDataForm";
 import { connect } from 'react-redux';
 import FileUpload from './FileUpload';
-import axios from 'axios';
 import {saveUserdata} from "../actions/userActions";
 import {saveUserAvatar} from "../actions/userActions";
 
@@ -36,35 +34,21 @@ class EditUser extends Component {
     }
 
     getAvatar() {
-        axios
-            .get(
-                'http://127.0.0.1:8000/user/avatar/1',
-                { responseType: 'arraybuffer' },
-            )
-            .then(response => {
-                console.log(response);
-                const base64 = btoa(
-                    new Uint8Array(response.data).reduce(
-                        (data, byte) => data + String.fromCharCode(byte),
-                        '',
-                    ),
-                );
-                this.props.saveUserAvatar("data:;base64," + base64);
+        fetch('http://127.0.0.1:8000/user/avatar/' + this.props.userData.id)
+            .then(res => res.json())
+            .then(res => {
+                this.props.saveUserAvatar('http://127.0.0.1:8000/' + res.source)
             })
             .catch(err => console.log(err));
     }
 
-    componentDidMount() {
-        this.getAvatar();
-    }
-
-
     render() {
-        console.log(this.props.userAvatar);
+        const avatar = this.props.userData ?
+            (this.props.userData.avatar ? this.props.userData.avatar : defaultAvatar) : defaultAvatar;
 
         return (
             <Container className="reg_wrapper">
-                <Image className="reg_logo"  size='small' centered src={ this.props.userAvatar || avatar }/>
+                <Image className="reg_logo" circular  size='small' centered src={ avatar }/>
                 <FileUpload userData={this.props.userData} getAvatar={this.getAvatar}/>
                 <UserDataForm handleSubmit={this.handleSubmit} userData={this.props.userData}/>
             </Container>
@@ -77,12 +61,12 @@ const mapStateToProps = (store) => {
         userData: store.user.userdata,
         userAvatar: store.user.avatar
     };
-}
+};
 
 const dispatchStateToProps = (dispatch) => {
     return {
-        saveUserAvatar: img => dispatch(saveUserAvatar(img))
+        saveUserAvatar: src => dispatch(saveUserAvatar(src))
     };
-}
+};
 
 export default connect(mapStateToProps, dispatchStateToProps)(EditUser);
