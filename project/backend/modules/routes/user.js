@@ -7,7 +7,8 @@ var hashingObj = require('../config/hashing');
 var fs = require('fs');
 var path = require('path');
 var multer  = require('multer');
-const fileType = require('file-type');
+var fileType = require('file-type');
+var gm = require('gm').subClass({imageMagick: true});
 // var storage = multer.diskStorage({
 //     destination: (req, file, cb) => {
 //         cb(null, 'uploads/fullsize');
@@ -94,13 +95,21 @@ router.post('/avatar/:id', function (req, res, next) {
     } else next();
 }, upload.single('avatar'), function (req, res, next) {
     console.log(req.file);
-    dbObj.setAvatar(req.file.path, req.params.id)
-        .then(function (result) {
-            return res.json({ message: 'Avatar updated' });
+    gm(req.file.path)
+        .resize('200', '200', '^')
+        .gravity('Center')
+        .crop('200', '200')
+        .write(req.file.path, function (err) {
+            if (err) console.log(err);
+            dbObj.setAvatar(req.file.path, req.params.id)
+                .then(function (result) {
+                    return res.json({ message: 'Avatar updated' });
+                })
+                .catch(function (result) {
+                    console.log(result);
+                    return res.status(result.status).json({ message: result.message });
+                });
         })
-        .catch(function (result) {
-            return res.status(result.status).json({ message: result.message });
-        });
     // fs.readFile(req.file.path, function (err, data) {
     //     var imageName = req.file.filename;
     //     if(!imageName){

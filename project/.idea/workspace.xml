@@ -3,17 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="68fe3880-8a41-46aa-84b7-95312134fd66" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/modules/db/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/modules/db/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/modules/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/modules/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/script.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/script.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/userActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/userActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/userReducer.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,7 +23,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/EditUser.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
-              <caret line="67" column="87" lean-forward="true" selection-start-line="67" selection-start-column="87" selection-end-line="67" selection-end-column="87" />
+              <caret line="67" column="87" selection-start-line="67" selection-start-column="87" selection-end-line="67" selection-end-column="87" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -43,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/src/actions/userActions.js">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="30" lean-forward="true" selection-start-column="30" selection-end-column="30" />
+              <caret column="30" selection-start-column="30" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -61,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/Header.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="680">
-              <caret line="40" column="10" lean-forward="true" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
+              <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -69,22 +61,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="user.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/modules/routes/user.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1547">
-              <caret line="80" column="39" lean-forward="true" selection-start-line="80" selection-start-column="39" selection-end-line="80" selection-end-column="39" />
+            <state relative-caret-position="306">
+              <caret line="111" column="10" lean-forward="true" selection-start-line="111" selection-start-column="10" selection-end-line="111" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="script.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/script.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
-            </state>
-          </provider>
+      <file leaf-file-name="avatar-1525339049329.jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/uploads/fullsize/avatar-1525339049329.jpg">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
@@ -109,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/Login.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1989">
-              <caret line="117" column="1" lean-forward="true" selection-start-line="115" selection-end-line="117" selection-end-column="1" />
+              <caret line="117" column="1" selection-start-line="115" selection-end-line="117" selection-end-column="1" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -117,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileUpload.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FileUpload.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/FileUpload.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="18" column="47" lean-forward="true" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+            <state relative-caret-position="306">
+              <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -196,12 +184,12 @@
         <option value="$PROJECT_DIR$/backend/script.sql" />
         <option value="$PROJECT_DIR$/src/components/Login.js" />
         <option value="$PROJECT_DIR$/backend/modules/db/users.js" />
-        <option value="$PROJECT_DIR$/backend/modules/routes/user.js" />
         <option value="$PROJECT_DIR$/src/components/Header.js" />
         <option value="$PROJECT_DIR$/src/reducers/userReducer.js" />
         <option value="$PROJECT_DIR$/src/actions/userActions.js" />
         <option value="$PROJECT_DIR$/src/components/EditUser.js" />
         <option value="$PROJECT_DIR$/src/components/FileUpload.js" />
+        <option value="$PROJECT_DIR$/backend/modules/routes/user.js" />
       </list>
     </option>
   </component>
@@ -348,7 +336,7 @@
       <workItem from="1524812220216" duration="21893000" />
       <workItem from="1524899068078" duration="21253000" />
       <workItem from="1525244252770" duration="10275000" />
-      <workItem from="1525331039802" duration="5402000" />
+      <workItem from="1525331039802" duration="9290000" />
     </task>
     <task id="LOCAL-00001" summary="bind inputs to state in SignUp component">
       <created>1524492996324</created>
@@ -455,11 +443,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524908918811</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add avatar upload and download">
+      <created>1525337394511</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1525337394511</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151946000" />
+    <option name="totallyTimeSpent" value="155834000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -536,7 +531,8 @@
     <MESSAGE value="send user data with token on login" />
     <MESSAGE value="create FileUpload component and add autocomplete to EditUser component" />
     <MESSAGE value="add logo in header component" />
-    <option name="LAST_COMMIT_MESSAGE" value="add logo in header component" />
+    <MESSAGE value="add avatar upload and download" />
+    <option name="LAST_COMMIT_MESSAGE" value="add avatar upload and download" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -544,20 +540,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/backend/modules/routes/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="52" lean-forward="true" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -801,13 +783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/modules/routes/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1547">
-          <caret line="80" column="39" lean-forward="true" selection-start-line="80" selection-start-column="39" selection-end-line="80" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/script.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -829,30 +804,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="117" column="1" lean-forward="true" selection-start-line="115" selection-end-line="117" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Header.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
-          <caret line="40" column="10" lean-forward="true" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
+          <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/userActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="30" lean-forward="true" selection-start-column="30" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -866,7 +824,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/EditUser.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
-          <caret line="67" column="87" lean-forward="true" selection-start-line="67" selection-start-column="87" selection-end-line="67" selection-end-column="87" />
+          <caret line="67" column="87" selection-start-line="67" selection-start-column="87" selection-end-line="67" selection-end-column="87" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -875,11 +833,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/FileUpload.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="18" column="47" lean-forward="true" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+        <state relative-caret-position="306">
+          <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1989">
+          <caret line="117" column="1" selection-start-line="115" selection-end-line="117" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/uploads/fullsize/avatar-1525338133571.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions/userActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="30" selection-start-column="30" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/uploads/fullsize/avatar-1525339049329.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/modules/routes/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="111" column="10" lean-forward="true" selection-start-line="111" selection-start-column="10" selection-end-line="111" selection-end-column="10" />
         </state>
       </provider>
     </entry>
