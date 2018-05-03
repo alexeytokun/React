@@ -4,3 +4,10 @@ export function saveUserdata(userdata) {
         payload: userdata
     };
 }
+
+export function saveUserAvatar(img) {
+    return {
+        type: 'USER_SAVE_AVATAR',
+        payload: img
+    };
+}

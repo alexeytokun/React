@@ -5,6 +5,8 @@ import logo from "../logo-placeholder.png";
 
 class Header extends Component {
 
+
+
     render() {
         return (
             <Menu secondary size='large'>

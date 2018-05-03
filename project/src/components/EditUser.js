@@ -5,21 +5,18 @@ import { NavLink } from 'react-router-dom';
 import UserDataForm from "./UserDataForm";
 import { connect } from 'react-redux';
 import FileUpload from './FileUpload';
+import axios from 'axios';
+import {saveUserdata} from "../actions/userActions";
+import {saveUserAvatar} from "../actions/userActions";
 
 class EditUser extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            userData: {}
-        }
-        // this.onLinkClick = this.onLinkClick.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
 
-    // onLinkClick(e) {
-    //     this.setState({redirect: e.target.dataset.location});
-    // }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.getAvatar = this.getAvatar.bind(this);
+    }
 
     handleSubmit(isFormValid, data) {
         if (!isFormValid) return;
@@ -38,42 +35,54 @@ class EditUser extends Component {
             .catch((err) => console.log(err));
     }
 
-    // componentDidMount() {
-    //     fetch('http://127.0.0.1:8000/user/1', {
-    //         method: 'GET'
-    //     })
-    //         .then((res) => res.json())
-    //         .then((res) => {
-    //             console.log(res);
-    //             this.setState({userData: res})
-    //         })
-    //         .catch((err) => console.log(err));
-    // }
+    getAvatar() {
+        axios
+            .get(
+                'http://127.0.0.1:8000/user/avatar/1',
+                { responseType: 'arraybuffer' },
+            )
+            .then(response => {
+                console.log(response);
+                const base64 = btoa(
+                    new Uint8Array(response.data).reduce(
+                        (data, byte) => data + String.fromCharCode(byte),
+                        '',
+                    ),
+                );
+                this.props.saveUserAvatar("data:;base64," + base64);
+            })
+            .catch(err => console.log(err));
+    }
+
+    componentDidMount() {
+        this.getAvatar();
+    }
+
 
     render() {
-        // if (this.state.redirect) {
-        //     return <Redirect push to={this.state.redirect} />;
-        // }
+        console.log(this.props.userAvatar);
 
         return (
             <Container className="reg_wrapper">
-                <Image className="reg_logo"  size='small' centered src={avatar}/>
-                <FileUpload/>
+                <Image className="reg_logo"  size='small' centered src={ this.props.userAvatar || avatar }/>
+                <FileUpload userData={this.props.userData} getAvatar={this.getAvatar}/>
                 <UserDataForm handleSubmit={this.handleSubmit} userData={this.props.userData}/>
-                <p className="reg_text">
-                    Already have account?
-                    <NavLink to='/login'> Sign In</NavLink>
-                </p>
-                <p className="reg_text">
-                    <NavLink to='/'>Skip ></NavLink>
-                </p>
             </Container>
         )
     };
 }
 
 const mapStateToProps = (store) => {
-    return { userData: store.user.userdata };
+    return {
+        userData: store.user.userdata,
+        userAvatar: store.user.avatar
+    };
 }
 
-export default connect(mapStateToProps, null)(EditUser);
+const dispatchStateToProps = (dispatch) => {
+    return {
+        saveUserAvatar: img => dispatch(saveUserAvatar(img))
+    };
+}
+
+export default connect(mapStateToProps, dispatchStateToProps)(EditUser);

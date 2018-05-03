@@ -13,8 +13,8 @@ class Login extends Component {
             username: '',
             pass: '',
             validation: {
-                username: false,
-                pass: false
+                username: true,
+                pass: true
             }
         };
         // this.onLinkClick = this.onLinkClick.bind(this);
@@ -45,9 +45,15 @@ class Login extends Component {
 
     }
 
+    validateAllFields() {
+        let validation = {...this.state.validation};
+        validation.username = this.state.username.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+        validation.pass = this.state.pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
+        return !!(validation.username && validation.pass);
+    }
+
     handleSubmit() {
-        const isFormValid = this.state.validation.username
-            && this.state.validation.pass;
+        const isFormValid = this.validateAllFields();
         if (!isFormValid) return;
         const body = JSON.stringify({
             username: this.state.username,
@@ -62,7 +68,10 @@ class Login extends Component {
             body: body
             })
             .then((res) => res.json())
-            .then((res) => this.props.saveUserdata(res.userdata))
+            .then((res) => {
+                this.props.saveUserdata(res.userdata);
+                console.log(res.userdata);
+            })
             .catch((err) => console.log(err));
     }
 

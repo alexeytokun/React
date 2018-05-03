@@ -8,6 +8,12 @@ const userReducer = (state = initialState, action) => {
                 userdata: action.payload
             };
             break;
+        case "USER_SAVE_AVATAR":
+            state = {
+                ...state,
+                avatar: action.payload
+            };
+            break;
         default:
             break;
     };

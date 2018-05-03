@@ -44,6 +44,18 @@ dbObj.getUserData = function (username) {
     return query(sql, prop);
 };
 
+dbObj.setAvatar = function (path, id) {
+    var sql = 'UPDATE `users` SET `avatar`=? WHERE id=?';
+    var prop = [path, id];
+    return query(sql, prop);
+};
+
+dbObj.getAvatar = function (id) {
+    var sql = 'SELECT `avatar` FROM `users` WHERE id=?';
+    var prop = [id];
+    return query(sql, prop);
+};
+
 // dbObj.getAllUseres = function () {
 //     var sql = 'SELECT ' + usersFields + ' FROM `users`';
 //     return query(sql);

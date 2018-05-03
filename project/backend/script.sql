@@ -16,6 +16,7 @@ CREATE TABLE `users` (
     `email` VARCHAR(40),
     `role` VARCHAR(15) DEFAULT 'user',
     `password` CHAR(60) BINARY,
+    `avatar` VARCHAR(30),
     PRIMARY KEY(`id`)
 );
 
