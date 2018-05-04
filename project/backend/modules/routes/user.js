@@ -9,14 +9,6 @@ var path = require('path');
 var multer  = require('multer');
 var fileType = require('file-type');
 var gm = require('gm').subClass({imageMagick: true});
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/avatars');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now());
-//     }
-// });
 
 var storage = multer.diskStorage({
     destination: './public/avatars',
@@ -120,6 +112,29 @@ router.post('/avatar/:id', function (req, res, next) {
     //         });
     //     }
     // });
+});
+
+router.post('/:id', function (req, res, next) {
+    if (!validate(req.body)) {
+        return res.status(406).json({ message: errorsObj.VALIDATION });
+    }
+    return next();
+}, function (req, res, next) {
+    dbObj.isUnique(req.body.username, req.params.id)
+        .then(function (result) {
+            next();
+        })
+        .catch(function (result) {
+            return res.status(result.status).json({ message: result.message });
+        });
+}, function (req, res, next) {
+    dbObj.updateUserData(req.params.id, req.body)
+        .then(function (result) {
+            return res.status(result.status).json({ message: result.message });
+        })
+        .catch(function (result) {
+            res.status(result.status).json({ message: result.message });
+        });
 });
 
 // router.post('/', function (req, res, next) {

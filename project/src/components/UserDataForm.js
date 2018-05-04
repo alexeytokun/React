@@ -24,7 +24,7 @@ class UserDataForm extends Component {
                 passcheck: true
             },
             isFormVaild: false
-        }
+        };
 
         // this.onLinkClick = this.onLinkClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -43,8 +43,11 @@ class UserDataForm extends Component {
         validation.lastname = this.state.lastname.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
         validation.email = this.state.email.match(/^(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})$/);
         validation.pass = this.state.pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
-        validation.passcheck = (this.state.pass === this.state.passcheck)
-            && this.state.passcheck.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
+        if (this.props.userData) {
+            validation.pass = this.state.pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/) ||
+                (this.state.pass === '');
+        }
+        validation.passcheck = (this.state.pass === this.state.passcheck);
         const isFormValid = !!(validation.username
             && validation.firstname
             && validation.lastname
@@ -52,7 +55,7 @@ class UserDataForm extends Component {
             && validation.pass
             && validation.passcheck);
 
-        this.setState({validation: validation, isFormVaild: isFormValid});
+        return {validation: validation, isFormVaild: isFormValid};
     }
 
     validateField(fieldName, value) {
@@ -73,10 +76,13 @@ class UserDataForm extends Component {
                 break;
             case 'pass':
                 validation.pass = value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
+                if (this.props.userData) {
+                    validation.pass = value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/) ||
+                        (value === '');
+                }
                 break;
             case 'passcheck':
-                validation.passcheck = (this.state.pass === this.state.passcheck)
-                    && value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
+                validation.passcheck = (this.state.pass === this.state.passcheck);
                 break;
             default:
                 break;
@@ -93,7 +99,6 @@ class UserDataForm extends Component {
     }
 
     handleSubmit() {
-        this.validateAllFields();
         const user = {
             username: this.state.username,
             firstname: this.state.firstname,
@@ -101,8 +106,9 @@ class UserDataForm extends Component {
             email: this.state.email,
             pass: this.state.pass,
             passcheck: this.state.passcheck
-        }
-        this.props.handleSubmit(this.state.isFormVaild, user);
+        };
+        this.setState(this.validateAllFields(),
+            () => this.props.handleSubmit(this.state.isFormVaild, user));
     }
 
     componentWillMount() {
@@ -114,7 +120,6 @@ class UserDataForm extends Component {
                 lastname: userData.lastname  || '',
                 email: userData.email || ''
             });
-
         }
     }
 
@@ -139,11 +144,10 @@ class UserDataForm extends Component {
                 <Form.Field>
                     <Form.Input name='passcheck' error={!this.state.validation.passcheck} value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Password' />
                 </Form.Field>
-                <Button onClick={this.handleSubmit} fluid={true} type='submit'>Sign Up</Button>
+                <Button onClick={this.handleSubmit} fluid={true} type='submit'>{this.props.userData ? 'Save' : 'Sign Up'}</Button>
             </Form>
         );
     }
-
 }
 
 export default UserDataForm;

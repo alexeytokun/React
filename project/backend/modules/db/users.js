@@ -92,23 +92,23 @@ dbObj.getUserRole = function (id) {
 //         });
 // };
 //
-// dbObj.updateUserData = function (id, data) {
-//     var sql = 'UPDATE `users` SET `username`=?, `surname`=?, `age`=?, `role`=?, `password`=?,`country_id`=?, ' +
-//         '`city_id`=?, `school_id`=?, `bio`=? WHERE id=?';
-//     var prop = [data.username, data.surname, data.age, data.role, data.pass,
-//         data.country, data.city, data.school, data.bio, id];
-//     return query(sql, prop)
-//         .then(function (result) {
-//             if (result.affectedRows !== 0) {
-//                 return ({ status: 200, message: 'User data updated' });
-//             }
-//             return ({ status: 400, message: errorsObj.WRONG_ID });
-//         })
-//         .catch(function (result) {
-//             throw ({ status: result.status, message: result.message });
-//         });
-// };
-//
+dbObj.updateUserData = function (id, data) {
+    var sql = 'UPDATE `users` SET `username`=?, `surname`=?, `age`=?, `role`=?, `password`=?,`country_id`=?, ' +
+        '`city_id`=?, `school_id`=?, `bio`=? WHERE id=?';
+    var prop = [data.username, data.surname, data.age, data.role, data.pass,
+        data.country, data.city, data.school, data.bio, id];
+    return query(sql, prop)
+        .then(function (result) {
+            if (result.affectedRows !== 0) {
+                return ({ status: 200, message: 'User data updated' });
+            }
+            return ({ status: 400, message: errorsObj.WRONG_ID });
+        })
+        .catch(function (result) {
+            throw ({ status: result.status, message: result.message });
+        });
+};
+
 dbObj.isUnique = function (username, id) {
     return dbObj.checkUsername(username)
         .then(function (results) {

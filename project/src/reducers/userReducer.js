@@ -21,7 +21,7 @@ const userReducer = (state = initialState, action) => {
         case "USER_LOG_OUT":
             state = {
                 ...state,
-                userdata: {},
+                userdata: null,
                 loggedIn: false
             };
             break;
