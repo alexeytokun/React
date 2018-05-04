@@ -1,6 +1,6 @@
 var uuidv4 = require('uuid/v4');
 var errorsObj = require('../config/errors');
-var usersFields = '`id`, `username`, `firstname`, `lastname`, `email`, `role`';
+var usersFields = '`id`, `username`, `firstname`, `lastname`, `email`, `role`, `avatar`';
 var tokensFields = '`id`, `uuid`, `timestamp`';
 var pool = require('../config/connection').pool;
 
@@ -34,7 +34,7 @@ dbObj.addUserToDb = function (username, firstname, lastname, email, pass) {
 };
 
 dbObj.getUserData = function (username) {
-    var sql = 'SELECT ' + usersFields + ', `password`, `avatar`' + ' FROM `users` WHERE `username` = ?';
+    var sql = 'SELECT ' + usersFields + ', `password`' + ' FROM `users` WHERE `username` = ?';
     var prop = [username];
     return query(sql, prop);
 };
@@ -93,10 +93,12 @@ dbObj.getUserRole = function (id) {
 // };
 //
 dbObj.updateUserData = function (id, data) {
-    var sql = 'UPDATE `users` SET `username`=?, `surname`=?, `age`=?, `role`=?, `password`=?,`country_id`=?, ' +
-        '`city_id`=?, `school_id`=?, `bio`=? WHERE id=?';
-    var prop = [data.username, data.surname, data.age, data.role, data.pass,
-        data.country, data.city, data.school, data.bio, id];
+    var sql = 'UPDATE `users` SET `username`=?, `firstname`=?, `lastname`=?, `email`=?,`password`=? WHERE id=?';
+    var prop = [data.username, data.firstname, data.lastname, data.email, data.pass, id];
+    if (data.pass === '') {
+        sql = 'UPDATE `users` SET `username`=?, `firstname`=?, `lastname`=?, `email`=? WHERE id=?';
+        prop = [data.username, data.firstname, data.lastname, data.email, id];
+    }
     return query(sql, prop)
         .then(function (result) {
             if (result.affectedRows !== 0) {

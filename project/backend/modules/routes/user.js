@@ -115,13 +115,23 @@ router.post('/avatar/:id', function (req, res, next) {
 });
 
 router.post('/:id', function (req, res, next) {
-    if (!validate(req.body)) {
+    if ((req.body.pass === '') ? !validate(req.body, true) : !validate(req.body)) {
         return res.status(406).json({ message: errorsObj.VALIDATION });
     }
     return next();
 }, function (req, res, next) {
     dbObj.isUnique(req.body.username, req.params.id)
         .then(function (result) {
+            next();
+        })
+        .catch(function (result) {
+            return res.status(result.status).json({ message: result.message });
+        });
+}, function (req, res, next) {
+    if (req.body.pass === '') return next();
+    hashingObj.hash(req.body.pass)
+        .then(function (result) {
+            req.body.pass = result;
             next();
         })
         .catch(function (result) {

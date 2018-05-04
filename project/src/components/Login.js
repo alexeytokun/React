@@ -17,7 +17,6 @@ class Login extends Component {
                 pass: true
             }
         };
-        // this.onLinkClick = this.onLinkClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -71,18 +70,15 @@ class Login extends Component {
             .then((res) => {
                 if (res.userdata.avatar) res.userdata.avatar = 'http://127.0.0.1:8000/' + res.userdata.avatar;
                 this.props.saveUserdata(res.userdata);
+                this.setState({redirect: true});
             })
             .catch((err) => console.log(err));
     }
 
-    // onLinkClick(e) {
-    //     this.setState({redirect: e.target.dataset.location});
-    // }
-
     render() {
-        // if (this.state.redirect) {
-        //     return <Redirect push to={this.state.redirect} />;
-        // }
+        if (this.state.redirect) {
+            return <Redirect push to='/' />;
+        }
 
         return (
             <Container className="reg_wrapper">

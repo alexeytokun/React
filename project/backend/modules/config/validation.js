@@ -1,11 +1,18 @@
 var regex = require('./regex');
 
-function validate(data) {
+function validate(data, flag) {
     var username = data.username;
     var firstname = data.firstname;
     var lastname = data.lastname;
     var email = data.email;
     var pass = data.pass;
+
+    if (flag) {
+        return regex.usernameRegex.test(String(username))
+            && regex.firstnameRegex.test(String(firstname))
+            && regex.lastnameRegex.test(String(lastname))
+            && regex.emailRegex.test(String(email))
+    }
 
     return regex.usernameRegex.test(String(username))
         && regex.firstnameRegex.test(String(firstname))

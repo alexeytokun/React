@@ -142,7 +142,7 @@ class UserDataForm extends Component {
                     <Form.Input name='pass' error={!this.state.validation.pass} value={this.state.pass} onChange={this.handleChange} type='password' placeholder='Password' />
                 </Form.Field>
                 <Form.Field>
-                    <Form.Input name='passcheck' error={!this.state.validation.passcheck} value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Password' />
+                    <Form.Input name='passcheck' error={!this.state.validation.passcheck} value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Confirm Password' />
                 </Form.Field>
                 <Button onClick={this.handleSubmit} fluid={true} type='submit'>{this.props.userData ? 'Save' : 'Sign Up'}</Button>
             </Form>

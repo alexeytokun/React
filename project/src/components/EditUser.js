@@ -19,17 +19,24 @@ class EditUser extends Component {
     handleSubmit(isFormValid, data) {
         if (!isFormValid || !this.props.userData) return;
         const body = JSON.stringify(data);
-        console.log('http://127.0.0.1:8000/user/' + this.props.userData.id);
+        const url = 'http://127.0.0.1:8000/user/' + this.props.userData.id;
 
-        fetch('http://127.0.0.1:8000/user/' + this.props.userData.id, {
+        fetch(url, {
             method: 'POST',
             headers: {
                 "Content-type": "application/json"
             },
             body: body
-        })
-            .then((res) => res.json())
-            .then((res) => console.log(res))
+            })
+            .then((res) => {
+                return fetch(url)
+                    .then((res) => res.json())
+                    .then((res) => {
+                        if (res.avatar) res.avatar = 'http://127.0.0.1:8000/' + res.avatar;
+                        this.props.saveUserdata(res);
+                    })
+                    .catch((err) => console.log(err));
+            })
             .catch((err) => console.log(err));
     }
 
@@ -66,7 +73,8 @@ const mapStateToProps = (store) => {
 
 const dispatchStateToProps = (dispatch) => {
     return {
-        saveUserAvatar: src => dispatch(saveUserAvatar(src))
+        saveUserAvatar: src => dispatch(saveUserAvatar(src)),
+        saveUserdata: data => dispatch(saveUserdata(data))
     };
 };
 
