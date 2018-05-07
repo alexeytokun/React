@@ -33,6 +33,7 @@ router.use(function (req, res, next) {
             } else {
                 body.token = 'guest';
             }
+            return next();
         });
 
     } else {

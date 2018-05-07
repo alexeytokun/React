@@ -83,7 +83,6 @@ router.post('/avatar/:id', function (req, res, next) {
         res.status(400).json({ message: errorsObj.WRONG_ID });
     } else next();
 }, upload.single('avatar'), function (req, res, next) {
-    console.log(req.file);
     gm(req.file.path)
         .resize('200', '200', '^')
         .gravity('Center')
@@ -95,26 +94,17 @@ router.post('/avatar/:id', function (req, res, next) {
                     return res.json({ message: 'Avatar updated' });
                 })
                 .catch(function (result) {
-                    console.log(result);
                     return res.status(result.status).json({ message: result.message });
                 });
         })
-    // fs.readFile(req.file.path, function (err, data) {
-    //     var imageName = req.file.filename;
-    //     if(!imageName){
-    //         console.log("There was an error");
-    //         res.redirect("/");
-    //         res.end();
-    //     } else {
-    //         var newPath = __dirname + "/../../public/avatars/" + imageName;
-    //         fs.writeFile(newPath, data, function (err) {
-    //             res.redirect("/public/avatars/" + imageName);
-    //         });
-    //     }
-    // });
 });
 
 router.post('/:id', function (req, res, next) {
+    if (req.body.token !== 'admin' || req.body.token !== 'user') {
+        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+    }
+    return next();
+}, function (req, res, next) {
     if ((req.body.pass === '') ? !validate(req.body, true) : !validate(req.body)) {
         return res.status(406).json({ message: errorsObj.VALIDATION });
     }
@@ -147,80 +137,6 @@ router.post('/:id', function (req, res, next) {
         });
 });
 
-// router.post('/', function (req, res, next) {
-//     dbObj.isUnique(req.body.username)
-//         .then(function () {
-//             next();
-//         })
-//         .catch(function (result) {
-//             return res.status(result.status).json({ message: result.message });
-//         });
-// }, function (req, res, next) {
-//     if (validate(req.body)) {
-//         dbObj.addUserToDb(
-//             req.body.username, req.body.surname, req.body.age, req.body.pass, req.body.role,
-//             req.body.country, req.body.city, req.body.school, req.body.bio)
-//             .then(function (result) {
-//                 return res.json({ message: result.insertId });
-//             })
-//             .catch(function (result) {
-//                 return res.status(result.status).json({ message: result.message });
-//             });
-//     } else next();
-// }, function (req, res) {
-//     res.status(406).json({ message: errorsObj.VALIDATION });
-// });
-//
-// router.post('/:id', function (req, res, next) {
-//     if (req.body.token === 'guest' || req.body.token === 'anon'
-//         || ((req.body.token === 'user') && (+req.body.IdToken !== +req.params.id))) {
-//         return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
-//     }
-//     return next();
-// }, function (req, res, next) {
-//     if (!validate(req.body)) {
-//         return res.status(406).json({ message: errorsObj.VALIDATION });
-//     }
-//     return next();
-// }, function (req, res, next) {
-//     dbObj.isUnique(req.body.username, req.params.id)
-//         .then(function (result) {
-//             next();
-//         })
-//         .catch(function (result) {
-//             return res.status(result.status).json({ message: result.message });
-//         });
-// }, function (req, res, next) {
-//     dbObj.updateUserData(req.params.id, req.body)
-//         .then(function (result) {
-//             return res.status(result.status).json({ message: result.message });
-//         })
-//         .catch(function (result) {
-//             res.status(result.status).json({ message: result.message });
-//         });
-// });
-//
-// router.get('/:id', function (req, res, next) {
-//     if ((req.body.token === 'guest' || req.body.token === 'anon'
-//             || ((req.body.token === 'user') && (+req.body.IdToken !== +req.params.id)))
-//         && !req.headers.info) {
-//         return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
-//     }
-//     return next();
-// }, function (req, res, next) {
-//     dbObj.getUserById(req.params.id)
-//         .then(function (result) {
-//             if (result.length) {
-//                 res.json(result[0]);
-//             } else {
-//                 res.status(400).json({ message: errorsObj.WRONG_ID });
-//             }
-//         })
-//         .catch(function (result) {
-//             res.status(result.status).json({ message: result.message });
-//         });
-// });
-//
 // router.delete('/:id', function (req, res, next) {
 //     if (req.body.token !== 'admin') {
 //         return res.status(403).json({ message: errorsObj.ACCESS_DENIED });

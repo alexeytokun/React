@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Image, Button } from 'semantic-ui-react';
+import { Container, Image } from 'semantic-ui-react';
 import defaultAvatar from "../default-avatar.png";
 import UserDataForm from "./UserDataForm";
 import { connect } from 'react-redux';
@@ -24,7 +24,8 @@ class EditUser extends Component {
         fetch(url, {
             method: 'POST',
             headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                "User-Auth-Token": sessionStorage.getItem('jwt')
             },
             body: body
             })
@@ -42,7 +43,10 @@ class EditUser extends Component {
 
     getAvatar() {
         if (!this.props.userData) return;
-        fetch('http://127.0.0.1:8000/user/avatar/' + this.props.userData.id)
+        fetch('http://127.0.0.1:8000/user/avatar/' + this.props.userData.id,
+            {
+                headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
+            })
             .then(res => res.json())
             .then(res => {
                 this.props.saveUserAvatar('http://127.0.0.1:8000/' + res.source)
@@ -58,7 +62,7 @@ class EditUser extends Component {
             <Container className="reg_wrapper">
                 <Image className="reg_logo" circular  size='small' centered src={ avatar }/>
                 <FileUpload userData={this.props.userData} getAvatar={this.getAvatar}/>
-                <UserDataForm handleSubmit={this.handleSubmit} userData={this.props.userData}/>
+                <UserDataForm handleSubmit={this.handleSubmit} userData={this.props.userData} edit={true}/>
             </Container>
         )
     };

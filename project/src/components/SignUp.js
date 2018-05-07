@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Image } from 'semantic-ui-react';
 import logo from "../logo-placeholder.png";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import UserDataForm from "./UserDataForm";
 
 
@@ -9,14 +9,11 @@ class SignUp extends Component {
 
     constructor(props) {
         super(props);
-
-        // this.onLinkClick = this.onLinkClick.bind(this);
+        this.state = {
+            redirect: false
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    // onLinkClick(e) {
-    //     this.setState({redirect: e.target.dataset.location});
-    // }
 
     handleSubmit(isFormValid, data) {
         if (!isFormValid) return;
@@ -26,19 +23,20 @@ class SignUp extends Component {
         fetch('http://127.0.0.1:8000/user', {
             method: 'POST',
             headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                "User-Auth-Token": sessionStorage.getItem('jwt')
             },
             body: body
         })
             .then((res) => res.json())
-            .then((res) => console.log(res))
+            .then((res) => this.setState({redirect: true}))
             .catch((err) => console.log(err));
     }
 
     render() {
-        // if (this.state.redirect) {
-        //     return <Redirect push to={this.state.redirect} />;
-        // }
+        if (this.state.redirect) {
+            return <Redirect push to='/login'/>;
+        }
 
         return (
             <Container className="reg_wrapper">

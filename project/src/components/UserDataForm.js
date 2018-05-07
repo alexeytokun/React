@@ -43,7 +43,7 @@ class UserDataForm extends Component {
         validation.lastname = this.state.lastname.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
         validation.email = this.state.email.match(/^(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})$/);
         validation.pass = this.state.pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
-        if (this.props.userData) {
+        if (this.props.edit) {
             validation.pass = this.state.pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/) ||
                 (this.state.pass === '');
         }
@@ -76,7 +76,7 @@ class UserDataForm extends Component {
                 break;
             case 'pass':
                 validation.pass = value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
-                if (this.props.userData) {
+                if (this.props.edit) {
                     validation.pass = value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/) ||
                         (value === '');
                 }
@@ -144,7 +144,7 @@ class UserDataForm extends Component {
                 <Form.Field>
                     <Form.Input name='passcheck' error={!this.state.validation.passcheck} value={this.state.passcheck} onChange={this.handleChange} type='password' placeholder='Confirm Password' />
                 </Form.Field>
-                <Button onClick={this.handleSubmit} fluid={true} type='submit'>{this.props.userData ? 'Save' : 'Sign Up'}</Button>
+                <Button onClick={this.handleSubmit} fluid={true} type='submit'>{this.props.edit ? 'Save' : 'Sign Up'}</Button>
             </Form>
         );
     }
