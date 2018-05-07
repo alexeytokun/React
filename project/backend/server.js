@@ -8,18 +8,10 @@ var user = require('./modules/routes/user');
 var http = require('http');
 
 var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+var io = module.exports.io = require('socket.io').listen(server);
+var socketConfig = require('./modules/config/socketConfig');
 
-io.on('connection', function (socket) {
-    console.log("Connected succesfully to the socket ...");
-
-    socket.emit('news', 'Good News');
-
-    socket.on('send', function (data) {
-       io.emit('news', data);
-        console.log(data);
-    });
-});
+io.on('connection', socketConfig);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

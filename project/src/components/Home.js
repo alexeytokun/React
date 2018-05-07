@@ -27,8 +27,12 @@ class Home extends Component {
         this.setState({value: e.target.value})
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.initSocket();
+    }
+
+    componentWillUnmount() {
+        this.state.socket.close();
     }
 
     initSocket = () => {
@@ -49,30 +53,30 @@ class Home extends Component {
 
         return (
             <Container>
-                <Segment>
-                    <Card>
-                        <Image src={temp} />
-                        <Card.Content>
-                            <Card.Header>
-                                Lot name
-                            </Card.Header>
-                            <Card.Meta>
-                                <span className='date'>
-                                    Lot time
-                                </span>
-                            </Card.Meta>
-                            <Card.Description>
-                               Lot description text
-                            </Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <Icon name='user' />
-                                username
-                            </a>
-                        </Card.Content>
-                    </Card>
-                </Segment>
+                {/*<Segment>*/}
+                    {/*<Card>*/}
+                        {/*<Image src={temp} />*/}
+                        {/*<Card.Content>*/}
+                            {/*<Card.Header>*/}
+                                {/*Lot name*/}
+                            {/*</Card.Header>*/}
+                            {/*<Card.Meta>*/}
+                                {/*<span className='date'>*/}
+                                    {/*Lot time*/}
+                                {/*</span>*/}
+                            {/*</Card.Meta>*/}
+                            {/*<Card.Description>*/}
+                               {/*Lot description text*/}
+                            {/*</Card.Description>*/}
+                        {/*</Card.Content>*/}
+                        {/*<Card.Content extra>*/}
+                            {/*<a>*/}
+                                {/*<Icon name='user' />*/}
+                                {/*username*/}
+                            {/*</a>*/}
+                        {/*</Card.Content>*/}
+                    {/*</Card>*/}
+                {/*</Segment>*/}
                 <p>{this.state.response}</p>
                 <input id='input' value={this.state.value} onChange={this.onChange}/>
                 <button onClick={this.send}>Click</button>
