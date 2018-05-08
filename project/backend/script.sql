@@ -20,6 +20,12 @@ CREATE TABLE `users` (
     PRIMARY KEY(`id`)
 );
 
+CREATE TABLE `categories` (
+    `category_id` INT(11) AUTO_INCREMENT,
+    `category_name` VARCHAR(30),
+    PRIMARY KEY(`category_id`)
+);
+
 CREATE TABLE `lots` (
     `lot_id` INT(11) AUTO_INCREMENT,
     `lot_name` VARCHAR(30),
@@ -28,15 +34,17 @@ CREATE TABLE `lots` (
     `price` FLOAT(11),
     `image` VARCHAR(30),
     `description` VARCHAR(255),
+    `user_id` INT(11),
+    `category_id` INT(11),
     FOREIGN KEY(`user_id`)
         REFERENCES `users`(`id`),
     FOREIGN KEY(`category_id`)
         REFERENCES `categories`(`category_id`),
-    PRIMARY KEY(`id`)
+    PRIMARY KEY(`lot_id`)
 );
 
-CREATE TABLE `categories` (
-    `category_id` INT(11) AUTO_INCREMENT,
-    `category_name` VARCHAR(30)
-);
+INSERT INTO `categories` (`category_name`) VALUES ('Category 1');
+INSERT INTO `categories` (`category_name`) VALUES ('Category 2');
+INSERT INTO `categories` (`category_name`) VALUES ('Category 3');
+
 

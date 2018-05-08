@@ -45,6 +45,7 @@ class FileUpload extends React.Component {
     }
 
     render() {
+        console.log(this.state.file);
         return (
             <form onSubmit={this.onFormSubmit} style={{paddingBottom: 30}}>
                 <input className='file' id='avatar' name='avatar' type="file" onChange={this.onChange} />
