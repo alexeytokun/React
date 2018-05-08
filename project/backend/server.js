@@ -5,6 +5,7 @@ var port = require('./modules/config/connection').connectionObj.port;
 var auth = require('./modules/routes/auth');
 var signin = require('./modules/routes/signin');
 var user = require('./modules/routes/user');
+var lot = require('./modules/routes/lot');
 var http = require('http');
 
 var server = http.createServer(app);
@@ -22,9 +23,10 @@ app.use('/public', express.static(__dirname + '/public'));
 app.use('/', auth);
 app.use('/signin', signin);
 app.use('/user', user);
+app.use('/lot', lot);
 
 
-server.listen(port, function (error) {
+server.listen(port, '0.0.0.0', function (error) {
     if (error) {
         console.log('Error:' + error.name + '\n');
     } else console.log('Listening port ' + port + '\n');

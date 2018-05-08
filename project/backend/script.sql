@@ -20,3 +20,23 @@ CREATE TABLE `users` (
     PRIMARY KEY(`id`)
 );
 
+CREATE TABLE `lots` (
+    `lot_id` INT(11) AUTO_INCREMENT,
+    `lot_name` VARCHAR(30),
+    `start_time` DATE,
+    `end_time` DATE,
+    `price` FLOAT(11),
+    `image` VARCHAR(30),
+    `description` VARCHAR(255),
+    FOREIGN KEY(`user_id`)
+        REFERENCES `users`(`id`),
+    FOREIGN KEY(`category_id`)
+        REFERENCES `categories`(`category_id`),
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE `categories` (
+    `category_id` INT(11) AUTO_INCREMENT,
+    `category_name` VARCHAR(30)
+);
+
