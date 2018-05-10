@@ -77,8 +77,8 @@ export default class DatePicker extends React.Component {
 
     onSubmit = () => {
         let dates = {
-            start: this.state.value[0]._d,
-            end: this.state.value[1]._d
+            start: moment(this.state.value[0]._d).format('YYYY-MM-DD HH:mm:ss'),
+            end: moment(this.state.value[1]._d).format('YYYY-MM-DD HH:mm:ss')
         };
         this.props.onDatesSelect(dates);
     };

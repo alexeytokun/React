@@ -16,7 +16,7 @@ CREATE TABLE `users` (
     `email` VARCHAR(40),
     `role` VARCHAR(15) DEFAULT 'user',
     `password` CHAR(60) BINARY,
-    `avatar` VARCHAR(30),
+    `avatar` VARCHAR(255),
     PRIMARY KEY(`id`)
 );
 
@@ -28,11 +28,11 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `lots` (
     `lot_id` INT(11) AUTO_INCREMENT,
-    `lot_name` VARCHAR(30),
-    `start_time` DATE,
-    `end_time` DATE,
+    `lot_name` VARCHAR(45),
+    `start_time` DATETIME,
+    `end_time` DATETIME,
     `price` FLOAT(11),
-    `image` VARCHAR(30),
+    `image` VARCHAR(255),
     `description` VARCHAR(255),
     `user_id` INT(11),
     `category_id` INT(11),

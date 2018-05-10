@@ -8,7 +8,7 @@ class FileUpload extends React.Component {
         this.state ={
             file: null,
             userid: null
-        }
+        };
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.fileUpload = this.fileUpload.bind(this);

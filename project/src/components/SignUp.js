@@ -11,7 +11,7 @@ class SignUp extends Component {
         super(props);
         this.state = {
             redirect: false
-        }
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 

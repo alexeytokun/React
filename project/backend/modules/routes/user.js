@@ -94,13 +94,14 @@ router.post('/avatar/:id', function (req, res, next) {
                     return res.json({ message: 'Avatar updated' });
                 })
                 .catch(function (result) {
+                    console.log(result);
                     return res.status(result.status).json({ message: result.message });
                 });
         })
 });
 
 router.post('/:id', function (req, res, next) {
-    if (req.body.token !== 'admin' || req.body.token !== 'user') {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
         return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
     }
     return next();

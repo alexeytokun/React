@@ -29,7 +29,6 @@ dbObj.addUserToDb = function (username, firstname, lastname, email, pass) {
     var sql = 'INSERT INTO `users` (`username`, `firstname`, `lastname`, `email`, `password`)' +
         ' VALUES (?, ?, ?, ?, ?)';
     var userData = [username, firstname, lastname, email, pass];
-    console.log(userData);
     return query(sql, userData);
 };
 
@@ -42,6 +41,7 @@ dbObj.getUserData = function (username) {
 dbObj.setAvatar = function (path, id) {
     var sql = 'UPDATE `users` SET `avatar`=? WHERE id=?';
     var prop = [path, id];
+    console.log(prop);
     return query(sql, prop);
 };
 
