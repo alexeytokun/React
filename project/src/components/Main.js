@@ -5,6 +5,7 @@ import SignUp from "./SignUp";
 import Home from "./Home";
 import EditUser from "./EditUser";
 import AddLot from "./AddLot";
+import LotPage from "./LotPage";
 
 class Main extends Component {
 
@@ -17,6 +18,7 @@ class Main extends Component {
                     <Route path='/signup' component={SignUp}/>
                     <Route path='/user/:id' component={EditUser}/>
                     <Route path='/lot' component={AddLot}/>
+                    <Route path='/lot/:id' component={LotPage}/>
                 </Switch>
             </main>
         );

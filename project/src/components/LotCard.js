@@ -7,7 +7,7 @@ class LotCard extends Component {
     render() {
         return(
             <Card href='#' centered>
-                <Image src={temp} />
+                <Image src={'http://127.0.0.1:8000/public/lot_images/file-1525955487861.jpg'} />
                 <Card.Content>
                     <Card.Header>
                         Lot name

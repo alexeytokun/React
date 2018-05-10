@@ -6,6 +6,7 @@ var auth = require('./modules/routes/auth');
 var signin = require('./modules/routes/signin');
 var user = require('./modules/routes/user');
 var lot = require('./modules/routes/lot');
+var lots = require('./modules/routes/lots');
 var http = require('http');
 
 var server = http.createServer(app);
@@ -24,6 +25,7 @@ app.use('/', auth);
 app.use('/signin', signin);
 app.use('/user', user);
 app.use('/lot', lot);
+app.use('/lots', lots);
 
 
 server.listen(port, '0.0.0.0', function (error) {

@@ -26,7 +26,6 @@ class UserDataForm extends Component {
             isFormVaild: false
         };
 
-        // this.onLinkClick = this.onLinkClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }

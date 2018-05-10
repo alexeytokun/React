@@ -28,6 +28,12 @@ lotsDB.getCategories = function () {
     return query(sql, prop);
 };
 
+lotsDB.getAllLots = function () {
+    var sql = 'SELECT * FROM `lots`';
+    var prop = '';
+    return query(sql, prop);
+};
+
 lotsDB.addLotToDb = function (lotData, imagePath) {
     var sql = 'INSERT INTO `lots` (`lot_name`, `start_time`, `end_time`, `price`, `description`, `image`,' +
         ' `category_id`, `user_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';

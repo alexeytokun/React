@@ -25,7 +25,7 @@ router.post('/', function (req, res, next) {
         // validation here
         return next();
     }, function (req, res, next) {
-        lotsDB.addLotToDb(req.body.lotdata, req.file.path)
+        lotsDB.addLotToDb(req.body.lotdata, req.file ? req.file.path : null)
             .then(function (result) {
                 return res.json({ message: result.insertId });
             })

@@ -10,6 +10,9 @@ class LotGroup extends Component {
                 <LotCard/>
                 <LotCard/>
                 <LotCard/>
+                <LotCard/>
+                <LotCard/>
+                <LotCard/>
             </Card.Group>
         );
     }
