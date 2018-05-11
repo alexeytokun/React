@@ -14,7 +14,7 @@ class Category extends Component {
             <Container>
                 <Segment>
                     <h1>{this.props.categories[id].category_name}</h1>
-                    <LotGroup category={true} lots={this.props.sortedLots[id]}/>
+                    <LotGroup usernames={this.props.usernames} category={true} lots={this.props.sortedLots[id]}/>
                 </Segment>
             </Container>
         )
@@ -24,7 +24,8 @@ class Category extends Component {
 const mapStateToProps = (store) => {
     return {
         categories: store.lots.categories,
-        sortedLots: store.lots.sortedLots
+        sortedLots: store.lots.sortedLots,
+        usernames: store.user.usernames
     };
 };
 

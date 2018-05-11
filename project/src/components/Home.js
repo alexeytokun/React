@@ -5,6 +5,7 @@ import logo from "../logo-new.svg";
 import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
 import {saveLotsAndCategories} from "../actions/lotsActions";
+import {saveUsernames} from "../actions/userActions";
 import LotGroup from "./LotGroup";
 
 
@@ -64,6 +65,7 @@ class Home extends Component {
                     sortedLots.push(filtered);
                 }
                 this.props.saveLotsAndCategories({lots: res.lots, categories: res.categories, sortedLots: sortedLots});
+                this.props.saveUsernames(res.usernames);
             })
             .catch(err => console.log(err));
     }
@@ -76,7 +78,7 @@ class Home extends Component {
                 return (
                     <Segment key={i}>
                         <h1><NavLink style={{color: 'black'}} to={'/category/' + i}>{this.props.categories[i].category_name}</NavLink></h1>
-                        <LotGroup lots={this.props.sortedLots[i]}/>
+                        <LotGroup lots={this.props.sortedLots[i]} usernames={this.props.usernames}/>
                     </Segment>
                 );
             }
@@ -98,12 +100,16 @@ const mapStateToProps = (store) => {
     return {
         lots: store.lots.lots,
         categories: store.lots.categories,
-        sortedLots: store.lots.sortedLots
+        sortedLots: store.lots.sortedLots,
+        usernames: store.user.usernames
     };
 };
 
 const dispatchStateToProps = (dispatch) => {
-    return { saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata)) };
+    return {
+        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata)),
+        saveUsernames: names => dispatch(saveUsernames(names))
+    };
 };
 
 export default connect(mapStateToProps, dispatchStateToProps)(Home);

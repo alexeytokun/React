@@ -51,10 +51,10 @@ dbObj.getAvatar = function (id) {
     return query(sql, prop);
 };
 
-// dbObj.getAllUseres = function () {
-//     var sql = 'SELECT ' + usersFields + ' FROM `users`';
-//     return query(sql);
-// };
+dbObj.getUserNames = function () {
+    var sql = 'SELECT `id`, `username` FROM `users`';
+    return query(sql);
+};
 
 dbObj.checkUsername = function (name) {
     var sql = 'SELECT `id` FROM `users` WHERE `username` = ? COLLATE utf8_unicode_ci';
@@ -121,73 +121,5 @@ dbObj.isUnique = function (username, id) {
             throw ({ status: result.status, message: result.message });
         });
 };
-
-// dbObj.setToken = function (results) {
-//     var timestamp = countTimestamp(60);
-//     var uuid = uuidv4();
-//     var sqlUpdate = 'UPDATE `tokens` SET `uuid`=?, `timestamp`=? WHERE id=?';
-//     var sqlInsert = 'INSERT INTO `tokens` (`uuid`, `timestamp`, `id`) VALUES (?, ?, ?)';
-//     var userData = [uuid, timestamp, results[0].id];
-//     return query(sqlUpdate, userData)
-//         .then(function (result) {
-//             if (result.affectedRows !== 0) {
-//                 return uuid;
-//             }
-//             return query(sqlInsert, userData)
-//                 .then(function (res) {
-//                     return uuid;
-//                 })
-//                 .catch(function (res) {
-//                     throw ({ status: res.status, message: res.message });
-//                 });
-//         })
-//         .catch(function (result) {
-//             throw ({ status: result.status, message: result.message });
-//         });
-// };
-//
-// dbObj.getDataFromToken = function (uuid) {
-//     var sql = 'SELECT ' + tokensFields + ' FROM `tokens` WHERE `uuid` = ?';
-//     var prop = uuid;
-//     return query(sql, prop);
-// };
-//
-// dbObj.checkTimestamp = function (timestamp) {
-//     return (Date.now() < timestamp);
-// };
-//
-// dbObj.deleteToken = function (id) {
-//     var sql = 'DELETE FROM `tokens` WHERE `id` = ?';
-//     var prop = id;
-//
-//     return query(sql, prop)
-//         .then(
-//             function (result) {
-//                 throw ({ status: 401, message: errorsObj.TOKEN_TIME });
-//             },
-//             function (result) {
-//                 throw ({ status: result.status, message: result.message });
-//             }
-//         );
-// };
-//
-// dbObj.deleteUnusedToken = function (id) {
-//     var sql = 'DELETE FROM `tokens` WHERE `id` = ?';
-//     var prop = id;
-//     return query(sql, prop);
-// };
-
-// dbObj.getRole = function (uuid) {
-//     var sql = 'SELECT `role` FROM `users` AS u JOIN `tokens` AS t WHERE t.uuid = ? AND u.id = t.id';
-//     var prop = uuid;
-//     return query(sql, prop)
-//         .then(function (results) {
-//             if (results.length) return results;
-//             throw ({ status: 403, message: errorsObj.ACCESS_DENIED });
-//         })
-//         .catch(function (result) {
-//             throw ({ status: result.status, message: result.message });
-//         });
-// };
 
 module.exports = dbObj;

@@ -6,12 +6,13 @@ import moment from 'moment';
 class LotCard extends Component {
 
     render() {
-        console.log(this.props.lot);
         const lot = this.props.lot;
         const image = lot.image ? 'http://127.0.0.1:8000/' + lot.image : temp;
-        let start_time = moment(lot.start_time).format('HH:mm:ss YYYY-MM-DD');
-        let end_time = moment(lot.end_time).format('HH:mm:ss YYYY-MM-DD');
+        const start_time = moment(lot.start_time).format('HH:mm:ss YYYY-MM-DD');
+        const end_time = moment(lot.end_time).format('HH:mm:ss YYYY-MM-DD');
 
+        const username = this.props.usernames
+            ? this.props.usernames.find((user) => user.id === lot.user_id).username : 'user';
 
         return(
             <Card href='#' centered>
@@ -39,7 +40,7 @@ class LotCard extends Component {
                 </Card.Content>
                 <Card.Content extra>
                     <Icon name='user' />
-                    username
+                    {username}
                 </Card.Content>
             </Card>
         );

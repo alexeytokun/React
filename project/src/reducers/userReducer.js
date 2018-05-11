@@ -25,6 +25,12 @@ const userReducer = (state = initialState, action) => {
                 loggedIn: false
             };
             break;
+        case "USER_SAVE_USERNAMES":
+            state = {
+                ...state,
+                usernames: action.payload
+            };
+            break;
         default:
             break;
     };
