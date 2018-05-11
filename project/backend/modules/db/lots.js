@@ -39,7 +39,6 @@ lotsDB.addLotToDb = function (lotData, imagePath) {
         ' `category_id`, `user_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     var prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description, imagePath,
         lotData.category, lotData.userid];
-    console.log(prop);
     return query(sql, prop);
 };
 

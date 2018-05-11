@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Segment, Image, Container } from 'semantic-ui-react';
-import logo from "../logo-placeholder.png";
+import logo from "../logo-new.svg";
 import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
 import {saveLotsAndCategories} from "../actions/lotsActions";
@@ -16,7 +16,6 @@ class Home extends Component {
             // endpoint: "http://127.0.0.1:8000",
             // socket: null,
             // value: "",
-            sortedLots: null
         };
 
         // this.onChange = this.onChange.bind(this);
@@ -62,9 +61,8 @@ class Home extends Component {
                 for (let i = 0; i < res.categories.length; i++) {
                     let filtered = res.lots.filter(lot => lot.category_id === res.categories[i].category_id);
                     sortedLots.push(filtered);
-                };
-
-                this.props.saveLotsAndCategories({lots: res.lots, categories: res.categories});
+                }
+                this.props.saveLotsAndCategories({lots: res.lots, categories: res.categories, sortedLots: sortedLots});
             })
             .catch(err => console.log(err));
     }
@@ -72,13 +70,20 @@ class Home extends Component {
     render() {
         if (!this.props.lots) return null;
 
+        let groups = this.props.sortedLots.map((lotsCategory, i) => {
+            if(lotsCategory.length) {
+                return (
+                    <Segment key={i}>
+                        <h1>{this.props.categories[i].category_name}</h1>
+                        <LotGroup lots={this.props.sortedLots[i]}/>
+                    </Segment>
+                );
+            }
+        });
 
         return (
             <Container>
-                <Segment>
-                    <h1>Category</h1>
-                    <LotGroup/>
-                </Segment>
+                {groups}
                 {/*<p>{window.location.href}</p>*/}
                 {/*<p>{this.state.response}</p>*/}
                 {/*<input id='input' value={this.state.value} onChange={this.onChange}/>*/}
@@ -91,7 +96,8 @@ class Home extends Component {
 const mapStateToProps = (store) => {
     return {
         lots: store.lots.lots,
-        categories: store.lots.categories
+        categories: store.lots.categories,
+        sortedLots: store.lots.sortedLots
     };
 };
 

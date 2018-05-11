@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Image } from 'semantic-ui-react';
-import logo from "../logo-placeholder.png";
+import logo from "../logo-new.svg";
 
 class LotImageUpload extends React.Component {
 

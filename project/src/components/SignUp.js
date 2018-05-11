@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Image } from 'semantic-ui-react';
-import logo from "../logo-placeholder.png";
+import logo from "../logo-new.svg";
 import { NavLink, Redirect } from 'react-router-dom';
 import UserDataForm from "./UserDataForm";
 

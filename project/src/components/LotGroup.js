@@ -5,14 +5,13 @@ import LotCard from "./LotCard";
 class LotGroup extends Component {
 
     render() {
+        console.log(this.props.lots);
+        let cards = this.props.lots.map((lot, i)=>{
+            return <LotCard key={i} lot={lot}/>
+        });
         return(
             <Card.Group>
-                <LotCard/>
-                <LotCard/>
-                <LotCard/>
-                <LotCard/>
-                <LotCard/>
-                <LotCard/>
+                {cards}
             </Card.Group>
         );
     }

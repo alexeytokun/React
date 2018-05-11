@@ -10,7 +10,6 @@ router.get('/', function (req, res, next) {
             return lotsDB.getCategories();
         })
         .then(function (result) {
-            console.log({categories: result, lots: req.body.lots});
             return res.json({categories: result, lots: req.body.lots});
         })
         .catch(function (result) {

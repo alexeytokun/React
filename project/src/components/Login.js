@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Container, Image } from 'semantic-ui-react';
-import logo from "../logo-placeholder.png";
+import logo from "../logo-new.svg";
 import { Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { saveUserdata } from '../actions/userActions';
