@@ -43,8 +43,8 @@ CREATE TABLE `lots` (
     PRIMARY KEY(`lot_id`)
 );
 
-INSERT INTO `categories` (`category_name`) VALUES ('Category 1');
-INSERT INTO `categories` (`category_name`) VALUES ('Category 2');
-INSERT INTO `categories` (`category_name`) VALUES ('Category 3');
+INSERT INTO `categories` (`category_name`) VALUES ('Laptops');
+INSERT INTO `categories` (`category_name`) VALUES ('Tablets');
+INSERT INTO `categories` (`category_name`) VALUES ('Smartphones');
 
 

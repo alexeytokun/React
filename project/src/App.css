@@ -56,6 +56,10 @@
   font-weight: 700 !important;
 }
 
+.menu.transition {
+  margin-top: 5px !important;
+}
+
 .file {
   display: none;
 }

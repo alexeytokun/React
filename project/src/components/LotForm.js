@@ -73,17 +73,17 @@ class LotForm extends Component {
 
     validateAllFields() {
         let validation = {...this.state.validation};
-        validation.lotname = !!this.state.lotname.match(/^(?=.*\w)[а-яА-ЯёЁa-zA-Z0-9- ]{1,30}$/);
-        validation.price = !!this.state.price.match(/^(?!$)(?!0+$)\d{0,9}(?:\.\d{1,2})?$/);
+        validation.lotname = !!this.state.lotname.match(/^(?=.*\w)[0-9а-яА-ЯёЁa-zA-Z-'"?!:;,() ]{1,30}$/);
+        validation.price = !!this.state.price.match(/^(\d+\.\d{1,2})$/);
         validation.dates = !!(this.state.dates.start && this.state.dates.end);
-        validation.description = !!this.state.description.match(/^[\w .'"?!:;,-]*$/);
+        validation.description = !!this.state.description.match(/^[\w ().'"?!:;,-]*$/);
         validation.category = !!this.state.category;
         const isFormValid = !!(validation.lotname
             && validation.price
             && validation.dates
             && validation.description
             && validation.category);
-
+        console.log({validation: validation, isFormValid: isFormValid});
         return {validation: validation, isFormValid: isFormValid};
     }
 
@@ -92,7 +92,7 @@ class LotForm extends Component {
 
         switch(fieldName) {
             case 'lotname':
-                validation.lotname = !!value.match(/^(?=.*\w)[а-яА-ЯёЁa-zA-Z- ]{1,30}$/);
+                validation.lotname = !!value.match(/^(?=.*\w)[0-9а-яА-ЯёЁa-zA-Z-'"?!:;,() ]{1,30}$/);
                 break;
             case 'price':
                 validation.price = !!value.match(/^(\d+\.\d{1,2})$/);
@@ -101,7 +101,7 @@ class LotForm extends Component {
                 validation.dates = !!value.start && !!value.end;
                 break;
             case 'description':
-                validation.description = !!value.match(/^[\w .'"?!:;,-]*$/);
+                validation.description = !!value.match(/^[\w ().'"?!:;,-]*$/);
                 break;
             case 'category':
                 validation.category = !!value;

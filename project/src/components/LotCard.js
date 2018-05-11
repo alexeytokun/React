@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { Image, Card, Icon } from 'semantic-ui-react';
-import temp from "../default_product.jpg";
+import temp from '../default_product.jpg';
+import moment from 'moment';
 
 class LotCard extends Component {
 
     render() {
         console.log(this.props.lot);
-        let lot = this.props.lot;
-        let image = lot.image ? 'http://127.0.0.1:8000/' + lot.image : temp;
+        const lot = this.props.lot;
+        const image = lot.image ? 'http://127.0.0.1:8000/' + lot.image : temp;
+        let start_time = moment(lot.start_time).format('HH:mm:ss YYYY-MM-DD');
+        let end_time = moment(lot.end_time).format('HH:mm:ss YYYY-MM-DD');
+
 
         return(
             <Card href='#' centered>
@@ -18,15 +22,19 @@ class LotCard extends Component {
                     </Card.Header>
                     <Card.Meta>
                         <span className='date'>
-                            {lot.start_time}
+                            Start: {
+                            start_time
+                        }
                         </span>
                         <br/>
                         <span className='date'>
-                            {lot.end_time}
+                            End: {
+                            end_time
+                        }
                         </span>
                     </Card.Meta>
                     <Card.Description>
-                        {lot.price + '$'}
+                        Current price: {lot.price + '$'}
                     </Card.Description>
                 </Card.Content>
                 <Card.Content extra>

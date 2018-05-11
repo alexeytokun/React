@@ -7,6 +7,7 @@ class LotGroup extends Component {
     render() {
         console.log(this.props.lots);
         let cards = this.props.lots.map((lot, i)=>{
+            if(i > 5) return;
             return <LotCard key={i} lot={lot}/>
         });
         return(

@@ -50,7 +50,7 @@ class Home extends Component {
     //     this.setState({socket});
     // };
 
-    componentDidMount() {
+    componentWillMount() {
         fetch('http://127.0.0.1:8000/lots',
             {
                 headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}

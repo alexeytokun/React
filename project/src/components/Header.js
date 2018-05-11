@@ -11,6 +11,15 @@ class Header extends Component {
         const link = this.props.loggedIn ?
             <NavLink to='/'><Button onClick={this.props.userLogOut} basic size='small'>Log Out</Button></NavLink> :
             <NavLink to='/login'><Button basic size='small'>Login</Button></NavLink> ;
+
+        const categories = this.props.categories;
+        let categoriesDropdownData;
+        if (categories) {
+            categoriesDropdownData = categories.map((category, i) => {
+                return <Dropdown.Item key={i}>{category.category_name}</Dropdown.Item>
+            });
+        }
+
         return (
             <Menu secondary size='large'>
                 <Container>
@@ -19,10 +28,7 @@ class Header extends Component {
                     <Menu.Item >
                         <Dropdown text='Categories' labeled button icon='archive'>
                             <Dropdown.Menu>
-                                <Dropdown.Item>Category 1</Dropdown.Item>
-                                <Dropdown.Item>Category 2</Dropdown.Item>
-                                <Dropdown.Item>Category 3</Dropdown.Item>
-                            </Dropdown.Menu>
+                                {categoriesDropdownData}</Dropdown.Menu>
                         </Dropdown>
                     </Menu.Item>
                     {
@@ -49,7 +55,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        loggedIn: state.user.loggedIn
+        loggedIn: state.user.loggedIn,
+        categories: state.lots.categories
     };
 };
 

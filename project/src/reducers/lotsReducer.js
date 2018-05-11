@@ -1,4 +1,4 @@
-const initialState = { lots: null, categories: {} };
+const initialState = { lots: null, categories: null };
 
 const lotsReducer = (state = initialState, action) => {
     switch (action.type) {
