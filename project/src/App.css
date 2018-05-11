@@ -64,6 +64,13 @@
   display: none;
 }
 
+.category_title {
+  font-size: 2rem;
+  color: black;
+  margin-bottom: 25px;
+  display: inline-block;
+}
+
 .rc-calendar-range-right .rc-calendar-time-picker-panel {
   left: 0 !important;
 }

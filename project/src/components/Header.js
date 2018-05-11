@@ -16,7 +16,7 @@ class Header extends Component {
         let categoriesDropdownData;
         if (categories) {
             categoriesDropdownData = categories.map((category, i) => {
-                return <Dropdown.Item key={i}>{category.category_name}</Dropdown.Item>
+                return <Dropdown.Item as={NavLink} to={'/category/' + i} key={i}>{category.category_name}</Dropdown.Item>
             });
         }
 

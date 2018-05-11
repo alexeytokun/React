@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Segment, Image, Container } from 'semantic-ui-react';
+import { Segment, Container } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 import logo from "../logo-new.svg";
 import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
@@ -68,13 +69,13 @@ class Home extends Component {
     }
 
     render() {
-        if (!this.props.lots) return null;
+        if (!this.props.sortedLots) return null;
 
         let groups = this.props.sortedLots.map((lotsCategory, i) => {
             if(lotsCategory.length) {
                 return (
                     <Segment key={i}>
-                        <h1>{this.props.categories[i].category_name}</h1>
+                        <h1><NavLink style={{color: 'black'}} to={'/category/' + i}>{this.props.categories[i].category_name}</NavLink></h1>
                         <LotGroup lots={this.props.sortedLots[i]}/>
                     </Segment>
                 );
