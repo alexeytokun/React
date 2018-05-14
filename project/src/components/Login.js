@@ -69,7 +69,6 @@ class Login extends Component {
             .then((res) => res.json())
             .then((res) => {
                 sessionStorage.setItem('jwt', res.authtoken);
-                if (res.userdata.avatar) res.userdata.avatar = 'http://127.0.0.1:8000/' + res.userdata.avatar;
                 this.props.saveUserdata(res.userdata);
                 this.setState({redirect: true});
             })

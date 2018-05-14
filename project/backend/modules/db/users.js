@@ -3,6 +3,7 @@ var errorsObj = require('../config/errors');
 var usersFields = '`id`, `username`, `firstname`, `lastname`, `email`, `role`, `avatar`';
 var tokensFields = '`id`, `uuid`, `timestamp`';
 var pool = require('../config/connection').pool;
+var SERVER_URL = require('../config/constants').SERVER_URL;
 
 var query = function (sql, props) {
     return new Promise(function (resolve, reject) {
@@ -33,7 +34,8 @@ dbObj.addUserToDb = function (username, firstname, lastname, email, pass) {
 };
 
 dbObj.getUserData = function (username) {
-    var sql = 'SELECT ' + usersFields + ', `password`' + ' FROM `users` WHERE `username` = ?';
+    var sql = 'SELECT `id`, `username`, `firstname`, `lastname`, `email`, `role`, CONCAT("' + SERVER_URL + '", `avatar`)' +
+        ' AS avatar, `password`' + ' FROM `users` WHERE `username` = ?';
     var prop = [username];
     return query(sql, prop);
 };
@@ -46,14 +48,9 @@ dbObj.setAvatar = function (path, id) {
 };
 
 dbObj.getAvatar = function (id) {
-    var sql = 'SELECT `avatar` FROM `users` WHERE id=?';
+    var sql = 'SELECT CONCAT("' + SERVER_URL + '", `avatar`) AS avatar FROM `users` WHERE id=?';
     var prop = [id];
     return query(sql, prop);
-};
-
-dbObj.getUserNames = function () {
-    var sql = 'SELECT `id`, `username` FROM `users`';
-    return query(sql);
 };
 
 dbObj.checkUsername = function (name) {
@@ -63,7 +60,8 @@ dbObj.checkUsername = function (name) {
 };
 
 dbObj.getUserById = function (id) {
-    var sql = 'SELECT ' + usersFields + ' FROM `users` WHERE `id` = ?';
+    var sql = 'SELECT `id`, `username`, `firstname`, `lastname`, `email`, `role`, CONCAT("' + SERVER_URL + '", `avatar`)' +
+        ' AS avatar FROM `users` WHERE `id` = ?';
     var prop = id;
 
     return query(sql, prop);

@@ -1,5 +1,6 @@
 var errorsObj = require('../config/errors');
 var pool = require('../config/connection').pool;
+var SERVER_URL = require('../config/constants').SERVER_URL;
 
 var query = function (sql, props) {
     return new Promise(function (resolve, reject) {
@@ -29,9 +30,8 @@ lotsDB.getCategories = function () {
 };
 
 lotsDB.getAllLots = function () {
-    // var sql = 'SELECT * FROM `lots`';
-    var sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price, l.image, l.description, l.user_id,' +
-        ' l.category_id, u.username FROM `lots` AS l LEFT JOIN `users` AS u ON l.user_id = u.id';
+    var sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price, CONCAT("' + SERVER_URL + '", l.image)  AS image,' +
+        ' l.description, l.user_id, l.category_id, u.username FROM `lots` AS l LEFT JOIN `users` AS u ON l.user_id = u.id';
     var prop = '';
     return query(sql, prop);
 };

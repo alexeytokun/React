@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import LotCard from "./LotCard";
-
 import temp from '../default_product.jpg';
 
 class LotPage extends Component {

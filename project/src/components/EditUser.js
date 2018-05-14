@@ -33,7 +33,6 @@ class EditUser extends Component {
                 return fetch(url)
                     .then((res) => res.json())
                     .then((res) => {
-                        if (res.avatar) res.avatar = 'http://127.0.0.1:8000/' + res.avatar;
                         this.props.saveUserdata(res);
                     })
                     .catch((err) => console.log(err));
@@ -49,7 +48,7 @@ class EditUser extends Component {
             })
             .then(res => res.json())
             .then(res => {
-                this.props.saveUserAvatar('http://127.0.0.1:8000/' + res.source)
+                this.props.saveUserAvatar(res.source)
             })
             .catch(err => console.log(err));
     }

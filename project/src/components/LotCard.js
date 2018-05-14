@@ -28,7 +28,7 @@ class LotCard extends Component {
             }}/>;
         }
 
-        const image = lot.image ? 'http://127.0.0.1:8000/' + lot.image : temp;
+        const image = lot.image ? lot.image : temp;
         const start_time = moment(lot.start_time).format('HH:mm:ss YYYY-MM-DD');
         const end_time = moment(lot.end_time).format('HH:mm:ss YYYY-MM-DD');
 
