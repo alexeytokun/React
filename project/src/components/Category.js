@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import LotGroup from "./LotGroup";
 
@@ -14,7 +14,7 @@ class Category extends Component {
             <Container>
                 <div>
                     <h1>{this.props.categories[id].category_name}</h1>
-                    <LotGroup category={true} lots={this.props.sortedLots[id]}/>
+                    <LotGroup lots={this.props.sortedLots[id]}/>
                 </div>
             </Container>
         )

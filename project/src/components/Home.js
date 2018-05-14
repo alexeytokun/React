@@ -58,7 +58,7 @@ class Home extends Component {
                 return (
                     <Segment key={i} className='lot_group'>
                         <h1><NavLink className='category_title' to={'/category/' + i}>{this.props.categories[i].category_name}</NavLink></h1>
-                        <LotGroup lots={this.props.sortedLots[i]}/>
+                        <LotGroup lots={this.props.sortedLots[i]} homepage={true}/>
                     </Segment>
                 );
             }
