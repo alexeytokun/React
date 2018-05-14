@@ -4,8 +4,6 @@ import { NavLink } from 'react-router-dom';
 import logo from "../logo-new.svg";
 import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
-import {saveLotsAndCategories} from "../actions/lotsActions";
-import {saveUsernames} from "../actions/userActions";
 import LotGroup from "./LotGroup";
 
 
@@ -52,24 +50,6 @@ class Home extends Component {
     //     this.setState({socket});
     // };
 
-    componentWillMount() {
-        fetch('http://127.0.0.1:8000/lots',
-            {
-                headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
-            })
-            .then(res => res.json())
-            .then(res => {
-                let sortedLots = [];
-                for (let i = 0; i < res.categories.length; i++) {
-                    let filtered = res.lots.filter(lot => lot.category_id === res.categories[i].category_id);
-                    sortedLots.push(filtered);
-                }
-                this.props.saveLotsAndCategories({lots: res.lots, categories: res.categories, sortedLots: sortedLots});
-                this.props.saveUsernames(res.usernames);
-            })
-            .catch(err => console.log(err));
-    }
-
     render() {
         if (!this.props.sortedLots) return null;
 
@@ -96,20 +76,12 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (state) => {
     return {
-        lots: store.lots.lots,
-        categories: store.lots.categories,
-        sortedLots: store.lots.sortedLots,
-        usernames: store.user.usernames
+        categories: state.lots.categories,
+        sortedLots: state.lots.sortedLots,
+        usernames: state.user.usernames
     };
 };
 
-const dispatchStateToProps = (dispatch) => {
-    return {
-        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata)),
-        saveUsernames: names => dispatch(saveUsernames(names))
-    };
-};
-
-export default connect(mapStateToProps, dispatchStateToProps)(Home);
+export default connect(mapStateToProps, null)(Home);

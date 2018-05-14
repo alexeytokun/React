@@ -3,9 +3,28 @@ import { NavLink } from 'react-router-dom';
 import {Menu, Button, Container, Dropdown, Image } from 'semantic-ui-react';
 import logo from "../logo-new.svg";
 import { connect } from 'react-redux';
-import { userLogOut } from "../actions/userActions";
+import {saveUsernames, userLogOut} from "../actions/userActions";
+import {saveLotsAndCategories} from "../actions/lotsActions";
 
 class Header extends Component {
+
+    componentWillMount() {
+        fetch('http://127.0.0.1:8000/lots',
+            {
+                headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
+            })
+            .then(res => res.json())
+            .then(res => {
+                let sortedLots = [];
+                for (let i = 0; i < res.categories.length; i++) {
+                    let filtered = res.lots.filter(lot => lot.category_id === res.categories[i].category_id);
+                    sortedLots.push(filtered);
+                }
+                this.props.saveLotsAndCategories({lots: res.lots, categories: res.categories, sortedLots: sortedLots});
+                this.props.saveUsernames(res.usernames);
+            })
+            .catch(err => console.log(err));
+    }
 
     render() {
         const link = this.props.loggedIn ?
@@ -56,12 +75,19 @@ class Header extends Component {
 const mapStateToProps = (state) => {
     return {
         loggedIn: state.user.loggedIn,
-        categories: state.lots.categories
+        categories: state.lots.categories,
+        lots: state.lots.lots,
+        sortedLots: state.lots.sortedLots,
+        usernames: state.user.usernames
     };
 };
 
 const dispatchStateToProps = (dispatch) => {
-    return { userLogOut: () => dispatch(userLogOut()) };
+    return {
+        userLogOut: () => dispatch(userLogOut()),
+        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata)),
+        saveUsernames: names => dispatch(saveUsernames(names))
+    };
 };
 
 export default connect(mapStateToProps, dispatchStateToProps)(Header);
