@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
-import LotCard from "./LotCard";
+import { Container, Image, Grid } from 'semantic-ui-react';
 import temp from '../default_product.jpg';
 
 class LotPage extends Component {
@@ -12,8 +11,16 @@ class LotPage extends Component {
         }
 
         return(
-            <Container>
-                <LotCard lot={lot}/>
+            <Container className='lot_container'>
+                <Grid>
+                    <Grid.Column width={6}>
+                        <Image size='large' src={lot.image || temp}/>
+                    </Grid.Column>
+                    <Grid.Column width={7}>
+                        <h2>{lot.lot_name}</h2>
+                        <p>{lot.description}</p>
+                    </Grid.Column>
+                </Grid>
             </Container>
         );
     }

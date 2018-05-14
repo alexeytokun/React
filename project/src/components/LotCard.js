@@ -33,7 +33,7 @@ class LotCard extends Component {
         const end_time = moment(lot.end_time).format('HH:mm:ss YYYY-MM-DD');
 
         return(
-            <Card onClick={this.handleClick} centered>
+            <Card onClick={this.handleClick} centered className='lot_card'>
                 <Image src={image} />
                 <Card.Content>
                     <Card.Header>

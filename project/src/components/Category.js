@@ -12,10 +12,10 @@ class Category extends Component {
 
         return (
             <Container>
-                <Segment>
+                <div>
                     <h1>{this.props.categories[id].category_name}</h1>
                     <LotGroup category={true} lots={this.props.sortedLots[id]}/>
-                </Segment>
+                </div>
             </Container>
         )
     }
