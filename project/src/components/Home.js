@@ -58,7 +58,7 @@ class Home extends Component {
                 return (
                     <Segment key={i}>
                         <h1><NavLink style={{color: 'black'}} to={'/category/' + i}>{this.props.categories[i].category_name}</NavLink></h1>
-                        <LotGroup lots={this.props.sortedLots[i]} usernames={this.props.usernames}/>
+                        <LotGroup lots={this.props.sortedLots[i]}/>
                     </Segment>
                 );
             }
@@ -79,8 +79,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     return {
         categories: state.lots.categories,
-        sortedLots: state.lots.sortedLots,
-        usernames: state.user.usernames
+        sortedLots: state.lots.sortedLots
     };
 };
 

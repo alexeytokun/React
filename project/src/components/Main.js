@@ -18,7 +18,7 @@ class Main extends Component {
                     <Route path='/login' component={Login}/>
                     <Route path='/signup' component={SignUp}/>
                     <Route path='/user/:id' component={EditUser}/>
-                    <Route path='/lot' component={AddLot}/>
+                    <Route exact path='/lot' component={AddLot}/>
                     <Route path='/lot/:id' component={LotPage}/>
                     <Route path='/category/:id' component={Category}/>
                 </Switch>

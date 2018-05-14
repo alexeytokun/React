@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {Menu, Button, Container, Dropdown, Image } from 'semantic-ui-react';
 import logo from "../logo-new.svg";
 import { connect } from 'react-redux';
-import {saveUsernames, userLogOut} from "../actions/userActions";
+import {userLogOut} from "../actions/userActions";
 import {saveLotsAndCategories} from "../actions/lotsActions";
 
 class Header extends Component {
@@ -21,7 +21,6 @@ class Header extends Component {
                     sortedLots.push(filtered);
                 }
                 this.props.saveLotsAndCategories({lots: res.lots, categories: res.categories, sortedLots: sortedLots});
-                this.props.saveUsernames(res.usernames);
             })
             .catch(err => console.log(err));
     }
@@ -77,16 +76,14 @@ const mapStateToProps = (state) => {
         loggedIn: state.user.loggedIn,
         categories: state.lots.categories,
         lots: state.lots.lots,
-        sortedLots: state.lots.sortedLots,
-        usernames: state.user.usernames
+        sortedLots: state.lots.sortedLots
     };
 };
 
 const dispatchStateToProps = (dispatch) => {
     return {
         userLogOut: () => dispatch(userLogOut()),
-        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata)),
-        saveUsernames: names => dispatch(saveUsernames(names))
+        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata))
     };
 };
 

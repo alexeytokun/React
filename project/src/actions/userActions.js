@@ -18,10 +18,3 @@ export function userLogOut() {
         payload: ''
     };
 }
-
-export function saveUsernames(names) {
-    return {
-        type: "USER_SAVE_USERNAMES",
-        payload: names
-    };
-}

@@ -29,7 +29,9 @@ lotsDB.getCategories = function () {
 };
 
 lotsDB.getAllLots = function () {
-    var sql = 'SELECT * FROM `lots`';
+    // var sql = 'SELECT * FROM `lots`';
+    var sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price, l.image, l.description, l.user_id,' +
+        ' l.category_id, u.username FROM `lots` AS l LEFT JOIN `users` AS u ON l.user_id = u.id';
     var prop = '';
     return query(sql, prop);
 };
