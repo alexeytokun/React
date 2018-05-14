@@ -3,6 +3,7 @@ import { Container, Image } from 'semantic-ui-react';
 import logo from "../logo-new.svg";
 import { NavLink, Redirect } from 'react-router-dom';
 import UserDataForm from "./UserDataForm";
+import { SERVER_URL } from "../constants";
 
 
 class SignUp extends Component {
@@ -20,7 +21,7 @@ class SignUp extends Component {
 
         const body = JSON.stringify(data);
 
-        fetch('http://127.0.0.1:8000/user', {
+        fetch(SERVER_URL + 'user', {
             method: 'POST',
             headers: {
                 "Content-type": "application/json",

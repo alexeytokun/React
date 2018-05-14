@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import FileUpload from './FileUpload';
 import {saveUserdata} from "../actions/userActions";
 import {saveUserAvatar} from "../actions/userActions";
+import { SERVER_URL } from "../constants";
 
 class EditUser extends Component {
 
@@ -19,7 +20,7 @@ class EditUser extends Component {
     handleSubmit(isFormValid, data) {
         if (!isFormValid || !this.props.userData) return;
         const body = JSON.stringify(data);
-        const url = 'http://127.0.0.1:8000/user/' + this.props.userData.id;
+        const url = SERVER_URL + 'user/' + this.props.userData.id;
 
         fetch(url, {
             method: 'POST',
@@ -42,7 +43,7 @@ class EditUser extends Component {
 
     getAvatar() {
         if (!this.props.userData) return;
-        fetch('http://127.0.0.1:8000/user/avatar/' + this.props.userData.id,
+        fetch(SERVER_URL + 'user/avatar/' + this.props.userData.id,
             {
                 headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
             })

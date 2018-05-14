@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
+import { SERVER_URL } from "../constants";
 
 class FileUpload extends React.Component {
 
@@ -23,7 +24,7 @@ class FileUpload extends React.Component {
         this.setState({file:e.target.files[0]});
     }
     fileUpload(file){
-        const url = 'http://127.0.0.1:8000/user/avatar/' + this.state.userid;
+        const url = SERVER_URL + 'user/avatar/' + this.state.userid;
         const formData = new FormData();
         formData.append('avatar', file);
         return fetch(url, {

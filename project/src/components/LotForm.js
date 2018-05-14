@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Container, Select, TextArea, Image } from 'semantic-ui-react';
 import DatePicker from './DatePicker';
 import LotImageUpload from './LotImageUpload';
+import { SERVER_URL } from "../constants";
 
 class LotForm extends Component {
 
@@ -36,7 +37,7 @@ class LotForm extends Component {
     }
 
     componentDidMount() {
-        fetch('http://127.0.0.1:8000/lot/categories')
+        fetch(SERVER_URL + 'lot/categories')
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);

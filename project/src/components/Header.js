@@ -5,11 +5,12 @@ import logo from "../logo-new.svg";
 import { connect } from 'react-redux';
 import {userLogOut} from "../actions/userActions";
 import {saveLotsAndCategories} from "../actions/lotsActions";
+import { SERVER_URL } from "../constants";
 
 class Header extends Component {
 
     componentWillMount() {
-        fetch('http://127.0.0.1:8000/lots',
+        fetch(SERVER_URL + 'lots',
             {
                 headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
             })

@@ -4,6 +4,7 @@ import logo from "../logo-new.svg";
 import { Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { saveUserdata } from '../actions/userActions';
+import { SERVER_URL } from "../constants";
 
 class Login extends Component {
     constructor(props) {
@@ -59,7 +60,7 @@ class Login extends Component {
             pass: this.state.pass
         });
 
-        fetch('http://127.0.0.1:8000/signin', {
+        fetch(SERVER_URL + 'signin', {
             method: 'POST',
             headers: {
                 "Content-type": "application/json"

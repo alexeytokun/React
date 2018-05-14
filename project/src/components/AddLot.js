@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import LotForm from "./LotForm";
 import {connect} from "react-redux";
+import { SERVER_URL } from "../constants";
 
 class AddLot extends Component {
 
@@ -22,7 +23,7 @@ class AddLot extends Component {
         formData.append('file', file);
         formData.append('lotdata', JSON.stringify(data));
 
-        fetch('http://127.0.0.1:8000/lot', {
+        fetch(SERVER_URL + 'lot', {
             method: 'POST',
             headers: {
                 "User-Auth-Token": sessionStorage.getItem('jwt')
