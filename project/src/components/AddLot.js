@@ -30,6 +30,10 @@ class AddLot extends Component {
             },
             body: formData
         })
+            .then((res) => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
+            })
             .then((res) => res.json())
             .then((res) => console.log(res.message))
             .catch((err) => console.log(err));

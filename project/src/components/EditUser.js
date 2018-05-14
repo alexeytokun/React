@@ -31,7 +31,15 @@ class EditUser extends Component {
             body: body
             })
             .then((res) => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
+            })
+            .then((res) => {
                 return fetch(url)
+                    .then((res) => {
+                        if (!res.ok) throw Error(res.statusText);
+                        return res;
+                    })
                     .then((res) => res.json())
                     .then((res) => {
                         this.props.saveUserdata(res);
@@ -46,6 +54,10 @@ class EditUser extends Component {
         fetch(SERVER_URL + 'user/avatar/' + this.props.userData.id,
             {
                 headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
+            })
+            .then((res) => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
             })
             .then(res => res.json())
             .then(res => {

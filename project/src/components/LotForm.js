@@ -38,6 +38,10 @@ class LotForm extends Component {
 
     componentDidMount() {
         fetch(SERVER_URL + 'lot/categories')
+            .then((res) => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
+            })
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);

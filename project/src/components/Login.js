@@ -67,6 +67,10 @@ class Login extends Component {
             },
             body: body
             })
+            .then((res) => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
+            })
             .then((res) => res.json())
             .then((res) => {
                 sessionStorage.setItem('jwt', res.authtoken);

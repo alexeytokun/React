@@ -30,9 +30,15 @@ class FileUpload extends React.Component {
         return fetch(url, {
             method: 'POST',
             body: formData
-        }).then(
-            response => response.json()
-        );
+        })
+            .then((res) => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
+            })
+            .then(
+                response => response.json()
+            )
+            .catch(error => console.log(error));
     }
 
     componentWillMount() {

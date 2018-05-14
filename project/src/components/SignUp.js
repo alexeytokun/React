@@ -29,6 +29,10 @@ class SignUp extends Component {
             },
             body: body
         })
+            .then((res) => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
+            })
             .then((res) => res.json())
             .then((res) => this.setState({redirect: true}))
             .catch((err) => console.log(err));

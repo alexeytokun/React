@@ -14,6 +14,10 @@ class Header extends Component {
             {
                 headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
             })
+            .then((res) => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
+            })
             .then(res => res.json())
             .then(res => {
                 let sortedLots = [];
