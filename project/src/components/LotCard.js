@@ -57,7 +57,7 @@ class LotCard extends Component {
                         {lot.lot_name}
                     </Card.Header>
                     <Card.Description>
-                        Current price: {lot.price + '$'}
+                        Current Bid: {lot.price + '$'}
                     </Card.Description>
                     <Card.Meta>
                         <span style={{color: status.color}}>{status.text}</span>

@@ -13,13 +13,12 @@ class LotPage extends Component {
 
         if (isEnded) return <p style={{fontSize: 20, color: 'red'}}>Finished</p>;
 
-        const diff =  new Date(start) - Date.now();
-        const days = Math.ceil(diff / 86400000);
-        if (days > 1) return <p style={{fontSize: 20, color: 'black'}}>{'Starts in ' + days + ' days'}</p>;
-
-        const hours = Math.ceil(diff / 3600000);
-        const text = 'Starts in ' + hours + ((hours === 1) ? ' hour' : ' hours');
-        return <p style={{fontSize: 20, color: 'black'}}>{text}</p>;
+        return (
+            <div>
+                <span style={{fontSize: 20, color: 'black'}}>Auction starts in:</span>
+                <Countdown date={start}/>
+            </div>
+        );
     }
 
     render() {
@@ -40,7 +39,7 @@ class LotPage extends Component {
                         <h2>{lot.lot_name}</h2>
                         <p>{lot.description}</p>
                         {countdown}
-                        <p style={{fontWeight: 'bold'}}>Current price: {lot.price + '$'}</p>
+                        <p style={{fontWeight: 'bold'}}>Current Bid: {lot.price + '$'}</p>
                     </Grid.Column>
                 </Grid>
             </Container>

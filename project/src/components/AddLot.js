@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import LotForm from "./LotForm";
 import {connect} from "react-redux";
+import { Redirect } from 'react-router-dom';
 import { SERVER_URL } from "../constants";
 import ErrorModal from "./ErrorModal";
 import axios from 'axios/index';
@@ -12,7 +13,8 @@ class AddLot extends Component {
         super(props);
 
         this.state = {
-            error: null
+            error: null,
+            redirect: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,7 +35,7 @@ class AddLot extends Component {
                 "User-Auth-Token": sessionStorage.getItem('jwt')
             }
         })
-            .then((res) => console.log(res.data.message))
+            .then((res) => this.setState({redirect: true}))
             .catch((err) => {
                 const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
                 this.setState({error: errorMessage});
@@ -45,6 +47,10 @@ class AddLot extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect push to='/lots/user' />;
+        }
+
         return (
             <Container className="reg_wrapper">
                 <ErrorModal error={this.state.error} onClose={this.onModalClose}/>

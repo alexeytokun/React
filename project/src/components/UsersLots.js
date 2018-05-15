@@ -3,6 +3,9 @@ import { Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import LotGroup from "./LotGroup";
 import Paginator from "./Paginator";
+import {saveLotsAndCategories} from "../actions/lotsActions";
+import {updateLots} from "../functions";
+import ErrorModal from "./ErrorModal";
 
 const pageSize = 6;
 
@@ -16,7 +19,8 @@ class UsersLots extends Component {
             pagination: {
                 start: 0,
                 end: pageSize
-            }
+            },
+            error: null
         };
         this.handlePageChange = this.handlePageChange.bind(this);
     }
@@ -27,6 +31,10 @@ class UsersLots extends Component {
         this.setState({page, pagination});
     }
 
+    componentWillMount() {
+        updateLots(this);
+    }
+
     render() {
         if (!this.props.lots || !this.props.userData) return null;
         const usersLots = this.props.lots.filter(lot => lot.user_id === this.props.userData.id);
@@ -35,6 +43,7 @@ class UsersLots extends Component {
         if (!usersLots.length) {
             return (
                 <Container>
+                    <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                     <div>
                         <h1>You don`t have lots</h1>
                     </div>
@@ -44,6 +53,7 @@ class UsersLots extends Component {
 
         return (
             <Container>
+                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <div>
                     <h1>Your lots</h1>
                     <LotGroup category={true} lots={paginatedLots}/>
@@ -65,4 +75,10 @@ const mapStateToProps = (store) => {
     };
 };
 
-export default connect(mapStateToProps, null)(UsersLots);
+const dispatchStateToProps = (dispatch) => {
+    return {
+        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata))
+    };
+};
+
+export default connect(mapStateToProps, dispatchStateToProps)(UsersLots);
