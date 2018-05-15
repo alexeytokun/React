@@ -5,6 +5,7 @@ import { Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { saveUserdata } from '../actions/userActions';
 import { SERVER_URL } from "../constants";
+import ErrorModal from "./ErrorModal";
 
 class Login extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class Login extends Component {
             validation: {
                 username: true,
                 pass: true
-            }
+            },
+            error: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -77,7 +79,7 @@ class Login extends Component {
                 this.props.saveUserdata(res.userdata);
                 this.setState({redirect: true});
             })
-            .catch((err) => console.log(err));
+            .catch((err) => this.setState({error: err}, () => setTimeout(() => this.setState({error: null}), 3000))); // for modal
     }
 
     render() {
@@ -87,6 +89,7 @@ class Login extends Component {
 
         return (
             <Container className="reg_wrapper">
+                <ErrorModal error={this.state.error}/>
                 <Image className="reg_logo"  size='large' centered src={logo}/>
                 <Form>
                     <Form.Field>
