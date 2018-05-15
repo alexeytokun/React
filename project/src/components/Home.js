@@ -5,6 +5,9 @@ import logo from "../logo-new.svg";
 import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
 import LotGroup from "./LotGroup";
+import {updateLots} from "../functions";
+import {saveLotsAndCategories} from "../actions/lotsActions";
+import ErrorModal from "./ErrorModal";
 
 
 class Home extends Component {
@@ -16,6 +19,7 @@ class Home extends Component {
             // endpoint: "http://127.0.0.1:8000",
             // socket: null,
             // value: "",
+            error: null
         };
 
         // this.onChange = this.onChange.bind(this);
@@ -50,6 +54,14 @@ class Home extends Component {
     //     this.setState({socket});
     // };
 
+    componentWillMount() {
+        updateLots(this);
+    }
+
+    onModalClose() {
+        this.setState({error: null});
+    }
+
     render() {
         if (!this.props.sortedLots) return null;
 
@@ -66,6 +78,7 @@ class Home extends Component {
 
         return (
             <Container>
+                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 {groups}
                 {/*<p>{window.location.href}</p>*/}
                 {/*<p>{this.state.response}</p>*/}
@@ -83,4 +96,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, null)(Home);
+const dispatchStateToProps = (dispatch) => {
+    return {
+        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata))
+    };
+};
+
+export default connect(mapStateToProps, dispatchStateToProps)(Home);
