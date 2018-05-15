@@ -1,0 +1,22 @@
+.Countdown{
+    margin: 10px auto;
+}
+
+.Countdown-col{
+    display: inline-block;
+}
+
+.Countdown-col-element{
+    display: inline-block;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Countdown-col-element strong{
+    font-size: 20px;
+}
+
+.Countdown-text {
+    font-size: 10px;
+}

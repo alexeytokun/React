@@ -56,7 +56,7 @@ class Home extends Component {
         let groups = this.props.sortedLots.map((lotsCategory, i) => {
             if(lotsCategory.length) {
                 return (
-                    <Segment key={i} className='lot_group'>
+                    <Segment  color={'black'} key={i} className='lot_group'>
                         <h1><NavLink className='category_title' to={'/category/' + i}>{this.props.categories[i].category_name}</NavLink></h1>
                         <LotGroup lots={this.props.sortedLots[i]} homepage={true}/>
                     </Segment>

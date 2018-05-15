@@ -3,6 +3,7 @@ import { Image, Card, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import temp from '../default_product.jpg';
 import moment from 'moment';
+import Countdown from "./Countdown";
 
 class LotCard extends Component {
 
@@ -18,6 +19,22 @@ class LotCard extends Component {
         this.setState({redirect: true});
     }
 
+    countLotTime(start, end) {
+        const isStarted = Date.now() >= new Date(start);
+        const isEnded = new Date(end) < Date.now();
+
+        if (isStarted && !isEnded) return {text: 'Active', color: 'green'};
+        if (isEnded) return {text: 'Finished', color: 'red'};
+
+        const diff =  new Date(start) - Date.now();
+        const days = Math.ceil(diff / 86400000);
+        if (days > 1) return {text: 'Starts in ' + days + ' days', color: 'black'};
+
+        const hours = Math.ceil(diff / 3600000);
+        const text = 'Starts in ' + hours + ((hours === 1) ? ' hour' : ' hours');
+        return {text: text, color: 'black'};
+    }
+
     render() {
         const lot = this.props.lot;
 
@@ -29,8 +46,8 @@ class LotCard extends Component {
         }
 
         const image = lot.image ? lot.image : temp;
-        const start_time = moment(lot.start_time).format('HH:mm:ss YYYY-MM-DD');
-        const end_time = moment(lot.end_time).format('HH:mm:ss YYYY-MM-DD');
+        const status = this.countLotTime(lot.start_time, lot.end_time);
+
 
         return(
             <Card onClick={this.handleClick} centered className='lot_card'>
@@ -39,22 +56,12 @@ class LotCard extends Component {
                     <Card.Header>
                         {lot.lot_name}
                     </Card.Header>
-                    <Card.Meta>
-                        <span className='date'>
-                            Start: {
-                            start_time
-                        }
-                        </span>
-                        <br/>
-                        <span className='date'>
-                            End: {
-                            end_time
-                        }
-                        </span>
-                    </Card.Meta>
                     <Card.Description>
                         Current price: {lot.price + '$'}
                     </Card.Description>
+                    <Card.Meta>
+                        <span style={{color: status.color}}>{status.text}</span>
+                    </Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
                     <Icon name='user' />
