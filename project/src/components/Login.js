@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { saveUserdata } from '../actions/userActions';
 import { SERVER_URL } from "../constants";
 import ErrorModal from "./ErrorModal";
+import axios from 'axios/index';
 
 class Login extends Component {
     constructor(props) {
@@ -22,6 +23,7 @@ class Login extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onModalClose = this.onModalClose.bind(this);
     }
 
     handleChange(e) {
@@ -62,24 +64,24 @@ class Login extends Component {
             pass: this.state.pass
         });
 
-        fetch(SERVER_URL + 'signin', {
-            method: 'POST',
+        axios.post(SERVER_URL + 'signin', body, {
             headers: {
                 "Content-type": "application/json"
-            },
-            body: body
-            })
+            }
+        })
             .then((res) => {
-                if (!res.ok) throw Error(res.statusText);
-                return res;
-            })
-            .then((res) => res.json())
-            .then((res) => {
-                sessionStorage.setItem('jwt', res.authtoken);
-                this.props.saveUserdata(res.userdata);
+                sessionStorage.setItem('jwt', res.data.authtoken);
+                this.props.saveUserdata(res.data.userdata);
                 this.setState({redirect: true});
             })
-            .catch((err) => this.setState({error: err}, () => setTimeout(() => this.setState({error: null}), 3000))); // for modal
+            .catch((err) => {
+                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
+                this.setState({error: errorMessage});
+            });
+    }
+
+    onModalClose() {
+        this.setState({error: null});
     }
 
     render() {
@@ -89,7 +91,7 @@ class Login extends Component {
 
         return (
             <Container className="reg_wrapper">
-                <ErrorModal error={this.state.error}/>
+                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <Image className="reg_logo"  size='large' centered src={logo}/>
                 <Form>
                     <Form.Field>

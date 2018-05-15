@@ -3,15 +3,20 @@ import { Container } from 'semantic-ui-react';
 import LotForm from "./LotForm";
 import {connect} from "react-redux";
 import { SERVER_URL } from "../constants";
+import ErrorModal from "./ErrorModal";
+import axios from 'axios/index';
 
 class AddLot extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            error: null
+        };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onModalClose = this.onModalClose.bind(this);
     }
 
     handleSubmit(isFormValid, data, file) {
@@ -23,25 +28,26 @@ class AddLot extends Component {
         formData.append('file', file);
         formData.append('lotdata', JSON.stringify(data));
 
-        fetch(SERVER_URL + 'lot', {
-            method: 'POST',
+        axios.post(SERVER_URL + 'lot', formData, {
             headers: {
                 "User-Auth-Token": sessionStorage.getItem('jwt')
-            },
-            body: formData
+            }
         })
-            .then((res) => {
-                if (!res.ok) throw Error(res.statusText);
-                return res;
-            })
-            .then((res) => res.json())
-            .then((res) => console.log(res.message))
-            .catch((err) => console.log(err));
+            .then((res) => console.log(res.data.message))
+            .catch((err) => {
+                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
+                this.setState({error: errorMessage});
+            });
+    }
+
+    onModalClose() {
+        this.setState({error: null});
     }
 
     render() {
         return (
             <Container className="reg_wrapper">
+                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <LotForm handleSubmit={this.handleSubmit}/>
             </Container>
         );

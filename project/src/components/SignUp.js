@@ -4,6 +4,8 @@ import logo from "../logo-new.svg";
 import { NavLink, Redirect } from 'react-router-dom';
 import UserDataForm from "./UserDataForm";
 import { SERVER_URL } from "../constants";
+import ErrorModal from "./ErrorModal";
+import axios from 'axios/index';
 
 
 class SignUp extends Component {
@@ -11,9 +13,11 @@ class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false
+            redirect: false,
+            error: null
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onModalClose = this.onModalClose.bind(this);
     }
 
     handleSubmit(isFormValid, data) {
@@ -21,21 +25,21 @@ class SignUp extends Component {
 
         const body = JSON.stringify(data);
 
-        fetch(SERVER_URL + 'user', {
-            method: 'POST',
+        axios.post(SERVER_URL + 'user', body, {
             headers: {
                 "Content-type": "application/json",
                 "User-Auth-Token": sessionStorage.getItem('jwt')
-            },
-            body: body
+            }
         })
-            .then((res) => {
-                if (!res.ok) throw Error(res.statusText);
-                return res;
-            })
-            .then((res) => res.json())
             .then((res) => this.setState({redirect: true}))
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
+                this.setState({error: errorMessage});
+            });
+    }
+
+    onModalClose() {
+        this.setState({error: null});
     }
 
     render() {
@@ -45,6 +49,7 @@ class SignUp extends Component {
 
         return (
             <Container className="reg_wrapper">
+                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <Image className="reg_logo"  size='large' centered src={logo}/>
                 <UserDataForm handleSubmit={this.handleSubmit}/>
                 <p className="reg_text">

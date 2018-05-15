@@ -138,25 +138,4 @@ router.post('/:id', function (req, res, next) {
         });
 });
 
-// router.delete('/:id', function (req, res, next) {
-//     if (req.body.token !== 'admin') {
-//         return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
-//     }
-//     return next();
-// }, function (req, res, next) {
-//     dbObj.deleteUser(req.params.id)
-//         .then(function (result) {
-//             if (result.id) {
-//                 return dbObj.deleteUnusedToken(result.id)
-//                     .then(function () {
-//                         return res.status(result.status).json({ message: result.message });
-//                     });
-//             }
-//             return res.status(result.status).json({ message: result.message });
-//         })
-//         .catch(function (result) {
-//             res.status(result.status).json({ message: result.message });
-//         });
-// });
-
 module.exports = router;

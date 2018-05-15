@@ -1,7 +1,4 @@
-var uuidv4 = require('uuid/v4');
 var errorsObj = require('../config/errors');
-var usersFields = '`id`, `username`, `firstname`, `lastname`, `email`, `role`, `avatar`';
-var tokensFields = '`id`, `uuid`, `timestamp`';
 var pool = require('../config/connection').pool;
 var SERVER_URL = require('../config/constants').SERVER_URL;
 
@@ -43,7 +40,6 @@ dbObj.getUserData = function (username) {
 dbObj.setAvatar = function (path, id) {
     var sql = 'UPDATE `users` SET `avatar`=? WHERE id=?';
     var prop = [path, id];
-    console.log(prop);
     return query(sql, prop);
 };
 
@@ -74,22 +70,6 @@ dbObj.getUserRole = function (id) {
     return query(sql, prop);
 };
 
-// dbObj.deleteUser = function (id) {
-//     var sql = 'DELETE FROM `users` WHERE `id` = ?';
-//     var prop = id;
-//
-//     return query(sql, prop)
-//         .then(function (result) {
-//             if (result.affectedRows !== 0) {
-//                 return ({ status: 200, message: 'User deleted', id: id });
-//             }
-//             return ({ status: 400, message: errorsObj.WRONG_ID });
-//         })
-//         .catch(function (result) {
-//             throw ({ status: result.status, message: result.message });
-//         });
-// };
-//
 dbObj.updateUserData = function (id, data) {
     var sql = 'UPDATE `users` SET `username`=?, `firstname`=?, `lastname`=?, `email`=?,`password`=? WHERE id=?';
     var prop = [data.username, data.firstname, data.lastname, data.email, data.pass, id];

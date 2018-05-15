@@ -6,28 +6,41 @@ import { connect } from 'react-redux';
 import {userLogOut} from "../actions/userActions";
 import {saveLotsAndCategories} from "../actions/lotsActions";
 import { SERVER_URL } from "../constants";
+import ErrorModal from "./ErrorModal";
+import axios from 'axios/index';
 
 class Header extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: null
+        };
+        this.onModalClose = this.onModalClose.bind(this);
+    }
+
     componentWillMount() {
-        fetch(SERVER_URL + 'lots',
+        axios.get(SERVER_URL + 'lots',
             {
                 headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
             })
-            .then((res) => {
-                if (!res.ok) throw Error(res.statusText);
-                return res;
-            })
-            .then(res => res.json())
             .then(res => {
+                let response = res.data;
                 let sortedLots = [];
-                for (let i = 0; i < res.categories.length; i++) {
-                    let filtered = res.lots.filter(lot => lot.category_id === res.categories[i].category_id);
+                for (let i = 0; i < response.categories.length; i++) {
+                    let filtered = response.lots.filter(lot => lot.category_id === response.categories[i].category_id);
                     sortedLots.push(filtered);
                 }
-                this.props.saveLotsAndCategories({lots: res.lots, categories: res.categories, sortedLots: sortedLots});
+                this.props.saveLotsAndCategories({lots: response.lots, categories: response.categories, sortedLots: sortedLots});
             })
-            .catch(err => console.log(err));
+            .catch((err) => {
+                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
+                this.setState({error: errorMessage});
+            });
+    }
+
+    onModalClose() {
+        this.setState({error: null});
     }
 
     render() {
@@ -45,6 +58,7 @@ class Header extends Component {
 
         return (
             <Menu secondary size='large'>
+                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <Container>
                     <Menu.Item><Image size='tiny' centered src={logo}/></Menu.Item>
                     <Menu.Item><NavLink className='menu_item' to='/'>Home</NavLink></Menu.Item>
