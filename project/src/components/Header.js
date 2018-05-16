@@ -46,9 +46,8 @@ class Header extends Component {
                     <Menu.Item><Image size='tiny' centered src={logo}/></Menu.Item>
                     <Menu.Item><NavLink className='menu_item' to='/'>Home</NavLink></Menu.Item>
                     <Menu.Item >
-                        <Dropdown text='Categories' labeled button icon='archive'>
-                            <Dropdown.Menu>
-                                {categoriesDropdownData}</Dropdown.Menu>
+                        <Dropdown disabled={!categoriesDropdownData} text='Categories' labeled button icon='archive'>
+                            <Dropdown.Menu>{categoriesDropdownData}</Dropdown.Menu>
                         </Dropdown>
                     </Menu.Item>
                     {
