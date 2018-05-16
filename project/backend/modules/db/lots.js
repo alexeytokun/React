@@ -44,4 +44,10 @@ lotsDB.addLotToDb = function (lotData, imagePath) {
     return query(sql, prop);
 };
 
+lotsDB.getBidData = function (id) {
+    var sql = 'SELECT `price`, `bidder_id` FROM `lots` WHERE `lot_id` = ?';
+    var prop = [id];
+    return query(sql, prop);
+};
+
 module.exports = lotsDB;

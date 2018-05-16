@@ -1,13 +1,6 @@
 CREATE DATABASE project;
 USE project;
 
-CREATE TABLE `tokens` (
-    `id` INT(11) AUTO_INCREMENT,
-    `uuid` VARCHAR(40),
-    `timestamp` BIGINT(15),
-    PRIMARY KEY(`id`)
-);
-
 CREATE TABLE `users` (
     `id` INT(11) AUTO_INCREMENT,
     `username` VARCHAR(30) COLLATE utf8_bin,
@@ -26,7 +19,7 @@ CREATE TABLE `categories` (
     PRIMARY KEY(`category_id`)
 );
 
-CREATE TABLE `lots` (
+CREATE TABLE `lots2` (
     `lot_id` INT(11) AUTO_INCREMENT,
     `lot_name` VARCHAR(45),
     `start_time` DATETIME,
@@ -36,10 +29,13 @@ CREATE TABLE `lots` (
     `description` VARCHAR(255),
     `user_id` INT(11),
     `category_id` INT(11),
+    `bidder_id` INT(11),
     FOREIGN KEY(`user_id`)
         REFERENCES `users`(`id`),
     FOREIGN KEY(`category_id`)
         REFERENCES `categories`(`category_id`),
+    FOREIGN KEY(`bidder_id`)
+        REFERENCES `users`(`id`),
     PRIMARY KEY(`lot_id`)
 );
 

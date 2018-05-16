@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import LotGroup from "./LotGroup";
 import {updateLots} from "../functions";
 import {saveLotsAndCategories} from "../actions/lotsActions";
-import ErrorModal from "./ErrorModal";
 import {saveError} from "../actions/errorsActions";
 
 

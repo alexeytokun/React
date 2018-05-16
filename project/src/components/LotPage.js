@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Container, Image, Grid } from 'semantic-ui-react';
 import temp from '../default_product.jpg';
 import Countdown from "./Countdown";
+import Bid from './Bid';
+import {connect} from "react-redux";
+import {saveError} from "../actions/errorsActions";
 
 class LotPage extends Component {
 
@@ -39,7 +42,7 @@ class LotPage extends Component {
                         <h2>{lot.lot_name}</h2>
                         <p>{lot.description}</p>
                         {countdown}
-                        <p style={{fontWeight: 'bold'}}>Current Bid: {lot.price + '$'}</p>
+                        <Bid lot={lot} user={this.props.userData}/>
                     </Grid.Column>
                 </Grid>
             </Container>
@@ -47,4 +50,18 @@ class LotPage extends Component {
     }
 }
 
-export default LotPage;
+const mapStateToProps = (store) => {
+    return {
+        userData: store.user.userdata,
+        loggedIn: store.user.loggedIn
+    };
+};
+
+const dispatchStateToProps = (dispatch) => {
+    return {
+        saveError: (err) => dispatch(saveError(err))
+    };
+};
+
+
+export default connect(mapStateToProps, dispatchStateToProps)(LotPage);

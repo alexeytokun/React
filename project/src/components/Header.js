@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import {Menu, Button, Container, Dropdown, Image } from 'semantic-ui-react';
+import { Menu, Button, Container, Dropdown, Image, Search } from 'semantic-ui-react';
 import logo from "../logo-new.svg";
 import { connect } from 'react-redux';
 import {userLogOut} from "../actions/userActions";
 import {saveLotsAndCategories} from "../actions/lotsActions";
 import {updateLots} from '../functions';
 import {saveError} from "../actions/errorsActions";
+import CustomSearch from "./CustomSearch";
 
 class Header extends Component {
 
@@ -53,6 +54,7 @@ class Header extends Component {
                             </Dropdown>
                         </Menu.Item>
                     }
+                    <Menu.Item><Search size='mini'/></Menu.Item>
                     <Menu.Item position='right'>
                         {link}
                        <NavLink to='/signup' style={{ marginLeft: '0.5em' }}><Button basic size='small'>Sign Up</Button></NavLink>
