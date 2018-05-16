@@ -50,4 +50,10 @@ lotsDB.getBidData = function (id) {
     return query(sql, prop);
 };
 
+lotsDB.updateBidData = function (data) {
+    var sql = 'UPDATE `lots` SET `price`=?, `bidder_id`=? WHERE `lot_id` = ?';
+    var prop = [data.bid, data.buyer, data.lot_id];
+    return query(sql, prop);
+};
+
 module.exports = lotsDB;

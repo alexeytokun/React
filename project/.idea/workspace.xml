@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68fe3880-8a41-46aa-84b7-95312134fd66" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Bid.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/CustomSearch.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/modules/config/socketConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/modules/config/socketConfig.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/modules/db/lots.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/modules/db/lots.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/script.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/script.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LotPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LotPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Bid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Bid.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Home.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Home.js">
+      <file leaf-file-name="Bid.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Bid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="70" column="13" lean-forward="true" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+            <state relative-caret-position="-408">
+              <caret line="12" column="46" lean-forward="true" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -36,14 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bid.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Bid.js">
+      <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/constants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="44" column="36" lean-forward="true" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="51" lean-forward="true" selection-start-column="51" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -51,11 +43,8 @@
       <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1088">
-              <caret line="64" column="49" lean-forward="true" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="85">
+              <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -72,8 +61,8 @@
       <file leaf-file-name="socketConfig.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/modules/config/socketConfig.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+            <state relative-caret-position="204">
+              <caret line="12" column="40" lean-forward="true" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -90,8 +79,17 @@
       <file leaf-file-name="lots.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/modules/db/lots.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+            <state relative-caret-position="420">
+              <caret line="54" column="24" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/modules/db/users.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-311">
+              <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -113,18 +111,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="376">
               <caret line="38" column="25" lean-forward="true" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LotCard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/LotCard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-612">
-              <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -222,9 +208,9 @@
         <option value="$PROJECT_DIR$/src/components/Home.js" />
         <option value="$PROJECT_DIR$/backend/script.sql" />
         <option value="$PROJECT_DIR$/src/components/LotPage.js" />
-        <option value="$PROJECT_DIR$/src/components/Bid.js" />
         <option value="$PROJECT_DIR$/backend/modules/db/lots.js" />
         <option value="$PROJECT_DIR$/backend/modules/config/socketConfig.js" />
+        <option value="$PROJECT_DIR$/src/components/Bid.js" />
       </list>
     </option>
   </component>
@@ -377,7 +363,7 @@
       <workItem from="1526280875815" duration="26935000" />
       <workItem from="1526367978548" duration="25124000" />
       <workItem from="1526397504053" duration="521000" />
-      <workItem from="1526453470763" duration="22393000" />
+      <workItem from="1526453470763" duration="23744000" />
     </task>
     <task id="LOCAL-00001" summary="bind inputs to state in SignUp component">
       <created>1524492996324</created>
@@ -708,11 +694,18 @@
       <option name="project" value="LOCAL" />
       <updated>1526467306889</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="start implementing CustomSearch and Bid components">
+      <created>1526479566903</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1526479566903</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="364871000" />
+    <option name="totallyTimeSpent" value="366222000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -727,7 +720,7 @@
     <frame x="0" y="-1" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20664206" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20664206" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32914045" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50237215" side_tool="true" weight="0.32843652" />
@@ -736,7 +729,7 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49762782" visible="true" weight="0.32843652" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49762782" visible="true" weight="0.32843652" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -774,7 +767,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add lots template in Home component, add DatePicker, LotCard, LotGroup and AddLot components" />
     <MESSAGE value="add fileds in AddLot component" />
     <MESSAGE value="addLot component now can save lot in database, fix bug with avatar saving" />
     <MESSAGE value="add logic for getting lots from database, sorting them by categories and saving in Redux" />
@@ -799,7 +791,8 @@
     <MESSAGE value="add redux-persist module and implemented saving Redux store in localStorage" />
     <MESSAGE value="changed ErrorModal component logic, now it uses Redux" />
     <MESSAGE value="changed errors handling in all components with axios requests" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed errors handling in all components with axios requests" />
+    <MESSAGE value="start implementing CustomSearch and Bid components" />
+    <option name="LAST_COMMIT_MESSAGE" value="start implementing CustomSearch and Bid components" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -807,13 +800,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/modules/config/errors.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -860,13 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
           <caret line="114" column="33" lean-forward="true" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/modules/db/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-566">
-          <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -1149,27 +1128,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/modules/routes/lots.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="37" lean-forward="true" selection-start-line="3" selection-end-line="3" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/LotCard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-612">
           <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="64" column="49" lean-forward="true" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -1210,27 +1172,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/modules/db/lots.js">
+    <entry file="file://$PROJECT_DIR$/backend/modules/routes/lots.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+        <state relative-caret-position="51">
+          <caret line="3" column="37" lean-forward="true" selection-start-line="3" selection-end-line="3" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/modules/db/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-311">
+          <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="51" lean-forward="true" selection-start-column="51" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Bid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="44" column="36" lean-forward="true" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+        <state relative-caret-position="-408">
+          <caret line="12" column="46" lean-forward="true" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/backend/modules/db/lots.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="54" column="24" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/modules/config/socketConfig.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+        <state relative-caret-position="204">
+          <caret line="12" column="40" lean-forward="true" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
         </state>
       </provider>
     </entry>

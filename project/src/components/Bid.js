@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Button } from 'semantic-ui-react';
 import socketIOClient from 'socket.io-client';
+import { SERVER_URL } from "../constants";
 
 class Bid extends Component {
 
@@ -9,7 +10,7 @@ class Bid extends Component {
         this.state = {
             current: this.props.lot.price,
             bid: '',
-            endpoint: "http://127.0.0.1:8000",
+            endpoint: SERVER_URL.slice(0, -1),
             socket: null
         };
         this.handleChange = this.handleChange.bind(this);

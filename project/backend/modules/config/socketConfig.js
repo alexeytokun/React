@@ -10,15 +10,25 @@ module.exports = function (socket) {
         lotsDB.getBidData(data.lot_id)
             .then(res => {
                 console.log(res);
-                if (!res.length) return;
+                if (!res.length) return null;
                 if (res[0].price < data.bid) {
                     const newData = {
                         bid: data.bid,
                         buyer: data.buyer,
                         lot_id: data.lot_id
                     };
-                    io.emit('bid', newData);
+                    return newData;
                 }
+                return null;
+            })
+            .then(newData => {
+                if (!newData) return;
+                lotsDB.updateBidData(newData)
+                    .then(() => {
+                        io.emit('bid', newData).to(socket.room);
+                    })
+                    .catch(err => console.log(err));
+
             })
             .catch(err => console.log(err));
     });
