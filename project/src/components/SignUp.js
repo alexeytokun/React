@@ -4,8 +4,9 @@ import logo from "../logo-new.svg";
 import { NavLink, Redirect } from 'react-router-dom';
 import UserDataForm from "./UserDataForm";
 import { SERVER_URL } from "../constants";
-import ErrorModal from "./ErrorModal";
 import axios from 'axios/index';
+import {connect} from "react-redux";
+import {saveError} from "../actions/errorsActions";
 
 
 class SignUp extends Component {
@@ -13,11 +14,9 @@ class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false,
-            error: null
+            redirect: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onModalClose = this.onModalClose.bind(this);
     }
 
     handleSubmit(isFormValid, data) {
@@ -28,18 +27,14 @@ class SignUp extends Component {
         axios.post(SERVER_URL + 'user', body, {
             headers: {
                 "Content-type": "application/json",
-                "User-Auth-Token": sessionStorage.getItem('jwt')
+                "User-Auth-Token": localStorage.getItem('jwt')
             }
         })
             .then((res) => this.setState({redirect: true}))
             .catch((err) => {
                 const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.setState({error: errorMessage});
+                this.props.saveError(errorMessage);
             });
-    }
-
-    onModalClose() {
-        this.setState({error: null});
     }
 
     render() {
@@ -49,7 +44,6 @@ class SignUp extends Component {
 
         return (
             <Container className="reg_wrapper">
-                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <Image className="reg_logo"  size='large' centered src={logo}/>
                 <UserDataForm handleSubmit={this.handleSubmit}/>
                 <p className="reg_text">
@@ -64,4 +58,10 @@ class SignUp extends Component {
     };
 }
 
-export default SignUp;
+const dispatchStateToProps = (dispatch) => {
+    return {
+        saveError: (err) => dispatch(saveError(err))
+    };
+};
+
+export default connect(null, dispatchStateToProps)(SignUp);

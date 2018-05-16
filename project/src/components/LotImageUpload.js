@@ -11,16 +11,9 @@ class LotImageUpload extends React.Component {
             userid: null,
             src: logo
         };
-        // this.onFormSubmit = this.onFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
-        // this.fileUpload = this.fileUpload.bind(this);
     }
-    // onFormSubmit(e){
-    //     e.preventDefault();
-    //     this.fileUpload(this.state.file)
-    //         .then(() => this.props.getAvatar())
-    //         .catch(error => console.log(error));
-    // }
+
     onChange(e) {
         this.setState({file:e.target.files[0]},
             () => {
@@ -32,27 +25,6 @@ class LotImageUpload extends React.Component {
                 this.props.onFileSelect(this.state.file);
             });
     }
-    // fileUpload(file){
-    //     const url = 'http://127.0.0.1:8000/user/avatar/' + this.state.userid;
-    //     const formData = new FormData();
-    //     formData.append('avatar', file);
-    //     return fetch(url, {
-    //         method: 'POST',
-    //         body: formData
-    //     }).then(
-    //         response => response.json()
-    //     );
-    // }
-
-    // componentWillMount() {
-    //     if (this.props.userData) {
-    //         let userData = this.props.userData;
-    //         this.setState({
-    //             userid: userData.id || ''
-    //         });
-    //
-    //     }
-    // }
 
     render() {
         return (

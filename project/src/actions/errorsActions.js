@@ -7,6 +7,6 @@ export function saveError(err) {
 
 export function removeError() {
     return {
-        type: 'LOTS_SAVE_LOTS_AND_CATEGORIES'
+        type: 'ERRORS_REMOVE_ERROR'
     };
 }

@@ -5,8 +5,8 @@ import { Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { saveUserdata } from '../actions/userActions';
 import { SERVER_URL } from "../constants";
-import ErrorModal from "./ErrorModal";
 import axios from 'axios/index';
+import {saveError} from "../actions/errorsActions";
 
 class Login extends Component {
     constructor(props) {
@@ -18,12 +18,10 @@ class Login extends Component {
             validation: {
                 username: true,
                 pass: true
-            },
-            error: null
+            }
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onModalClose = this.onModalClose.bind(this);
     }
 
     handleChange(e) {
@@ -70,18 +68,14 @@ class Login extends Component {
             }
         })
             .then((res) => {
-                sessionStorage.setItem('jwt', res.data.authtoken);
+                localStorage.setItem('jwt', res.data.authtoken);
                 this.props.saveUserdata(res.data.userdata);
                 this.setState({redirect: true});
             })
             .catch((err) => {
                 const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.setState({error: errorMessage});
+                this.props.saveError(errorMessage);
             });
-    }
-
-    onModalClose() {
-        this.setState({error: null});
     }
 
     render() {
@@ -91,7 +85,6 @@ class Login extends Component {
 
         return (
             <Container className="reg_wrapper">
-                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <Image className="reg_logo"  size='large' centered src={logo}/>
                 <Form>
                     <Form.Field>
@@ -123,7 +116,10 @@ const mapStateToProps = (store) => {
 };
 
 const dispatchStateToProps = (dispatch) => {
-    return { saveUserdata: userdata => dispatch(saveUserdata(userdata)) };
+    return {
+        saveUserdata: userdata => dispatch(saveUserdata(userdata)),
+        saveError: (err) => dispatch(saveError(err))
+    };
 };
 
 

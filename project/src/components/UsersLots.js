@@ -5,7 +5,7 @@ import LotGroup from "./LotGroup";
 import Paginator from "./Paginator";
 import {saveLotsAndCategories} from "../actions/lotsActions";
 import {updateLots} from "../functions";
-import ErrorModal from "./ErrorModal";
+import {saveError} from "../actions/errorsActions";
 
 const pageSize = 6;
 
@@ -32,7 +32,7 @@ class UsersLots extends Component {
     }
 
     componentWillMount() {
-        updateLots(this);
+        updateLots(this.props);
     }
 
     render() {
@@ -43,7 +43,6 @@ class UsersLots extends Component {
         if (!usersLots.length) {
             return (
                 <Container>
-                    <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                     <div>
                         <h1>You don`t have lots</h1>
                     </div>
@@ -53,7 +52,6 @@ class UsersLots extends Component {
 
         return (
             <Container>
-                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <div>
                     <h1>Your lots</h1>
                     <LotGroup category={true} lots={paginatedLots}/>
@@ -77,7 +75,8 @@ const mapStateToProps = (store) => {
 
 const dispatchStateToProps = (dispatch) => {
     return {
-        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata))
+        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata)),
+        saveError: (err) => dispatch(saveError(err))
     };
 };
 

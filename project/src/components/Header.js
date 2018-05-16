@@ -5,25 +5,17 @@ import logo from "../logo-new.svg";
 import { connect } from 'react-redux';
 import {userLogOut} from "../actions/userActions";
 import {saveLotsAndCategories} from "../actions/lotsActions";
-import ErrorModal from "./ErrorModal";
 import {updateLots} from '../functions';
+import {saveError} from "../actions/errorsActions";
 
 class Header extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            error: null
-        };
-        this.onModalClose = this.onModalClose.bind(this);
     }
 
     componentWillMount() {
-        updateLots(this);
-    }
-
-    onModalClose() {
-        this.setState({error: null});
+        updateLots(this.props);
     }
 
     render() {
@@ -41,7 +33,6 @@ class Header extends Component {
 
         return (
             <Menu secondary size='large'>
-                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <Container>
                     <Menu.Item><Image size='tiny' centered src={logo}/></Menu.Item>
                     <Menu.Item><NavLink className='menu_item' to='/'>Home</NavLink></Menu.Item>
@@ -84,7 +75,8 @@ const mapStateToProps = (state) => {
 const dispatchStateToProps = (dispatch) => {
     return {
         userLogOut: () => dispatch(userLogOut()),
-        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata))
+        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata)),
+        saveError: (err) => dispatch(saveError(err))
     };
 };
 

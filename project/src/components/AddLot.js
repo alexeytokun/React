@@ -4,8 +4,8 @@ import LotForm from "./LotForm";
 import {connect} from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { SERVER_URL } from "../constants";
-import ErrorModal from "./ErrorModal";
 import axios from 'axios/index';
+import {saveError} from "../actions/errorsActions";
 
 class AddLot extends Component {
 
@@ -13,12 +13,10 @@ class AddLot extends Component {
         super(props);
 
         this.state = {
-            error: null,
             redirect: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onModalClose = this.onModalClose.bind(this);
     }
 
     handleSubmit(isFormValid, data, file) {
@@ -32,18 +30,14 @@ class AddLot extends Component {
 
         axios.post(SERVER_URL + 'lot', formData, {
             headers: {
-                "User-Auth-Token": sessionStorage.getItem('jwt')
+                "User-Auth-Token": localStorage.getItem('jwt')
             }
         })
             .then((res) => this.setState({redirect: true}))
             .catch((err) => {
                 const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.setState({error: errorMessage});
+                this.props.saveError(errorMessage);
             });
-    }
-
-    onModalClose() {
-        this.setState({error: null});
     }
 
     render() {
@@ -53,8 +47,7 @@ class AddLot extends Component {
 
         return (
             <Container className="reg_wrapper">
-                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
-                <LotForm handleSubmit={this.handleSubmit}/>
+                <LotForm saveError={this.props.saveError} handleSubmit={this.handleSubmit}/>
             </Container>
         );
     }
@@ -66,4 +59,10 @@ const mapStateToProps = (store) => {
     };
 };
 
-export default connect(mapStateToProps, null)(AddLot);
+const dispatchStateToProps = (dispatch) => {
+    return {
+        saveError: (err) => dispatch(saveError(err))
+    };
+};
+
+export default connect(mapStateToProps, dispatchStateToProps)(AddLot);

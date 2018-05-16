@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Image, Card, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import temp from '../default_product.jpg';
-import moment from 'moment';
-import Countdown from "./Countdown";
 
 class LotCard extends Component {
 

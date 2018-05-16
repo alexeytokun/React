@@ -13,6 +13,7 @@ export function saveUserAvatar(src) {
 }
 
 export function userLogOut() {
+    localStorage.removeItem('jwt');
     return {
         type: "USER_LOG_OUT",
         payload: ''

@@ -3,7 +3,6 @@ import { Button, Form, Container, Select, TextArea, Image } from 'semantic-ui-re
 import DatePicker from './DatePicker';
 import LotImageUpload from './LotImageUpload';
 import { SERVER_URL } from "../constants";
-import ErrorModal from "./ErrorModal";
 import axios from 'axios/index';
 
 class LotForm extends Component {
@@ -29,15 +28,13 @@ class LotForm extends Component {
                 dates: true,
                 category: true,
                 description: true,
-            },
-            error: null
+            }
         };
         this.onFileSelect = this.onFileSelect.bind(this);
         this.onDatesSelect = this.onDatesSelect.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onModalClose = this.onModalClose.bind(this);
     }
 
     componentDidMount() {
@@ -54,7 +51,7 @@ class LotForm extends Component {
             })
             .catch((err) => {
                 const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.setState({error: errorMessage});
+                this.props.saveError(errorMessage);
             });
     }
 
@@ -139,14 +136,9 @@ class LotForm extends Component {
             () => {this.props.handleSubmit(this.state.isFormValid, data, file)});
     }
 
-    onModalClose() {
-        this.setState({error: null});
-    }
-
     render() {
         return (
             <Container className="reg_wrapper">
-                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <Form>
                     <LotImageUpload onFileSelect={this.onFileSelect}/>
                     <Form.Field>

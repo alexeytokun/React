@@ -6,21 +6,16 @@ import { connect } from 'react-redux';
 import FileUpload from './FileUpload';
 import {saveUserdata, saveUserAvatar} from "../actions/userActions";
 import { SERVER_URL } from "../constants";
-import ErrorModal from "./ErrorModal";
 import axios from 'axios/index';
+import {saveError} from "../actions/errorsActions";
 
 class EditUser extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            error: null
-        };
-
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getAvatar = this.getAvatar.bind(this);
-        this.onModalClose = this.onModalClose.bind(this);
     }
 
     handleSubmit(isFormValid, data) {
@@ -31,7 +26,7 @@ class EditUser extends Component {
         axios.post(url, body, {
             headers: {
                 "Content-type": "application/json",
-                "User-Auth-Token": sessionStorage.getItem('jwt')
+                "User-Auth-Token": localStorage.getItem('jwt')
             }
         })
             .then(() => {
@@ -41,12 +36,12 @@ class EditUser extends Component {
                     })
                     .catch((err) => {
                         const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                        this.setState({error: errorMessage});
+                        this.props.saveError(errorMessage);
                     });
             })
             .catch((err) => {
                 const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.setState({error: errorMessage});
+                this.props.saveError(errorMessage);
             });
     }
 
@@ -54,19 +49,15 @@ class EditUser extends Component {
         if (!this.props.userData) return;
         axios.get(SERVER_URL + 'user/avatar/' + this.props.userData.id,
             {
-                headers: { "User-Auth-Token": sessionStorage.getItem('jwt')}
+                headers: { "User-Auth-Token": localStorage.getItem('jwt')}
             })
             .then(res => {
                 this.props.saveUserAvatar(res.data.source)
             })
             .catch((err) => {
                 const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.setState({error: errorMessage});
+                this.props.saveError(errorMessage);
             });
-    }
-
-    onModalClose() {
-        this.setState({error: null});
     }
 
     render() {
@@ -75,9 +66,8 @@ class EditUser extends Component {
 
         return (
             <Container className="reg_wrapper">
-                <ErrorModal error={this.state.error} onClose={this.onModalClose}/>
                 <Image className="reg_logo" circular  size='small' centered src={ avatar }/>
-                <FileUpload userData={this.props.userData} getAvatar={this.getAvatar}/>
+                <FileUpload saveError={this.props.saveError} userData={this.props.userData} getAvatar={this.getAvatar}/>
                 <UserDataForm handleSubmit={this.handleSubmit} userData={this.props.userData} edit={true}/>
             </Container>
         )
@@ -94,7 +84,8 @@ const mapStateToProps = (store) => {
 const dispatchStateToProps = (dispatch) => {
     return {
         saveUserAvatar: src => dispatch(saveUserAvatar(src)),
-        saveUserdata: data => dispatch(saveUserdata(data))
+        saveUserdata: data => dispatch(saveUserdata(data)),
+        saveError: (err) => dispatch(saveError(err))
     };
 };
 
