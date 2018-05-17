@@ -38,8 +38,7 @@ class LotCard extends Component {
 
         if(this.state.redirect) {
             return <Redirect push to={{
-                pathname: '/lot/' + lot.lot_id,
-                state: { lot: lot }
+                pathname: '/lot/' + lot.lot_id
             }}/>;
         }
 

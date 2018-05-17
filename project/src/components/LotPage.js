@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Image, Grid, Button, Divider } from 'semantic-ui-react';
-import temp from '../default_product.jpg';
+import defaultImage from '../default_product.jpg';
 import Countdown from "./Countdown";
 import Bid from './Bid';
 import {connect} from "react-redux";
@@ -20,12 +20,19 @@ class LotPage extends Component {
     countLotTime(lot ,stage) {
         switch (stage) {
             case 'active':
-                return <Countdown date={lot.end_time}/>;
+                return (
+                    <div>
+                        <Divider/>
+                        <span style={{fontSize: 20, color: 'black'}}>Auction starts in:</span>
+                        <Countdown date={lot.end_time}/>
+                    </div>
+                );
             case 'finished':
                 return <p style={{fontSize: 20, color: 'red'}}>Finished</p>;
             case 'pending':
                 return (
                     <div>
+                        <Divider/>
                         <span style={{fontSize: 20, color: 'black'}}>Auction starts in:</span>
                         <Countdown date={lot.start_time}/>
                     </div>
@@ -35,17 +42,16 @@ class LotPage extends Component {
     }
 
     switchBidData(user, lot, isLotOwner, stage) {
-        switch (stage) {
-            case 'active':
-                if (!user.id) return <Bid lot={lot} user={user} disabled/>;
-                if (isLotOwner) return <Bid lot={lot} user={user} owner/>;
-                if (!isLotOwner) return <Bid lot={lot} user={user}/>;
-            default: return null;
+        if (stage === 'active') {
+            if (!user.id || isLotOwner) return <Bid lot={lot} user={user} disabled/>;
+            if (!isLotOwner) return <Bid lot={lot} user={user}/>;
         }
+        return null;
     }
 
     render() {
-        const lot = this.props.location.state && this.props.location.state.lot;
+        const id = +this.props.match.params.id;
+        const lot = this.props.lots.find(lot => lot.lot_id === id);
         if (!lot) return null;
 
         const stage = this.countLotStage(lot.start_time, lot.end_time);
@@ -59,7 +65,7 @@ class LotPage extends Component {
             <Container className='lot_container'>
                 <Grid stackable>
                     <Grid.Column width={8}>
-                        <Image centered size='big' src={lot.image || temp}/>
+                        <Image centered size='big' src={lot.image || defaultImage}/>
                     </Grid.Column>
                     <Grid.Column width={7}>
                         <h2>{lot.lot_name}</h2>
@@ -79,7 +85,7 @@ class LotPage extends Component {
 const mapStateToProps = (store) => {
     return {
         userData: store.user.userdata,
-        loggedIn: store.user.loggedIn
+        lots: store.lots.lots
     };
 };
 

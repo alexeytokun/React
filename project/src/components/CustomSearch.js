@@ -1,77 +1,103 @@
-import _ from 'lodash'
-import React, { Component } from 'react'
-import { Search } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Search, Grid, Image } from 'semantic-ui-react';
+import defaultImage from '../default_product.jpg';
+import { Redirect } from 'react-router-dom';
 
-// const source = _.times(5, () => ({
-//     title: faker.company.companyName(),
-//     description: faker.company.catchPhrase(),
-//     image: faker.internet.avatar(),
-//     price: faker.finance.amount(0, 100, 2, '$'),
-// }));
-
-export default class CustomSearch extends Component {
-
-    constructor(props) {
-        super(props);
+class CustomSearch extends Component {
+    constructor() {
+        super();
         this.state = {
-            sortedLots: null,
+            name: 'React',
             isLoading: false,
+            value: '',
             results: [],
-            value: ''
-        }
+            options: null,
+            redirect: false
+        };
 
-    };
-
-    componentWillMount() {
-        this.resetComponent();
-        if (this.props.lots) {
-            const sortedLots = this.props.lots.map((lot, i) => {
-                return {
-                    title: lot.lot_name,
-                    description: lot.description,
-                    image: lot.image,
-                    price: lot.price,
-                    id: lot.lot_id,
-                }
-            });
-            this.setState({sortedLots: sortedLots});
-        }
+        this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.resultRenderer = this.resultRenderer.bind(this);
+        this.handleResultSelect = this.handleResultSelect.bind(this);
     }
-
-    resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
-
-    handleResultSelect = (e, { result }) => this.setState({ value: result.title });
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: true, value });
 
         setTimeout(() => {
-            if (this.state.value.length < 1) return this.resetComponent();
-
-            const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
+            const re = new RegExp(this.state.value, 'i');
             const isMatch = result => re.test(result.title);
+
+            const results = this.state.options.filter(isMatch).map(result => ({ ...result, key: result.id }));
 
             this.setState({
                 isLoading: false,
-                results: _.filter(this.state.sortedLots, isMatch),
-            })
-        }, 300)
+                results: results,
+            });
+        }, 500)
     };
 
-    render() {
+    resultRenderer(item) {
+        return(
+            <Grid>
+                <Grid.Column width={7}>
+                    <Image size='huge' src={item.image || defaultImage}/>
+                </Grid.Column>
+                <Grid.Column width={8}>
+                    <p>{item.title}</p>
+                    <p>{item.price}</p>
+                </Grid.Column>
+            </Grid>
+        );
+    };
 
-        const { isLoading, value, results, sortedLots } = this.state;
-        if (!sortedLots) return null;
+    handleResultSelect(e, data) {
+        this.setState({redirect: data.result.id.toString()});
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props !== nextProps) {
+            const searchableArray = this.props.lots.map((lot) => {
+                return {
+                    id: lot.lot_id,
+                    title: lot.lot_name,
+                    description: lot.description,
+                    image: lot.image,
+                    price: lot.price.toString()
+                }
+            });
+            this.setState({options: searchableArray});
+        }
+    }
+
+    componentDidUpdate() {
+        if(this.state.redirect) {
+            this.setState({redirect: false});
+        }
+    }
+
+    render() {
+        const { isLoading, value, results, options } = this.state;
+        if (!options) return null;
+
+        if(this.state.redirect) {
+            return <Redirect push to={'/lot/' + this.state.redirect}/>
+        }
 
         return (
-            <Search
-                loading={isLoading}
-                onResultSelect={this.handleResultSelect}
-                onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
-                results={results}
-                value={value}
-                {...this.props}
-            />
-        )
+            <div style={{width: 300}}>
+                <Search
+                    loading={isLoading}
+                    resultRenderer={this.resultRenderer}
+                    onSearchChange={this.handleSearchChange}
+                    onResultSelect = {this.handleResultSelect}
+                    results={results}
+                    value={value}
+                    size='mini'
+                    fluid
+                />
+            </div>
+        );
     }
 }
+
+export default CustomSearch;

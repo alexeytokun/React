@@ -34,7 +34,6 @@ class Bid extends Component {
     initSocket = () => {
         const socket = socketIOClient(this.state.endpoint);
         socket.on('connect', () => {
-            console.log('Connected');
             socket.emit('room', this.props.lot.lot_id);
         });
 
@@ -61,15 +60,14 @@ class Bid extends Component {
 
     render() {
         const isDisabled = !!this.props.disabled;
-        const isOwner = !!this.props.owner;
 
         return (
             <Container className='bid_container'>
                 <Divider/>
                 <p style={{fontSize: 16, fontWeight: 'bold'}}>{'Current Bid: ' + this.state.current + '$'}</p>
-                <Input disabled={isDisabled || isOwner} onChange={this.handleChange} min='0' type='number' action>
+                <Input disabled={isDisabled} onChange={this.handleChange} min='0' type='number' action>
                     <input />
-                    <Button disabled={isDisabled || isOwner} onClick={this.handleClick}>Bid</Button>
+                    <Button disabled={isDisabled} onClick={this.handleClick}>Bid</Button>
                 </Input>
             </Container>
         );

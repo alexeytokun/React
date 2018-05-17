@@ -11,10 +11,6 @@ import CustomSearch from "./CustomSearch";
 
 class Header extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     componentWillMount() {
         updateLots(this.props);
     }
@@ -54,7 +50,7 @@ class Header extends Component {
                             </Dropdown>
                         </Menu.Item>
                     }
-                    <Menu.Item><Search size='mini'/></Menu.Item>
+                    <Menu.Item><CustomSearch lots={this.props.lots}/></Menu.Item>
                     <Menu.Item position='right'>
                         {link}
                        <NavLink to='/signup' style={{ marginLeft: '0.5em' }}><Button basic size='small'>Sign Up</Button></NavLink>

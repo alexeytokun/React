@@ -9,7 +9,8 @@ class Paginator extends Component {
     }
 
     handlePageChange(e, data) {
-        this.props.onPageChange(data.activePage, this.paginateItems(this.props.items, data.activePage));
+        const sliceArea = this.paginateItems(this.props.items, data.activePage);
+        this.props.onPageChange(data.activePage, sliceArea);
     }
 
     paginateItems(items, page) {
