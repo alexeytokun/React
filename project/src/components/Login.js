@@ -34,7 +34,7 @@ class Login extends Component {
 
         switch(fieldName) {
             case 'username':
-                validation.username = value.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+                validation.username = value.match(/^[а-яА-ЯёЁa-zA-Z0-9_-]{1,30}$/);
                 break;
             case 'pass':
                 validation.pass = value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
@@ -49,7 +49,7 @@ class Login extends Component {
 
     validateAllFields() {
         let validation = {...this.state.validation};
-        validation.username = this.state.username.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+        validation.username = this.state.username.match(/^[а-яА-ЯёЁa-zA-Z0-9_-]{1,30}$/);
         validation.pass = this.state.pass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$/);
         return !!(validation.username && validation.pass);
     }

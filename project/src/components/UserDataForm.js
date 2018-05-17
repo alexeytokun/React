@@ -37,7 +37,7 @@ class UserDataForm extends Component {
 
     validateAllFields() {
         let validation = {...this.state.validation};
-        validation.username = this.state.username.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+        validation.username = this.state.username.match(/^[а-яА-ЯёЁa-zA-Z0-9_-]{1,30}$/);
         validation.firstname = this.state.firstname.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
         validation.lastname = this.state.lastname.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
         validation.email = this.state.email.match(/^(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})$/);
@@ -62,7 +62,7 @@ class UserDataForm extends Component {
 
         switch(fieldName) {
             case 'username':
-                validation.username = value.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);
+                validation.username = value.match(/^[а-яА-ЯёЁa-zA-Z0-9_-]{1,30}$/);
                 break;
             case 'firstname':
                 validation.firstname = value.match(/^[а-яА-ЯёЁa-zA-Z-]{1,30}$/);

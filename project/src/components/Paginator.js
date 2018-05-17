@@ -24,7 +24,6 @@ class Paginator extends Component {
 
     render() {
         const totalPages = Math.ceil(this.props.items / this.props.pageSize);
-
         return (
             <Pagination onPageChange={this.handlePageChange} className='lots_paginator' activePage={this.props.page} totalPages={totalPages}/>
         );
