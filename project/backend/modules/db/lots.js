@@ -30,8 +30,9 @@ lotsDB.getCategories = function () {
 };
 
 lotsDB.getAllLots = function () {
-    var sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price, CONCAT("' + SERVER_URL + '", l.image)  AS image,' +
-        ' l.description, l.user_id, l.category_id, u.username FROM `lots` AS l LEFT JOIN `users` AS u ON l.user_id = u.id';
+    var sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price AS starting_price, a.last_bid AS price,' +
+        ' CONCAT("' + SERVER_URL + '", l.image) AS image, l.description, l.user_id, l.category_id, u.username FROM' +
+        ' `lots` AS l LEFT JOIN `users` AS u ON l.user_id = u.id LEFT JOIN `auctions` AS a ON l.lot_id = a.lot_id';
     var prop = '';
     return query(sql, prop);
 };
@@ -44,14 +45,14 @@ lotsDB.addLotToDb = function (lotData, imagePath) {
     return query(sql, prop);
 };
 
-lotsDB.getBidData = function (id) {
-    var sql = 'SELECT `price`, `bidder_id` FROM `lots` WHERE `lot_id` = ?';
+lotsDB.getAuctionData = function (id) {
+    var sql = 'SELECT `last_bid`, `bidder_id` FROM `auctions` WHERE `lot_id` = ?';
     var prop = [id];
     return query(sql, prop);
 };
 
-lotsDB.updateBidData = function (data) {
-    var sql = 'UPDATE `lots` SET `price`=?, `bidder_id`=? WHERE `lot_id` = ?';
+lotsDB.updateAuctionData = function (data) {
+    var sql = 'UPDATE `auctions` SET `last_bid`=?, `bidder_id`=? WHERE `lot_id` = ?';
     var prop = [data.bid, data.buyer, data.lot_id];
     return query(sql, prop);
 };

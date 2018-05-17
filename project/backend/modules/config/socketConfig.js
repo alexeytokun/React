@@ -6,30 +6,19 @@ module.exports = function (socket) {
     console.log('New connection from ' + socket.handshake.address);
 
     socket.on('bid', function (data) {
-        console.log(data);
-        lotsDB.getBidData(data.lot_id)
+        let newData;
+        lotsDB.getAuctionData(data.lot_id)
             .then(res => {
-                console.log(res);
-                if (!res.length) return null;
-                if (res[0].price < data.bid) {
-                    const newData = {
-                        bid: data.bid,
-                        buyer: data.buyer,
-                        lot_id: data.lot_id
-                    };
-                    return newData;
-                }
-                return null;
+                if (!res.length || res[0].last_bid >= data.bid) throw {status: 400, message: 'Bid Error'};
+                newData = {
+                    bid: data.bid,
+                    buyer: data.buyer,
+                    lot_id: data.lot_id
+                };
+                return newData;
             })
-            .then(newData => {
-                if (!newData) return;
-                lotsDB.updateBidData(newData)
-                    .then(() => {
-                        io.emit('bid', newData).to(socket.room);
-                    })
-                    .catch(err => console.log(err));
-
-            })
+            .then(newData => lotsDB.updateAuctionData(newData))
+            .then(() => io.emit('bid', newData).to(socket.room))
             .catch(err => console.log(err));
     });
 

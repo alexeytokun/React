@@ -15,16 +15,11 @@ class Bid extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.onSocketDataChange = this.onSocketDataChange.bind(this);
     }
 
     send = (data) => {
         this.state.socket.emit('bid', data);
     };
-
-    onSocketDataChange(e) {
-        this.setState({value: e.target.value})
-    }
 
     componentWillMount() {
         if (this.props.lot) {

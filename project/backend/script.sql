@@ -19,7 +19,7 @@ CREATE TABLE `categories` (
     PRIMARY KEY(`category_id`)
 );
 
-CREATE TABLE `lots2` (
+CREATE TABLE `lots` (
     `lot_id` INT(11) AUTO_INCREMENT,
     `lot_name` VARCHAR(45),
     `start_time` DATETIME,
@@ -29,15 +29,45 @@ CREATE TABLE `lots2` (
     `description` VARCHAR(255),
     `user_id` INT(11),
     `category_id` INT(11),
-    `bidder_id` INT(11),
     FOREIGN KEY(`user_id`)
         REFERENCES `users`(`id`),
     FOREIGN KEY(`category_id`)
         REFERENCES `categories`(`category_id`),
-    FOREIGN KEY(`bidder_id`)
-        REFERENCES `users`(`id`),
     PRIMARY KEY(`lot_id`)
 );
+
+CREATE TABLE `auctions` (
+    `auction_id` INT(11) AUTO_INCREMENT,
+    `lot_id` INT(11),
+    `bidder_id` INT(11),
+    `last_bid` FLOAT(11),
+    `bids_count` INT(11) DEFAULT 0,
+    FOREIGN KEY(`bidder_id`)
+        REFERENCES `users`(`id`),
+    FOREIGN KEY(`lot_id`)
+        REFERENCES `lots`(`lot_id`)
+        ON DELETE CASCADE,
+    PRIMARY KEY(`auction_id`)
+);
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS project.lots_AFTER_INSERT$$
+USE `project`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `project`.`lots_AFTER_INSERT` AFTER INSERT ON `lots` FOR EACH ROW
+BEGIN
+	INSERT INTO `auctions` (`lot_id`, `last_bid`) VALUES (NEW.lot_id, NEW.price);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS project.lots_AFTER_UPDATE$$
+USE `project`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `project`.`lots_AFTER_UPDATE` AFTER UPDATE ON `lots` FOR EACH ROW
+BEGIN
+	UPDATE `auctions` SET `lot_id` = NEW.lot_id,  `last_bid` = NEW.price;
+END$$
+DELIMITER ;
+
 
 INSERT INTO `categories` (`category_name`) VALUES ('Laptops');
 INSERT INTO `categories` (`category_name`) VALUES ('Tablets');
