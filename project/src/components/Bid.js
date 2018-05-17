@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Button } from 'semantic-ui-react';
+import { Input, Button, Container, Divider } from 'semantic-ui-react';
 import socketIOClient from 'socket.io-client';
 import { SERVER_URL } from "../constants";
 
@@ -50,7 +50,7 @@ class Bid extends Component {
     }
 
     handleClick() {
-        // if (this.state.bid <= this.state.current) return;
+        if (this.state.bid <= this.state.current) return; //show notification
         const data = {
             bid: this.state.bid,
             lot_id: this.props.lot.lot_id,
@@ -60,14 +60,18 @@ class Bid extends Component {
     }
 
     render() {
+        const isDisabled = !!this.props.disabled;
+        const isOwner = !!this.props.owner;
+
         return (
-            <div>
+            <Container className='bid_container'>
+                <Divider/>
                 <p style={{fontSize: 16, fontWeight: 'bold'}}>{'Current Bid: ' + this.state.current + '$'}</p>
-                <Input onChange={this.handleChange} min='0' type='number' action>
+                <Input disabled={isDisabled || isOwner} onChange={this.handleChange} min='0' type='number' action>
                     <input />
-                    <Button onClick={this.handleClick}>Bid</Button>
+                    <Button disabled={isDisabled || isOwner} onClick={this.handleClick}>Bid</Button>
                 </Input>
-            </div>
+            </Container>
         );
     }
 }

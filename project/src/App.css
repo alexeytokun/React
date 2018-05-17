@@ -61,6 +61,10 @@
   margin: 10px 0 !important;
 }
 
+.bid_container {
+  margin-top: 5%;
+}
+
 .user.icon,
 .archive.icon {
   margin-left: 5px !important;
