@@ -94,7 +94,6 @@ class LotPage extends Component {
                         <Carousel>
                             {images}
                         </Carousel>
-                        {/*<Image centered size='big' src={(lot.images.length && lot.images[0]) || defaultImage}/>*/}
                     </Grid.Column>
                     <Grid.Column width={7}>
                         <h2>{lot.lot_name}</h2>
