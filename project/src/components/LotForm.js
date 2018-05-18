@@ -155,7 +155,7 @@ class LotForm extends Component {
                     start: moment(lot.start_time),
                     end: moment(lot.end_time)
                 },
-                src: lot.image
+                src: lot.images
             });
         }
     }

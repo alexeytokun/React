@@ -19,13 +19,15 @@ class EditLot extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(isFormValid, data, file) {
+    handleSubmit(isFormValid, data, files) {
         console.log(isFormValid, this.props.userData);
         if (!isFormValid || !this.props.userData) return;
 
         data.userid = this.props.userData.id;
         const formData = new FormData();
-        formData.append('file', file);
+        for (let i = 0; i < files.length; i++) {
+            formData.append('file', files[i]);
+        }
         formData.append('lotdata', JSON.stringify(data));
 
         axios.post(SERVER_URL + 'lot/' + this.state.lot.lot_id, formData, {

@@ -10,7 +10,7 @@ class LotImageUpload extends React.Component {
         this.state ={
             files: null,
             userid: null,
-            srcs: []
+            srcs: this.props.src || []
         };
         this.onChange = this.onChange.bind(this);
     }

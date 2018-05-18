@@ -18,14 +18,10 @@ router.get('/', function (req, res, next) {
             return lotsDB.getAllLotsImages();
         })
         .then(function (results) {
-            let sortedImages = [];
             for (let i = 0; i < req.body.lots.length; i++) {
                 let filtered = results.filter(image => image.lot_id === req.body.lots[i].lot_id).map((img) => img.image);
                 req.body.lots[i].images = filtered;
             }
-            console.log(req.body.lots);
-        })
-        .then(function (result) {
             return res.json({ lots: req.body.lots, categories: req.body.categories});
         })
         .catch(function (result) {

@@ -53,7 +53,7 @@ lotsDB.addLotToDb = function (lotData) {
 
 lotsDB.addLotImages = function (pathesArray, id) {
     let lot_img = [];
-    for (let i = 0; i< pathesArray.length; i++) {
+    for (let i = 0; i < pathesArray.length; i++) {
         lot_img.push([
             pathesArray[i],
             id
@@ -64,33 +64,17 @@ lotsDB.addLotImages = function (pathesArray, id) {
     return query(sql, prop);
 };
 
-// CONCAT("' + SERVER_URL + '", l.image) AS image,
-
-// lotsDB.updateLotData = function (lotData, imagePath, id) {
-//
-//     var prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
-//         lotData.category, lotData.userid, imagePath, id];
-//     var imageQueryPart = ', `image`=?';
-//
-//     if (!imagePath) {
-//         imageQueryPart = '';
-//         prop =  [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
-//             lotData.category, lotData.userid, id];
-//     }
-//     var sql = 'UPDATE `lots` SET `lot_name`=?, `start_time`=?, `end_time`=?, `price`=?, `description`=?, ' +
-//         ' `category_id`=?, `user_id`=?' + imageQueryPart + ' WHERE `lot_id` = ?';
-//
-//     return query(sql, prop)
-//         .then(function (result) {
-//             if (result.affectedRows !== 0) {
-//                 return ({ status: 200, message: 'Lot data updated' });
-//             }
-//             return ({ status: 400, message: errorsObj.WRONG_ID });
-//         })
-//         .catch(function (result) {
-//             throw ({ status: result.status, message: result.message });
-//         });
+// lotsDB.deleteLotImage = function (path, id) {
+//     return query(sql, prop);
 // };
+
+lotsDB.updateLotData = function (lotData, id) {
+    var prop =  [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
+            lotData.category, lotData.userid, id];
+    var sql = 'UPDATE `lots` SET `lot_name`=?, `start_time`=?, `end_time`=?, `price`=?, `description`=?, ' +
+        ' `category_id`=?, `user_id`=? WHERE `lot_id` = ?';
+    return query(sql, prop);
+};
 
 lotsDB.getAuctionData = function (id) {
     var sql = 'SELECT a.last_bid, u.username AS bidder FROM `auctions` AS a LEFT JOIN `users` AS u ON a.bidder_id = u.id WHERE a.lot_id = ?';
