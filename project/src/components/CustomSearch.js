@@ -40,7 +40,7 @@ class CustomSearch extends Component {
         return(
             <Grid>
                 <Grid.Column width={7}>
-                    <Image size='huge' src={item.image || defaultImage}/>
+                    <Image size='big' src={item.image || defaultImage}/>
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <p>{item.title}</p>
@@ -84,7 +84,6 @@ class CustomSearch extends Component {
         }
 
         return (
-            <div style={{width: 300}}>
                 <Search
                     loading={isLoading}
                     resultRenderer={this.resultRenderer}
@@ -94,8 +93,8 @@ class CustomSearch extends Component {
                     value={value}
                     size='mini'
                     fluid
+                    style={{minWidth: 250}}
                 />
-            </div>
         );
     }
 }

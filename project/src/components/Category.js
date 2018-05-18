@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Divider } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import LotGroup from "./LotGroup";
 import Paginator from "./Paginator";
@@ -36,11 +36,13 @@ class Category extends Component {
             <Container>
                 <div>
                     <h1>{this.props.categories[id].category_name}</h1>
+                    <Divider/>
                     <LotGroup lots={paginatedLots}/>
                     {
                         lots.length > this.state.pageSize &&
                         <Paginator onPageChange={this.handlePageChange} pageSize={this.state.pageSize} page={this.state.page} items={lots.length}/>
                     }
+                    <Divider/>
                 </div>
             </Container>
         )

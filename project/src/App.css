@@ -54,7 +54,7 @@
 }
 
 .lot_group {
-  margin-bottom: 30px !important;
+  margin-bottom: 50px !important;
 }
 
 .lots_paginator {
@@ -104,4 +104,14 @@ input[type=number]::-webkit-outer-spin-button {
 
 .ui.page.modals.transition.visible {
   display: flex !important;
+}
+
+.ui.card {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+ui.icon.input {
+  width: 250px !important;
 }

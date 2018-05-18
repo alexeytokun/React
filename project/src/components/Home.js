@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Container } from 'semantic-ui-react';
+import { Segment, Container, Divider } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import logo from "../logo-new.svg";
 import socketIOClient from 'socket.io-client';
@@ -63,12 +63,14 @@ class Home extends Component {
         let groups = this.props.sortedLots.map((lotsCategory, i) => {
             if(lotsCategory.length) {
                 return (
-                    <Segment  color={'black'} key={i} className='lot_group'>
+                    <Container key={i} className='lot_group'>
                         <h1>
                             <NavLink className='category_title title' to={'/category/' + i}>{this.props.categories[i].category_name}</NavLink>
                         </h1>
+                        <Divider/>
                         <LotGroup lots={this.props.sortedLots[i]} homepage={true}/>
-                    </Segment>
+                        <Divider/>
+                    </Container>
                 );
             }
         });

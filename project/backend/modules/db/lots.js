@@ -72,7 +72,7 @@ lotsDB.updateLotData = function (lotData, imagePath, id) {
 };
 
 lotsDB.getAuctionData = function (id) {
-    var sql = 'SELECT `last_bid`, `bidder_id` FROM `auctions` WHERE `lot_id` = ?';
+    var sql = 'SELECT a.last_bid, u.username AS bidder FROM `auctions` AS a LEFT JOIN `users` AS u ON a.bidder_id = u.id WHERE a.lot_id = ?';
     var prop = [id];
     return query(sql, prop);
 };
