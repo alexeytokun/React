@@ -29,6 +29,17 @@ class Category extends Component {
     render() {
         if (!this.props.sortedLots) return null;
         const id = this.props.match.params.id;
+
+        if (!this.props.sortedLots[id].length) {
+            return (
+                <Container>
+                    <div>
+                        <h1>No lots here...</h1>
+                    </div>
+                </Container>
+            );
+        }
+
         let lots = this.props.sortedLots[id];
         const paginatedLots = [...lots].slice(this.state.pagination.start, this.state.pagination.end);
 

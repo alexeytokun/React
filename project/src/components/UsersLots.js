@@ -44,7 +44,7 @@ class UsersLots extends Component {
             return (
                 <Container>
                     <div>
-                        <h1>You don`t have lots</h1>
+                        <h1>You don`t have any lots</h1>
                     </div>
                 </Container>
             );
