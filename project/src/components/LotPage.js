@@ -6,6 +6,8 @@ import Bid from './Bid';
 import {connect} from "react-redux";
 import {saveError} from "../actions/errorsActions";
 import { NavLink } from 'react-router-dom';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 class LotPage extends Component {
 
@@ -66,6 +68,7 @@ class LotPage extends Component {
     render() {
         const lot = this.state.lot;
         if (!lot) return null;
+        console.log(lot);
 
         const stage = this.countLotStage(lot.start_time, lot.end_time);
         const countdown = this.countLotTime(lot, stage);
@@ -74,11 +77,24 @@ class LotPage extends Component {
         const isEdditable = stage === 'pending';
         const bidData = this.switchBidData(user, lot, isLotOwner, stage);
 
+        let images = lot.images;
+        console.log(images);
+        if (images && images.length) {
+            images = images.map((img, i) =>
+            <div key={i}><img src={img || defaultImage}/></div>
+            )
+        } else {
+            images = <div><img src={defaultImage}/></div>;
+        }
+
         return(
             <Container className='lot_container'>
                 <Grid stackable>
                     <Grid.Column width={8}>
-                        <Image centered size='big' src={lot.image || defaultImage}/>
+                        <Carousel>
+                            {images}
+                        </Carousel>
+                        {/*<Image centered size='big' src={(lot.images.length && lot.images[0]) || defaultImage}/>*/}
                     </Grid.Column>
                     <Grid.Column width={7}>
                         <h2>{lot.lot_name}</h2>

@@ -20,14 +20,26 @@ router.post('/', function (req, res, next) {
             return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
         }
         return next();
-    }, upload.single('file'), function (req, res, next) {
+    }, upload.any(), function (req, res, next) {
         req.body.lotdata = JSON.parse(req.body.lotdata);
         // validation here
         return next();
     }, function (req, res, next) {
-        lotsDB.addLotToDb(req.body.lotdata, req.file ? req.file.path : null)
+        const pathesArray = [];
+        for (let i=0; i < req.files.length; i++) {
+            pathesArray.push(req.files[i].path);
+        }
+
+        lotsDB.addLotToDb(req.body.lotdata, pathesArray)
             .then(function (result) {
-                return res.json({ message: result.insertId });
+                let insertId = result.insertId;
+                lotsDB.addLotImages(pathesArray, insertId)
+                    .then(function () {
+                        return res.json({ message: insertId });
+                    })
+                    .catch(function (result) {
+                        return res.status(result.status).json({ message: result.message });
+                    });
             })
             .catch(function (result) {
                 return res.status(result.status).json({ message: result.message });

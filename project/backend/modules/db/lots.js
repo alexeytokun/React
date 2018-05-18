@@ -31,45 +31,66 @@ lotsDB.getCategories = function () {
 
 lotsDB.getAllLots = function () {
     var sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price AS starting_price, a.last_bid AS price,' +
-        ' CONCAT("' + SERVER_URL + '", l.image) AS image, l.description, l.user_id, l.category_id, u.username FROM' +
+        ' l.description, l.user_id, l.category_id, u.username FROM' +
         ' `lots` AS l LEFT JOIN `users` AS u ON l.user_id = u.id LEFT JOIN `auctions` AS a ON l.lot_id = a.lot_id';
     var prop = '';
     return query(sql, prop);
 };
 
-lotsDB.addLotToDb = function (lotData, imagePath) {
-    var sql = 'INSERT INTO `lots` (`lot_name`, `start_time`, `end_time`, `price`, `description`, `image`,' +
-        ' `category_id`, `user_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-    var prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description, imagePath,
+lotsDB.getAllLotsImages = function () {
+    var sql = 'SELECT CONCAT("' + SERVER_URL + '", l.lot_image_path) AS image, l.lot_id FROM `lots_images` AS l';
+    var prop = '';
+    return query(sql, prop);
+};
+
+lotsDB.addLotToDb = function (lotData) {
+    var sql = 'INSERT INTO `lots` (`lot_name`, `start_time`, `end_time`, `price`, `description`,' +
+        ' `category_id`, `user_id`) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    var prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
         lotData.category, lotData.userid];
     return query(sql, prop);
 };
 
-lotsDB.updateLotData = function (lotData, imagePath, id) {
-
-    var prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
-        lotData.category, lotData.userid, imagePath, id];
-    var imageQueryPart = ', `image`=?';
-
-    if (!imagePath) {
-        imageQueryPart = '';
-        prop =  [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
-            lotData.category, lotData.userid, id];
+lotsDB.addLotImages = function (pathesArray, id) {
+    let lot_img = [];
+    for (let i = 0; i< pathesArray.length; i++) {
+        lot_img.push([
+            pathesArray[i],
+            id
+            ]);
     }
-    var sql = 'UPDATE `lots` SET `lot_name`=?, `start_time`=?, `end_time`=?, `price`=?, `description`=?, ' +
-        ' `category_id`=?, `user_id`=?' + imageQueryPart + ' WHERE `lot_id` = ?';
-
-    return query(sql, prop)
-        .then(function (result) {
-            if (result.affectedRows !== 0) {
-                return ({ status: 200, message: 'Lot data updated' });
-            }
-            return ({ status: 400, message: errorsObj.WRONG_ID });
-        })
-        .catch(function (result) {
-            throw ({ status: result.status, message: result.message });
-        });
+    var sql = 'INSERT INTO `lots_images` (`lot_image_path`, `lot_id`) VALUES ?';
+    var prop = [lot_img];
+    return query(sql, prop);
 };
+
+// CONCAT("' + SERVER_URL + '", l.image) AS image,
+
+// lotsDB.updateLotData = function (lotData, imagePath, id) {
+//
+//     var prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
+//         lotData.category, lotData.userid, imagePath, id];
+//     var imageQueryPart = ', `image`=?';
+//
+//     if (!imagePath) {
+//         imageQueryPart = '';
+//         prop =  [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
+//             lotData.category, lotData.userid, id];
+//     }
+//     var sql = 'UPDATE `lots` SET `lot_name`=?, `start_time`=?, `end_time`=?, `price`=?, `description`=?, ' +
+//         ' `category_id`=?, `user_id`=?' + imageQueryPart + ' WHERE `lot_id` = ?';
+//
+//     return query(sql, prop)
+//         .then(function (result) {
+//             if (result.affectedRows !== 0) {
+//                 return ({ status: 200, message: 'Lot data updated' });
+//             }
+//             return ({ status: 400, message: errorsObj.WRONG_ID });
+//         })
+//         .catch(function (result) {
+//             throw ({ status: result.status, message: result.message });
+//         });
+// };
 
 lotsDB.getAuctionData = function (id) {
     var sql = 'SELECT a.last_bid, u.username AS bidder FROM `auctions` AS a LEFT JOIN `users` AS u ON a.bidder_id = u.id WHERE a.lot_id = ?';

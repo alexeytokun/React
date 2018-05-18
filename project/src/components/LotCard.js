@@ -42,7 +42,7 @@ class LotCard extends Component {
             }}/>;
         }
 
-        const image = lot.image ? lot.image : temp;
+        const image = lot.images.length ? lot.images[0] : temp;
         const status = this.countLotTime(lot.start_time, lot.end_time);
 
 

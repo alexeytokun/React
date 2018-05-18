@@ -10,12 +10,23 @@ router.get('/', function (req, res, next) {
             if(!result.length) {
                 throw {status: 400, message: 'No lots'};
             }
-
             req.body.lots = result;
             return lotsDB.getCategories();
         })
         .then(function (result) {
-            return res.json({ lots: req.body.lots, categories: result});
+            req.body.categories = result;
+            return lotsDB.getAllLotsImages();
+        })
+        .then(function (results) {
+            let sortedImages = [];
+            for (let i = 0; i < req.body.lots.length; i++) {
+                let filtered = results.filter(image => image.lot_id === req.body.lots[i].lot_id).map((img) => img.image);
+                req.body.lots[i].images = filtered;
+            }
+            console.log(req.body.lots);
+        })
+        .then(function (result) {
+            return res.json({ lots: req.body.lots, categories: req.body.categories});
         })
         .catch(function (result) {
             return res.status(result.status).json({ message: result.message });

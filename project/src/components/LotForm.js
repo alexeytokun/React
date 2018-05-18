@@ -17,7 +17,7 @@ class LotForm extends Component {
 
         this.state = {
             options: [],
-            file: null,
+            files: null,
             dates: {
                 start: moment(defaultStart),
                 end: moment(defaultEnd)
@@ -61,8 +61,8 @@ class LotForm extends Component {
             });
     }
 
-    onFileSelect(file) {
-        this.setState({file: file});
+    onFileSelect(files) {
+        this.setState({files: files});
     }
 
     onDatesSelect(dates) {
@@ -138,9 +138,9 @@ class LotForm extends Component {
             description: this.state.description,
         };
 
-        const file = this.state.file;
+        const files = this.state.files;
         this.setState(this.validateAllFields(),
-            () => {this.props.handleSubmit(this.state.isFormValid, data, file)});
+            () => {this.props.handleSubmit(this.state.isFormValid, data, files)});
     }
 
     componentWillMount() {

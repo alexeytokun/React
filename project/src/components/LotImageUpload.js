@@ -7,30 +7,42 @@ class LotImageUpload extends React.Component {
     constructor(props) {
         super(props);
         this.state ={
-            file: null,
+            files: null,
             userid: null,
-            src: this.props.src || logo
+            srcs: []
         };
         this.onChange = this.onChange.bind(this);
     }
 
     onChange(e) {
-        this.setState({file:e.target.files[0]},
+        this.setState({files:e.target.files},
             () => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    this.setState({src: reader.result})
-                };
-                if (this.state.file) reader.readAsDataURL(this.state.file);
-                this.props.onFileSelect(this.state.file);
+                const files = this.state.files;
+                for (let i = 0; i < files.length; i++) {
+                    this.readFile(files[i]);
+                }
+                this.props.onFileSelect(this.state.files); //
             });
     }
 
+    readFile(file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            let srcs = this.state.srcs;
+            srcs.push(reader.result);
+            this.setState({srcs: srcs})
+        };
+        reader.readAsDataURL(file);
+    }
+
     render() {
+        const srcs = this.state.srcs;
+        const images = srcs.map((src, i) => <Image key={i} className='lot_img' size='medium' centered src={src}/>);
+
         return (
             <Form.Field onSubmit={this.onFormSubmit}>
-                <Image className='reg_logo' size='large' centered src={this.state.src}/>
-                <input className='file' id='avatar' name='avatar' type="file" onChange={this.onChange} />
+                {(images.length && images) || <Image className='lot_img' size='medium' centered src={logo}/>}
+                <input className='file' id='avatar' name='avatar' type="file" multiple onChange={this.onChange} />
                 <Button as='label' htmlFor='avatar' className='button' style={{color: 'rgba(0,0,0,.6)'}}>Choose image</Button>
             </Form.Field>
         );

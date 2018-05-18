@@ -57,6 +57,11 @@
   margin-bottom: 50px !important;
 }
 
+.lot_img {
+  display: inline-block !important;
+  margin-bottom: 30px;
+}
+
 .lots_paginator {
   margin: 10px 0 !important;
 }

@@ -36,6 +36,15 @@ CREATE TABLE `lots` (
     PRIMARY KEY(`lot_id`)
 );
 
+CREATE TABLE `lots_images` (
+    `lot_image_id` INT(11) AUTO_INCREMENT,
+    `lot_image_path` VARCHAR(255),
+    `lot_id` INT(11),
+    FOREIGN KEY(`lot_id`)
+        REFERENCES `lots`(`lot_id`),
+    PRIMARY KEY(`lot_image_id`)
+);
+
 CREATE TABLE `auctions` (
     `auction_id` INT(11) AUTO_INCREMENT,
     `lot_id` INT(11),
