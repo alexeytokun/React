@@ -34,6 +34,25 @@ router.post('/', function (req, res, next) {
             });
 });
 
+router.post('/:id', function (req, res, next) {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
+        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+    }
+    return next();
+}, upload.single('file'), function (req, res, next) {
+    req.body.lotdata = JSON.parse(req.body.lotdata);
+    // validation here
+    return next();
+}, function (req, res, next) {
+    lotsDB.updateLotData(req.body.lotdata, req.file ? req.file.path : null, req.params.id)
+        .then(function (result) {
+            return res.json({ message: result.insertId });
+        })
+        .catch(function (result) {
+            return res.status(result.status).json({ message: result.message });
+        });
+});
+
 router.get('/categories', function (req, res, next) {
     lotsDB.getCategories()
         .then(function (result) {

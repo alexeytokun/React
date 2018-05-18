@@ -45,6 +45,32 @@ lotsDB.addLotToDb = function (lotData, imagePath) {
     return query(sql, prop);
 };
 
+lotsDB.updateLotData = function (lotData, imagePath, id) {
+
+    var prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
+        lotData.category, lotData.userid, imagePath, id];
+    var imageQueryPart = ', `image`=?';
+
+    if (!imagePath) {
+        imageQueryPart = '';
+        prop =  [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
+            lotData.category, lotData.userid, id];
+    }
+    var sql = 'UPDATE `lots` SET `lot_name`=?, `start_time`=?, `end_time`=?, `price`=?, `description`=?, ' +
+        ' `category_id`=?, `user_id`=?' + imageQueryPart + ' WHERE `lot_id` = ?';
+
+    return query(sql, prop)
+        .then(function (result) {
+            if (result.affectedRows !== 0) {
+                return ({ status: 200, message: 'Lot data updated' });
+            }
+            return ({ status: 400, message: errorsObj.WRONG_ID });
+        })
+        .catch(function (result) {
+            throw ({ status: result.status, message: result.message });
+        });
+};
+
 lotsDB.getAuctionData = function (id) {
     var sql = 'SELECT `last_bid`, `bidder_id` FROM `auctions` WHERE `lot_id` = ?';
     var prop = [id];

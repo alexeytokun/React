@@ -44,7 +44,7 @@ class CustomSearch extends Component {
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <p>{item.title}</p>
-                    <p>{item.price}</p>
+                    <p>{item.price}$</p>
                 </Grid.Column>
             </Grid>
         );
@@ -62,7 +62,7 @@ class CustomSearch extends Component {
                     title: lot.lot_name,
                     description: lot.description,
                     image: lot.image,
-                    price: lot.price.toString()
+                    price: lot.price ? lot.price.toString() : '0'
                 }
             });
             this.setState({options: searchableArray});

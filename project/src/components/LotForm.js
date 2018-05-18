@@ -4,6 +4,11 @@ import DatePicker from './DatePicker';
 import LotImageUpload from './LotImageUpload';
 import { SERVER_URL } from "../constants";
 import axios from 'axios/index';
+import moment from 'moment';
+
+const defaultStart = new Date();
+const currentTime = new Date();
+const defaultEnd = currentTime.setDate(currentTime.getDate() + 7);
 
 class LotForm extends Component {
 
@@ -14,8 +19,8 @@ class LotForm extends Component {
             options: [],
             file: null,
             dates: {
-                start: false,
-                end: false
+                start: moment(defaultStart),
+                end: moment(defaultEnd)
             },
             description: '',
             category: '',
@@ -28,7 +33,8 @@ class LotForm extends Component {
                 dates: true,
                 category: true,
                 description: true,
-            }
+            },
+            src: false
         };
         this.onFileSelect = this.onFileSelect.bind(this);
         this.onDatesSelect = this.onDatesSelect.bind(this);
@@ -124,37 +130,55 @@ class LotForm extends Component {
 
     handleSubmit() {
         const data = {
-            start: this.state.dates.start,
-            end: this.state.dates.end,
+            start: moment(this.state.dates.start._d).format('YYYY-MM-DD HH:mm:ss'),
+            end: moment(this.state.dates.end._d).format('YYYY-MM-DD HH:mm:ss'),
             price: this.state.price,
             category: this.state.category,
             lotname: this.state.lotname,
             description: this.state.description,
         };
+
         const file = this.state.file;
         this.setState(this.validateAllFields(),
             () => {this.props.handleSubmit(this.state.isFormValid, data, file)});
+    }
+
+    componentWillMount() {
+        if (this.props.lot) {
+            let lot = this.props.lot;
+            this.setState({
+                description: lot.description,
+                category: lot.category_id,
+                lotname: lot.lot_name,
+                price: lot.starting_price.toFixed(2),
+                dates: {
+                    start: moment(lot.start_time),
+                    end: moment(lot.end_time)
+                },
+                src: lot.image
+            });
+        }
     }
 
     render() {
         return (
             <Container className="reg_wrapper">
                 <Form>
-                    <LotImageUpload onFileSelect={this.onFileSelect}/>
+                    <LotImageUpload src={this.state.src} onFileSelect={this.onFileSelect}/>
                     <Form.Field>
-                        <Form.Input error={!this.state.validation.lotname} onChange={this.handleChange} name='lotname' placeholder='Lot name' />
+                        <Form.Input value={this.state.lotname} error={!this.state.validation.lotname} onChange={this.handleChange} name='lotname' placeholder='Lot name' />
                     </Form.Field>
                     <Form.Field>
-                        <Form.Input  error={!this.state.validation.price} onChange={this.handleChange} icon='dollar' name='price' type='text' placeholder='Starting price' />
+                        <Form.Input value={this.state.price}  error={!this.state.validation.price} onChange={this.handleChange} icon='dollar' name='price' type='text' placeholder='Starting price' />
                     </Form.Field>
                     <Form.Field>
-                        <DatePicker onDatesSelect={this.onDatesSelect}/>
+                        <DatePicker value={[this.state.dates.start, this.state.dates.end]} onDatesSelect={this.onDatesSelect}/>
                     </Form.Field>
                     <Form.Field>
-                        <Select error={!this.state.validation.category} onChange={this.handleSelectChange} name='category' placeholder="Category" options={this.state.options}/>
+                        <Select value={this.state.category} error={!this.state.validation.category} onChange={this.handleSelectChange} name='category' placeholder="Category" options={this.state.options}/>
                     </Form.Field>
                     <Form.Field>
-                        <TextArea onChange={this.handleChange} name='description' autoHeight placeholder='Lot description'/>
+                        <TextArea value={this.state.description} onChange={this.handleChange} name='description' autoHeight placeholder='Lot description'/>
                     </Form.Field>
                     <Button onClick={this.handleSubmit} fluid={true} type='submit' className='button'>Save</Button>
                 </Form>

@@ -67,6 +67,12 @@ export default class DatePicker extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props !== nextProps && nextProps.value) {
+            this.setState({value: nextProps.value});
+        }
+    }
+
     onChange = (value) => {
         this.setState({ value });
     };
@@ -77,8 +83,8 @@ export default class DatePicker extends React.Component {
 
     onSubmit = () => {
         let dates = {
-            start: moment(this.state.value[0]._d).format('YYYY-MM-DD HH:mm:ss'),
-            end: moment(this.state.value[1]._d).format('YYYY-MM-DD HH:mm:ss')
+            start:this.state.value[0],
+            end: this.state.value[1]
         };
         this.props.onDatesSelect(dates);
     };

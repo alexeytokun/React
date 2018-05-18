@@ -9,6 +9,13 @@ import { NavLink } from 'react-router-dom';
 
 class LotPage extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            lot: {}
+        };
+    }
+
     countLotStage(start, end) {
         const isStarted = Date.now() >= new Date(start);
         const isEnded = new Date(end) < Date.now();
@@ -23,7 +30,7 @@ class LotPage extends Component {
                 return (
                     <div>
                         <Divider/>
-                        <span style={{fontSize: 20, color: 'black'}}>Auction starts in:</span>
+                        <span style={{fontSize: 20, color: 'black'}}>Time left:</span>
                         <Countdown date={lot.end_time}/>
                     </div>
                 );
@@ -49,9 +56,15 @@ class LotPage extends Component {
         return null;
     }
 
-    render() {
+    componentWillMount() {
         const id = +this.props.match.params.id;
         const lot = this.props.lots.find(lot => lot.lot_id === id);
+        this.setState({lot: lot});
+    }
+
+
+    render() {
+        const lot = this.state.lot;
         if (!lot) return null;
 
         const stage = this.countLotStage(lot.start_time, lot.end_time);
