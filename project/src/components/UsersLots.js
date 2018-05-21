@@ -27,7 +27,6 @@ class UsersLots extends Component {
 
     handlePageChange(page, pagination) {
         if (!pagination) return;
-        console.log(pagination);
         this.setState({page, pagination});
     }
 

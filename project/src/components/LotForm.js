@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Form, Container, Select, TextArea, Image } from 'semantic-ui-react';
+import { Button, Form, Container, Select, TextArea } from 'semantic-ui-react';
 import DatePicker from './DatePicker';
 import LotImageUpload from './LotImageUpload';
-import { SERVER_URL } from "../constants";
-import axios from 'axios/index';
 import moment from 'moment';
 
 const defaultStart = new Date();
@@ -44,21 +42,15 @@ class LotForm extends Component {
     }
 
     componentDidMount() {
-        axios.get(SERVER_URL + 'lot/categories')
-            .then((res) => {
-                let options = res.data.map((option) => {
-                    return {
-                        key: option.category_id,
-                        value: option.category_id,
-                        text: option.category_name
-                    }
-                });
-                this.setState({options: options});
-            })
-            .catch((err) => {
-                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.props.saveError(errorMessage);
-            });
+        const categories = this.props.categories;
+        let options = categories.map((option) => {
+            return {
+                key: option.category_id,
+                value: option.category_id,
+                text: option.category_name
+            }
+        });
+            this.setState({options: options});
     }
 
     onFileSelect(files) {

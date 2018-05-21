@@ -4,16 +4,10 @@ import { Menu, Button, Container, Dropdown, Image, Search } from 'semantic-ui-re
 import logo from "../logo-new.svg";
 import { connect } from 'react-redux';
 import {userLogOut} from "../actions/userActions";
-import {saveLotsAndCategories} from "../actions/lotsActions";
-import {updateLots} from '../functions';
 import {saveError} from "../actions/errorsActions";
 import CustomSearch from "./CustomSearch";
 
 class Header extends Component {
-
-    componentWillMount() {
-        updateLots(this.props);
-    }
 
     render() {
         const link = this.props.loggedIn ?
@@ -73,7 +67,6 @@ const mapStateToProps = (state) => {
 const dispatchStateToProps = (dispatch) => {
     return {
         userLogOut: () => dispatch(userLogOut()),
-        saveLotsAndCategories: userdata => dispatch(saveLotsAndCategories(userdata)),
         saveError: (err) => dispatch(saveError(err))
     };
 };

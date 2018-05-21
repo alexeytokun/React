@@ -14,7 +14,7 @@ class EditLot extends Component {
 
         this.state = {
             redirect: false,
-            lot: {}
+            lot: null
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -46,18 +46,31 @@ class EditLot extends Component {
 
     componentWillMount() {
         const id = +this.props.match.params.id;
-        const lot = this.props.lots.find(lot => lot.lot_id === id);
-        this.setState({lot: lot});
+        axios.get(SERVER_URL + 'lot/' + id, {
+            headers: {
+                "User-Auth-Token": localStorage.getItem('jwt')
+            }
+        })
+            .then((res) => {
+                console.log(res.data.lot);
+                this.setState({lot: res.data.lot});
+            })
+            .catch((err) => {
+                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
+                this.props.saveError(errorMessage);
+            });
     }
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to='/lots/user' />;
+            return <Redirect push to='/lots/user'/>;
         }
+
+        if(!this.state.lot) return null;
 
         return (
             <Container className="reg_wrapper">
-                <LotForm saveError={this.props.saveError} handleSubmit={this.handleSubmit} lot={this.state.lot}/>
+                <LotForm categories={this.props.categories} saveError={this.props.saveError} handleSubmit={this.handleSubmit} lot={this.state.lot}/>
             </Container>
         );
     }
@@ -66,7 +79,8 @@ class EditLot extends Component {
 const mapStateToProps = (store) => {
     return {
         userData: store.user.userdata,
-        lots: store.lots.lots
+        lots: store.lots.lots,
+        categories: store.lots.categories
     };
 };
 

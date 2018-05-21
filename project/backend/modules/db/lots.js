@@ -29,6 +29,21 @@ lotsDB.getCategories = () => {
     return query(sql, prop);
 };
 
+lotsDB.getLotData = (id) => {
+    const sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price AS starting_price, a.last_bid AS price,' +
+        ' l.description, l.user_id, l.category_id, u.username FROM `lots` AS l LEFT JOIN `users` AS u ON ' +
+        'l.user_id = u.id LEFT JOIN `auctions` AS a ON l.lot_id = a.lot_id WHERE l.lot_id= ?';
+    const prop = [id];
+    return query(sql, prop);
+};
+
+lotsDB.getLotImages = (id) => {
+    const sql = 'SELECT CONCAT("' + SERVER_URL + '", l.lot_image_path) AS image, l.lot_id, l.lot_image_id AS image_id' +
+        ' FROM `lots_images` AS l WHERE l.lot_id= ?';
+    const prop = [id];
+    return query(sql, prop);
+};
+
 lotsDB.getAllLots = () => {
     const sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price AS starting_price, a.last_bid AS price,' +
         ' l.description, l.user_id, l.category_id, u.username FROM' +
@@ -38,7 +53,8 @@ lotsDB.getAllLots = () => {
 };
 
 lotsDB.getAllLotsImages = () => {
-    const sql = 'SELECT CONCAT("' + SERVER_URL + '", l.lot_image_path) AS image, l.lot_id FROM `lots_images` AS l';
+    const sql = 'SELECT CONCAT("' + SERVER_URL + '", l.lot_image_path) AS image, l.lot_id, l.lot_image_id AS image_id' +
+        ' FROM `lots_images` AS l';
     const prop = '';
     return query(sql, prop);
 };
@@ -64,9 +80,11 @@ lotsDB.addLotImages = (pathesArray, id) => {
     return query(sql, prop);
 };
 
-// lotsDB.deleteLotImage = function (path, id) {
-//     return query(sql, prop);
-// };
+lotsDB.deleteLotImage = function (id) {
+    const sql = 'DELETE FROM lots_images WHERE lot_image_id = ?';
+    const prop = [id];
+    return query(sql, prop);
+};
 
 lotsDB.updateLotData = (lotData, id) => {
     const prop =  [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,

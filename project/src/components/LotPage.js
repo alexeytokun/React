@@ -68,7 +68,6 @@ class LotPage extends Component {
     render() {
         const lot = this.state.lot;
         if (!lot) return null;
-        console.log(lot);
 
         const stage = this.countLotStage(lot.start_time, lot.end_time);
         const countdown = this.countLotTime(lot, stage);
@@ -78,10 +77,9 @@ class LotPage extends Component {
         const bidData = this.switchBidData(user, lot, isLotOwner, stage);
 
         let images = lot.images;
-        console.log(images);
         if (images && images.length) {
             images = images.map((img, i) =>
-            <div key={i}><img src={img || defaultImage}/></div>
+            <div key={i}><img src={img.path || defaultImage}/></div>
             )
         } else {
             images = <div><img src={defaultImage}/></div>;

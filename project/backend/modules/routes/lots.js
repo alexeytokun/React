@@ -18,7 +18,11 @@ router.get('/', (req, res, next) => {
         })
         .then(results => {
             for (let i = 0; i < req.body.lots.length; i++) {
-                let filtered = results.filter(image => image.lot_id === req.body.lots[i].lot_id).map((img) => img.image);
+                let filtered = results
+                    .filter(image => image.lot_id === req.body.lots[i].lot_id)
+                    .map((img) => {
+                        return {path: img.image, image_id: img.image_id}
+                    });
                 req.body.lots[i].images = filtered;
             }
             return res.json({ lots: req.body.lots, categories: req.body.categories});

@@ -49,7 +49,7 @@ class AddLot extends Component {
 
         return (
             <Container className="reg_wrapper">
-                <LotForm saveError={this.props.saveError} handleSubmit={this.handleSubmit}/>
+                <LotForm categories={this.props.categories} saveError={this.props.saveError} handleSubmit={this.handleSubmit}/>
             </Container>
         );
     }
@@ -57,7 +57,8 @@ class AddLot extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        userData: store.user.userdata
+        userData: store.user.userdata,
+        categories: store.lots.categories
     };
 };
 

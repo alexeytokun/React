@@ -61,7 +61,7 @@ class CustomSearch extends Component {
                     id: lot.lot_id,
                     title: lot.lot_name,
                     description: lot.description,
-                    image: (lot.images.length && lot.images[0]) || '',
+                    image: (lot.images.length && lot.images[0].path) || '',
                     price: lot.price ? lot.price.toString() : '0'
                 }
             });

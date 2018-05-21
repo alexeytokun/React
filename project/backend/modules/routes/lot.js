@@ -13,6 +13,26 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+router.get('/:id', (req, res, next) => {
+    lotsDB.getLotData(req.params.id)
+        .then(result => {
+            if(!result.length) {
+                throw {status: 400, message: errorsObj.WRONG_ID};
+            }
+            req.body.lot = result[0];
+            return lotsDB.getLotImages(req.params.id);
+        })
+        .then(results => {
+                let filtered = results
+                    .map((img) => {
+                        return {path: img.image, image_id: img.image_id}
+                    });
+                req.body.lot.images = filtered;
+            return res.json({ lot: req.body.lot });
+        })
+        .catch(result => res.status(result.status).json({ message: result.message }));
+});
+
 router.post('/', (req, res, next) => {
         if (req.body.token !== 'admin' && req.body.token !== 'user') {
             return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
@@ -58,6 +78,22 @@ router.post('/:id', (req, res, next) => {
             lotsDB.addLotImages(pathesArray, req.params.id)
                 .then(() => res.json({ message: 'ok' }))
                 .catch((result) => res.status(result.status).json({ message: result.message }));
+        })
+        .catch(result => res.status(result.status).json({ message: result.message }));
+});
+
+router.delete('/image/:id', (req, res, next) => {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
+        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+    }
+    return next();
+}, (req, res, next) => {
+    lotsDB.deleteLotImage(req.params.id)
+        .then(function (result) {
+            if (result.affectedRows !== 0) {
+                return res.status(200).json({message: 'Image deleted'});
+            }
+            return res.status(400).json({message: errorsObj.WRONG_ID});
         })
         .catch(result => res.status(result.status).json({ message: result.message }));
 });
