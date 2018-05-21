@@ -1,4 +1,4 @@
-var errorsObj = {
+const errorsObj = {
     SERVER_CON: 'SERVER_CON_ERROR',
     ACCESS_DENIED: 'ACCESS_DENIED_ERROR',
     DB_CON: 'DB_CON_ERROR',

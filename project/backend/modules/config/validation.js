@@ -1,11 +1,11 @@
-var regex = require('./regex');
+const regex = require('./regex');
 
-function validate(data, flag) {
-    var username = data.username;
-    var firstname = data.firstname;
-    var lastname = data.lastname;
-    var email = data.email;
-    var pass = data.pass;
+const validate = (data, flag) => {
+    const username = data.username;
+    const firstname = data.firstname;
+    const lastname = data.lastname;
+    const email = data.email;
+    const pass = data.pass;
 
     if (flag) {
         return regex.usernameRegex.test(String(username))
@@ -19,6 +19,6 @@ function validate(data, flag) {
         && regex.lastnameRegex.test(String(lastname))
         && regex.emailRegex.test(String(email))
         && regex.passRegex.test(String(pass));
-}
+};
 
 module.exports = validate;

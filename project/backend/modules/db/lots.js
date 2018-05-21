@@ -1,17 +1,17 @@
-var errorsObj = require('../config/errors');
-var pool = require('../config/connection').pool;
-var SERVER_URL = require('../config/constants').SERVER_URL;
+const errorsObj = require('../config/errors');
+const pool = require('../config/connection').pool;
+const SERVER_URL = require('../config/constants').SERVER_URL;
 
-var query = function (sql, props) {
+const query = (sql, props) => {
     return new Promise(function (resolve, reject) {
-        pool.getConnection(function (err, connection) {
+        pool.getConnection((err, connection) => {
             if (err) {
                 reject({ status: 409, message: errorsObj.DB_CON });
                 return;
             }
             connection.query(
                 sql, props,
-                function (error, result) {
+                (error, result) => {
                     if (error) reject({ status: 409, message: errorsObj.DB_QUERY });
                     else resolve(result);
                 }
@@ -21,37 +21,37 @@ var query = function (sql, props) {
     });
 };
 
-var lotsDB = {};
+const lotsDB = {};
 
-lotsDB.getCategories = function () {
-    var sql = 'SELECT `category_id`, `category_name` FROM `categories`';
-    var prop = '';
+lotsDB.getCategories = () => {
+    const sql = 'SELECT `category_id`, `category_name` FROM `categories`';
+    const prop = '';
     return query(sql, prop);
 };
 
-lotsDB.getAllLots = function () {
-    var sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price AS starting_price, a.last_bid AS price,' +
+lotsDB.getAllLots = () => {
+    const sql = 'SELECT l.lot_id, l.lot_name, l.start_time, l.end_time, l.price AS starting_price, a.last_bid AS price,' +
         ' l.description, l.user_id, l.category_id, u.username FROM' +
         ' `lots` AS l LEFT JOIN `users` AS u ON l.user_id = u.id LEFT JOIN `auctions` AS a ON l.lot_id = a.lot_id';
-    var prop = '';
+    const prop = '';
     return query(sql, prop);
 };
 
-lotsDB.getAllLotsImages = function () {
-    var sql = 'SELECT CONCAT("' + SERVER_URL + '", l.lot_image_path) AS image, l.lot_id FROM `lots_images` AS l';
-    var prop = '';
+lotsDB.getAllLotsImages = () => {
+    const sql = 'SELECT CONCAT("' + SERVER_URL + '", l.lot_image_path) AS image, l.lot_id FROM `lots_images` AS l';
+    const prop = '';
     return query(sql, prop);
 };
 
-lotsDB.addLotToDb = function (lotData) {
-    var sql = 'INSERT INTO `lots` (`lot_name`, `start_time`, `end_time`, `price`, `description`,' +
+lotsDB.addLotToDb = lotData => {
+    const sql = 'INSERT INTO `lots` (`lot_name`, `start_time`, `end_time`, `price`, `description`,' +
         ' `category_id`, `user_id`) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    var prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
+    const prop = [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
         lotData.category, lotData.userid];
     return query(sql, prop);
 };
 
-lotsDB.addLotImages = function (pathesArray, id) {
+lotsDB.addLotImages = (pathesArray, id) => {
     let lot_img = [];
     for (let i = 0; i < pathesArray.length; i++) {
         lot_img.push([
@@ -59,8 +59,8 @@ lotsDB.addLotImages = function (pathesArray, id) {
             id
             ]);
     }
-    var sql = 'INSERT INTO `lots_images` (`lot_image_path`, `lot_id`) VALUES ?';
-    var prop = [lot_img];
+    const sql = 'INSERT INTO `lots_images` (`lot_image_path`, `lot_id`) VALUES ?';
+    const prop = [lot_img];
     return query(sql, prop);
 };
 
@@ -68,23 +68,23 @@ lotsDB.addLotImages = function (pathesArray, id) {
 //     return query(sql, prop);
 // };
 
-lotsDB.updateLotData = function (lotData, id) {
-    var prop =  [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
+lotsDB.updateLotData = (lotData, id) => {
+    const prop =  [lotData.lotname, lotData.start, lotData.end, lotData.price, lotData.description,
             lotData.category, lotData.userid, id];
-    var sql = 'UPDATE `lots` SET `lot_name`=?, `start_time`=?, `end_time`=?, `price`=?, `description`=?, ' +
+    const sql = 'UPDATE `lots` SET `lot_name`=?, `start_time`=?, `end_time`=?, `price`=?, `description`=?, ' +
         ' `category_id`=?, `user_id`=? WHERE `lot_id` = ?';
     return query(sql, prop);
 };
 
-lotsDB.getAuctionData = function (id) {
-    var sql = 'SELECT a.last_bid, u.username AS bidder FROM `auctions` AS a LEFT JOIN `users` AS u ON a.bidder_id = u.id WHERE a.lot_id = ?';
-    var prop = [id];
+lotsDB.getAuctionData = id => {
+    const sql = 'SELECT a.last_bid, u.username AS bidder FROM `auctions` AS a LEFT JOIN `users` AS u ON a.bidder_id = u.id WHERE a.lot_id = ?';
+    const prop = [id];
     return query(sql, prop);
 };
 
-lotsDB.updateAuctionData = function (data) {
-    var sql = 'UPDATE `auctions` SET `last_bid`=?, `bidder_id`=? WHERE `lot_id` = ?';
-    var prop = [data.bid, data.buyer, data.lot_id];
+lotsDB.updateAuctionData = data => {
+    const sql = 'UPDATE `auctions` SET `last_bid`=?, `bidder_id`=? WHERE `lot_id` = ?';
+    const prop = [data.bid, data.buyer, data.lot_id];
     return query(sql, prop);
 };
 

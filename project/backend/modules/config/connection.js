@@ -1,6 +1,6 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 
-var connectionObj = {
+const connectionObj = {
     host: 'localhost',
     user: 'root',
     password: '123',
@@ -9,7 +9,7 @@ var connectionObj = {
     port: 8000
 };
 
-var pool = mysql.createPool({
+const pool = mysql.createPool({
     host: connectionObj.host,
     user: connectionObj.user,
     password: connectionObj.password,

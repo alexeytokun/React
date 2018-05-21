@@ -25,8 +25,10 @@ class EditLot extends Component {
 
         data.userid = this.props.userData.id;
         const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append('file', files[i]);
+        if (files) {
+            for (let i = 0; i < files.length; i++) {
+                formData.append('file', files[i]);
+            }
         }
         formData.append('lotdata', JSON.stringify(data));
 

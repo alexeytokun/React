@@ -73,7 +73,7 @@ DROP TRIGGER IF EXISTS project.lots_AFTER_UPDATE$$
 USE `project`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `project`.`lots_AFTER_UPDATE` AFTER UPDATE ON `lots` FOR EACH ROW
 BEGIN
-	UPDATE `auctions` AS a SET `lot_id` = NEW.lot_id,  `last_bid` = NEW.price WHERE a.lot_id = NEW.lot_id;
+	UPDATE `auctions` AS a SET `lot_id` = NEW.lot_id, `last_bid` = NEW.price WHERE a.lot_id = NEW.lot_id;
 END$$
 DELIMITER ;
 

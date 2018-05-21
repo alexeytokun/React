@@ -1,48 +1,46 @@
-var express = require('express');
-var router = express.Router();
-var dbObj = require('../db/users');
-var errorsObj = require('../config/errors');
-var hashingObj = require('../config/hashing');
-var jwt = require('jsonwebtoken');
-var jwtKey = require('../config/jwt_key');
+const express = require('express');
+const router = express.Router();
+const dbObj = require('../db/users');
+const errorsObj = require('../config/errors');
+const hashingObj = require('../config/hashing');
+const jwt = require('jsonwebtoken');
+const jwtKey = require('../config/jwt_key');
 
-function login(user) {
+const login = (user) => {
     return dbObj.getUserData(user.username)
-        .then(function (results) {
+        .then(results => {
             if (results.length) return results[0];
             throw ({ status: 406, message: errorsObj.AUTH });
         })
-        .then(function (userData) {
+        .then(userData => {
             return hashingObj.compare(user.pass, userData.password)
-                .then(function (result) {
+                .then(result => {
                     if (result) return userData;
                     throw ({ status: 406, message: errorsObj.AUTH });
                 });
         })
-        .catch(function (result) {
+        .catch(result => {
             throw ({ status: result.status, message: result.message });
         });
 };
 
-router.post('/', function (req, res, next) {
+router.post('/', (req, res, next) => {
     login(req.body)
-        .then(function (userData) {
+        .then(userData => {
             delete userData.password;
             let token = jwt.sign({ role: userData.role }, jwtKey, { expiresIn: 60 * 60 });
             return { token: token, userdata: userData };
         })
-        .catch(function (result) {
+        .catch(result => {
             throw ({ status: 406, message: errorsObj.AUTH });
         })
-        .then(function (result) {
+        .then(result => {
             return res.json({
                 authtoken: result.token,
                 userdata: result.userdata
             });
         })
-        .catch(function (result) {
-            res.status(result.status).json({ message: result.message });
-        });
+        .catch(result => res.status(result.status).json({ message: result.message }));
 });
 
 module.exports = router;

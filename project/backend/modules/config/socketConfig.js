@@ -2,10 +2,10 @@ const io = require('../../server').io;
 const lotsDB = require('../db/lots');
 
 
-module.exports = function (socket) {
+module.exports = socket => {
     console.log('New connection from ' + socket.handshake.address);
 
-    socket.on('bid', function (data) {
+    socket.on('bid', data => {
         let newData;
         lotsDB.getAuctionData(data.lot_id)
             .then(res => {
@@ -25,7 +25,7 @@ module.exports = function (socket) {
             .catch(err => console.log(err));
     });
 
-    socket.on('room', function (room) {
+    socket.on('room', room => {
         if(socket.room) socket.leave(socket.room);
         socket.room = room;
         socket.join(room);
@@ -45,7 +45,7 @@ module.exports = function (socket) {
             .catch(err => console.log(err));
     });
 
-    socket.on('disconnect', function () {
+    socket.on('disconnect', () => {
         console.log('disconnect');
     });
 };

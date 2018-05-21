@@ -1,11 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var dbObj = require('../db/users');
-var errorsObj = require('../config/errors');
-var jwt = require('jsonwebtoken');
-var jwtKey = require('../config/jwt_key');
+const express = require('express');
+const router = express.Router();
+const errorsObj = require('../config/errors');
+const jwt = require('jsonwebtoken');
+const jwtKey = require('../config/jwt_key');
 
-router.use(function (req, res, next) {
+router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
     res.header('Access-Control-Allow-Methods', '*');
@@ -13,9 +12,9 @@ router.use(function (req, res, next) {
     next();
 });
 
-router.use(function (req, res, next) {
-    var body;
-    var headerAuthToken;
+router.use((req, res, next) => {
+    let body;
+    let headerAuthToken;
 
     if (req.method !== 'OPTIONS') {
         body = req.body;
@@ -25,7 +24,7 @@ router.use(function (req, res, next) {
             return next();
         }
 
-        jwt.verify(headerAuthToken, jwtKey, function(err, decoded) {
+        jwt.verify(headerAuthToken, jwtKey, (err, decoded) => {
             if (err) {
                 body.token = 'guest';
             } else if (decoded) {
