@@ -97,6 +97,17 @@
   color: red;
 }
 
+.carousel_image_container {
+  position: relative;
+}
+
+.carousel_close_icon
+{
+  position: absolute;
+  top: 2px;
+  right: -25px;
+  cursor: pointer;
+}
 .rc-calendar-range-right .rc-calendar-time-picker-panel {
   left: 0 !important;
 }
