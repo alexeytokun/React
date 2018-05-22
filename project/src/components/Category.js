@@ -46,7 +46,7 @@ class Category extends Component {
         return (
             <Container>
                 <div>
-                    <h1>{this.props.categories[id].category_name}</h1>
+                    <h1 className='category_title'>{this.props.categories[id].category_name}</h1>
                     <Divider/>
                     <LotGroup lots={paginatedLots}/>
                     {

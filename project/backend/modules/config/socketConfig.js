@@ -34,14 +34,16 @@ module.exports = socket => {
         lotsDB.getAuctionData(room)
             .then(res => {
                 if (!res.length) throw {status: 400, message: 'Bid Error'};
-                console.log(res[0]);
                 const newData = {
                     bid: res[0].last_bid,
                     buyer: res[0].bidder
                 };
                 return newData;
             })
-            .then((newData) => io.emit('bid', newData).to(socket.room))
+            .then((newData) => {
+                io.sockets.in(socket.room).emit('bid', newData);
+                console.log('ok');
+            })
             .catch(err => console.log(err));
     });
 

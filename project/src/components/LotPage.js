@@ -41,7 +41,12 @@ class LotPage extends Component {
                     </div>
                 );
             case 'finished':
-                return <p style={{fontSize: 20, color: 'red'}}>Finished</p>;
+                return (
+                    <div>
+                        <Divider/>
+                        <p style={{fontSize: 20, color: 'red'}}>Finished</p>
+                    </div>
+                );
             case 'pending':
                 return (
                     <div>
@@ -58,6 +63,9 @@ class LotPage extends Component {
         if (stage === 'active') {
             if (!user.id || isLotOwner) return <Bid lot={lot} user={user} disabled/>;
             if (!isLotOwner) return <Bid lot={lot} user={user}/>;
+        }
+        if (stage === 'finished') {
+            return <Bid lot={lot} user={user} finished/>;
         }
         return null;
     }

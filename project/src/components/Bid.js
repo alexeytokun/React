@@ -63,6 +63,17 @@ class Bid extends Component {
         const isDisabled = !!this.props.disabled;
         const buyerInfo = this.state.buyer ? ` (by ${this.state.buyer})` : '';
 
+        if (this.props.finished) {
+            return (
+                <Container className='bid_container'>
+                    <Divider/>
+                    <p style={{fontSize: 16, fontWeight: 'bold'}}>
+                        {'Final Bid: ' + this.state.last_bid + '$' + buyerInfo}
+                    </p>
+                </Container>
+            );
+        }
+
         return (
             <Container className='bid_container'>
                 <Divider/>

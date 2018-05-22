@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Segment, Container, Divider } from 'semantic-ui-react';
+import { Container, Divider } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import logo from "../logo-new.svg";
-import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
 import LotGroup from "./LotGroup";
 import {updateLots} from "../functions";
@@ -15,43 +13,8 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // response: "&",
-            // endpoint: "http://127.0.0.1:8000",
-            // socket: null,
-            // value: "",
         };
-
-        // this.onChange = this.onChange.bind(this);
     }
-
-    // send = () => {
-    //     this.state.socket.emit('send', this.state.value);
-    // };
-
-    // onChange(e) {
-    //     this.setState({value: e.target.value})
-    // }
-
-    // componentWillMount() {
-    //     this.initSocket();
-    // }
-    //
-    // componentWillUnmount() {
-    //     this.state.socket.close();
-    // }
-    //
-    // initSocket = () => {
-    //     const socket = socketIOClient(this.state.endpoint);
-    //     socket.on('connect', () => {
-    //         console.log('Connected');
-    //     });
-    //
-    //     socket.on('news', (data) => {
-    //         this.setState({response: data});
-    //     });
-    //
-    //     this.setState({socket});
-    // };
 
     componentWillMount() {
         updateLots(this.props);
@@ -65,7 +28,7 @@ class Home extends Component {
                 return (
                     <Container key={i} className='lot_group'>
                         <h1>
-                            <NavLink className='category_title title' to={'/category/' + i}>{this.props.categories[i].category_name}</NavLink>
+                            <NavLink className='category_title' to={'/category/' + i}>{this.props.categories[i].category_name}</NavLink>
                         </h1>
                         <Divider/>
                         <LotGroup lots={this.props.sortedLots[i]} homepage={true}/>
@@ -77,11 +40,11 @@ class Home extends Component {
 
         return (
             <Container>
+                <div className='home_tagline_container'>
+                    <h1 className='home_tagline_main'>THE MOST SIMPLE ONLINE AUCTION</h1>
+                    <h2 className='home_tagline_secondary'>Find. Bid. Win. As easy as it should be.</h2>
+                </div>
                 {groups}
-                {/*<p>{window.location.href}</p>*/}
-                {/*<p>{this.state.response}</p>*/}
-                {/*<input id='input' value={this.state.value} onChange={this.onChange}/>*/}
-                {/*<button onClick={this.send}>Click</button>*/}
             </Container>
         )
     }

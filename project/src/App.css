@@ -1,5 +1,10 @@
+body {
+  height: auto !important;
+}
+
 .main {
   text-align: center;
+  margin-top: 75px;
 }
 
 .reg_wrapper {
@@ -71,7 +76,33 @@
 }
 
 .bid_container {
-  margin-top: 5%;
+
+}
+
+.home_tagline_container {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.home_tagline_main {
+  color: #57c1e9;
+  font-size: 43px;
+  margin-bottom: 5px;
+}
+
+.home_tagline_secondary {
+  margin-top: 0;
+  color: rgba(0,0,0,.6);
+}
+
+.header_menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #FFF;
+  z-index: 99;
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 .user.icon,
@@ -93,7 +124,7 @@
 }
 
 .category_title {
-  color: black;
+  color: rgba(0,0,0,.6);
 }
 
 .lotpage_finished {

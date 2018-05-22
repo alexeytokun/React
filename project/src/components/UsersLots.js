@@ -52,7 +52,7 @@ class UsersLots extends Component {
         return (
             <Container>
                 <div>
-                    <h1>Your lots</h1>
+                    <h1 className='category_title'>Your lots</h1>
                     <Divider/>
                     <LotGroup category={true} lots={paginatedLots}/>
                     {
