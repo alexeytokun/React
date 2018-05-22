@@ -80,8 +80,14 @@ lotsDB.addLotImages = (pathesArray, id) => {
     return query(sql, prop);
 };
 
-lotsDB.deleteLotImage = function (id) {
+lotsDB.deleteLotImage = (id) => {
     const sql = 'DELETE FROM lots_images WHERE lot_image_id = ?';
+    const prop = [id];
+    return query(sql, prop);
+};
+
+lotsDB.deleteLot = (id) => {
+    const sql = 'DELETE FROM lots WHERE lot_id = ?';
     const prop = [id];
     return query(sql, prop);
 };

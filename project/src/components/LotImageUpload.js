@@ -24,7 +24,7 @@ class LotImageUpload extends React.Component {
         this.setState({
                 files: e.target.files || null,
                 srcs: this.props.src || [],
-                selectedImage: this.props.src ? this.props.src.length - 1 : 0
+                selectedImage: (this.props.src && this.props.src.length) ? this.props.src.length - 1 : 0
             }, () => {
                 const files = this.state.files;
                 for (let i = 0; i < files.length; i++) {
@@ -48,16 +48,15 @@ class LotImageUpload extends React.Component {
         let {srcs, selectedImage} = this.state;
         const image = srcs[selectedImage];
 
-        if (image.image_id) {
+        if (image && image.image_id) {
             axios.delete(SERVER_URL + 'lot/image/' + image.image_id, {
                 headers: {
                     "User-Auth-Token": localStorage.getItem('jwt')
                 }
             })
                 .then((res) => {
-                    console.log('ok');
                     srcs.splice(selectedImage, 1);
-                    this.setState({srcs, selectedImage: selectedImage - 1}, () => {console.log('ok1')});
+                    this.setState({srcs, selectedImage: selectedImage - 1});
                 })
                 .catch((err) => {
                     const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
@@ -77,8 +76,6 @@ class LotImageUpload extends React.Component {
     }
 
     render() {
-        console.log(this.state);
-        console.log(this.props.src);
         const srcs = this.state.srcs;
         const images = srcs.map((src, i) =>
             <div key={i} className={'carousel_image_container'}>

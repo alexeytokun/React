@@ -5,17 +5,21 @@ import Countdown from "./Countdown";
 import Bid from './Bid';
 import {connect} from "react-redux";
 import {saveError} from "../actions/errorsActions";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import axios from "axios/index";
+import {SERVER_URL} from "../constants";
 
 class LotPage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            lot: {}
+            lot: null,
+            redirect: false
         };
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     countLotStage(start, end) {
@@ -58,16 +62,52 @@ class LotPage extends Component {
         return null;
     }
 
+    handleDelete() {
+        axios.delete(SERVER_URL + 'lot/' + this.state.lot.lot_id, {
+            headers: {
+                "User-Auth-Token": localStorage.getItem('jwt')
+            }
+        })
+            .then((res) => {
+                this.setState({redirect: '/lots/user'});
+            })
+            .catch((err) => {
+                let errorMessage;
+                if (err.response) {
+                    errorMessage = (err.response.data && err.response.data.message) || err.message;
+                } else if (err.request) {
+                    errorMessage = 'SERVER_CON_ERROR';
+                } else {
+                    errorMessage = err.message;
+                }
+                this.props.saveError(errorMessage);
+            });
+    }
+
     componentWillMount() {
         const id = +this.props.match.params.id;
-        const lot = this.props.lots.find(lot => lot.lot_id === id);
-        this.setState({lot: lot});
+        axios.get(SERVER_URL + 'lot/' + id, {
+            headers: {
+                "User-Auth-Token": localStorage.getItem('jwt')
+            }
+        })
+            .then((res) => {
+                this.setState({lot: res.data.lot});
+            })
+            .catch((err) => {
+                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
+                this.props.saveError(errorMessage);
+            });
     }
 
 
     render() {
         const lot = this.state.lot;
         if (!lot) return null;
+
+        if(this.state.redirect) {
+            return <Redirect push to={this.state.redirect}/>;
+        }
 
         const stage = this.countLotStage(lot.start_time, lot.end_time);
         const countdown = this.countLotTime(lot, stage);
@@ -100,7 +140,12 @@ class LotPage extends Component {
                         {countdown}
                         {bidData}
                         {(isLotOwner && isEdditable) &&
-                        <NavLink to={'/lot_edit/' + lot.lot_id}><Button basic size='small'>Edit Lot</Button></NavLink>}
+                        <div>
+                            <NavLink to={'/lot_edit/' + lot.lot_id}>
+                                <Button className='lot_page_btn' basic size='medium'>Edit</Button>
+                            </NavLink>
+                            <Button onClick={this.handleDelete} className='lot_page_btn' basic size='medium'>Delete</Button>
+                        </div>}
                     </Grid.Column>
                 </Grid>
             </Container>

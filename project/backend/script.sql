@@ -41,7 +41,8 @@ CREATE TABLE `lots_images` (
     `lot_image_path` VARCHAR(255),
     `lot_id` INT(11),
     FOREIGN KEY(`lot_id`)
-        REFERENCES `lots`(`lot_id`),
+        REFERENCES `lots`(`lot_id`)
+        ON DELETE CASCADE,
     PRIMARY KEY(`lot_image_id`)
 );
 

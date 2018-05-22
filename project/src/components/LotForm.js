@@ -4,10 +4,6 @@ import DatePicker from './DatePicker';
 import LotImageUpload from './LotImageUpload';
 import moment from 'moment';
 
-const defaultStart = new Date();
-const currentTime = new Date();
-const defaultEnd = currentTime.setDate(currentTime.getDate() + 7);
-
 class LotForm extends Component {
 
     constructor(props) {
@@ -17,8 +13,8 @@ class LotForm extends Component {
             options: [],
             files: null,
             dates: {
-                start: moment(defaultStart),
-                end: moment(defaultEnd)
+                start: null,
+                end: null
             },
             description: '',
             category: '',
@@ -58,7 +54,6 @@ class LotForm extends Component {
     }
 
     onDatesSelect(dates) {
-        console.log(dates);
         this.setState({dates: dates}, () => { this.validateField('dates', dates) });
     }
 
@@ -84,7 +79,6 @@ class LotForm extends Component {
             && validation.dates
             && validation.description
             && validation.category);
-        console.log({validation: validation, isFormValid: isFormValid});
         return {validation: validation, isFormValid: isFormValid};
     }
 

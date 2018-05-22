@@ -66,6 +66,10 @@
   margin: 10px 0 !important;
 }
 
+.lot_page_btn {
+  width: 80px;
+}
+
 .bid_container {
   margin-top: 5%;
 }

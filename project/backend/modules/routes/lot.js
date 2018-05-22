@@ -45,6 +45,7 @@ router.post('/', (req, res, next) => {
     }, (req, res, next) => {
         lotsDB.addLotToDb(req.body.lotdata)
             .then(result => {
+                if(!req.files.length) return res.json({ message: 'ok' });
                 let insertId = result.insertId;
                 const pathesArray = [];
                 for (let i=0; i < req.files.length; i++) {
@@ -78,6 +79,22 @@ router.post('/:id', (req, res, next) => {
             lotsDB.addLotImages(pathesArray, req.params.id)
                 .then(() => res.json({ message: 'ok' }))
                 .catch((result) => res.status(result.status).json({ message: result.message }));
+        })
+        .catch(result => res.status(result.status).json({ message: result.message }));
+});
+
+router.delete('/:id', (req, res, next) => {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
+        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+    }
+    return next();
+}, (req, res, next) => {
+    lotsDB.deleteLot(req.params.id)
+        .then(function (result) {
+            if (result.affectedRows !== 0) {
+                return res.status(200).json({message: 'Lot deleted'});
+            }
+            return res.status(400).json({message: errorsObj.WRONG_ID});
         })
         .catch(result => res.status(result.status).json({ message: result.message }));
 });

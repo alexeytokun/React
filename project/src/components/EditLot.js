@@ -20,7 +20,6 @@ class EditLot extends Component {
     }
 
     handleSubmit(isFormValid, data, files) {
-        console.log(isFormValid, this.props.userData);
         if (!isFormValid || !this.props.userData) return;
 
         data.userid = this.props.userData.id;
@@ -52,7 +51,6 @@ class EditLot extends Component {
             }
         })
             .then((res) => {
-                console.log(res.data.lot);
                 this.setState({lot: res.data.lot});
             })
             .catch((err) => {
@@ -63,7 +61,7 @@ class EditLot extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to='/lots/user'/>;
+            return <Redirect push to={'/lot/' + this.state.lot.lot_id}/>;
         }
 
         if(!this.state.lot) return null;
