@@ -8,7 +8,7 @@ const multer  = require('multer');
 const storage = multer.diskStorage({
     destination: './public/lot_images',
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        cb(null, file.fieldname + '-' + Math.floor(Math.random() * 1000) + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 const upload = multer({ storage: storage });

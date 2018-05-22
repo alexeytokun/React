@@ -12,7 +12,8 @@ class LotImageUpload extends React.Component {
         this.state ={
             files: null,
             userid: null,
-            srcs: this.props.src || [],
+            dbSrcs: this.props.src || [],
+            filesSrcs: [],
             selectedImage: 0
         };
         this.onChange = this.onChange.bind(this);
@@ -23,8 +24,8 @@ class LotImageUpload extends React.Component {
     onChange(e) {
         this.setState({
                 files: e.target.files || null,
-                srcs: this.props.src || [],
-                selectedImage: (this.props.src && this.props.src.length) ? this.props.src.length - 1 : 0
+                filesSrcs: [],
+                selectedImage: (this.state.dbSrcs.length) ? this.state.dbSrcs.length - 1 : 0
             }, () => {
                 const files = this.state.files;
                 for (let i = 0; i < files.length; i++) {
@@ -37,15 +38,16 @@ class LotImageUpload extends React.Component {
     readFile(file) {
         const reader = new FileReader();
         reader.onload = () => {
-            let srcs = [...this.state.srcs];
-            srcs.push({path: reader.result});
-            this.setState({srcs: srcs})
+            let filesSrcs = [...this.state.filesSrcs];
+            filesSrcs.push({path: reader.result});
+            this.setState({filesSrcs: filesSrcs})
         };
         reader.readAsDataURL(file);
     }
 
     handleCloseIconClick() {
-        let {srcs, selectedImage} = {...this.state};
+        let {dbSrcs, filesSrcs, selectedImage} = {...this.state};
+        const srcs = dbSrcs.concat(filesSrcs);
         const image = srcs[selectedImage];
 
         if (image && image.image_id) {
@@ -55,14 +57,14 @@ class LotImageUpload extends React.Component {
                 }
             })
                 .then((res) => {
-                    srcs.splice(selectedImage, 1);
-                    this.setState({srcs, selectedImage: selectedImage - 1});
+                    dbSrcs.splice(selectedImage, 1);
+                    this.setState({dbSrcs, selectedImage: selectedImage - 1});
                 })
                 .catch((err) => this.props.saveError(err));
         } else {
             this.setState({
                 files: null,
-                srcs: this.props.src || [],
+                filesSrcs: [],
                 selectedImage: this.props.src ? this.props.src.length - 1 : 0
             }, () => this.props.onFileSelect(this.state.files));
         }
@@ -73,7 +75,8 @@ class LotImageUpload extends React.Component {
     }
 
     render() {
-        const srcs = this.state.srcs;
+        const {dbSrcs, filesSrcs} = {...this.state};
+        const srcs = dbSrcs.concat(filesSrcs);
         const images = srcs.map((src, i) =>
             <div key={i} className={'carousel_image_container'}>
                 <img className='lot_img' src={src.path}/>
