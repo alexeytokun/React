@@ -20,10 +20,7 @@ class FileUpload extends React.Component {
         e.preventDefault();
         this.fileUpload(this.state.file)
             .then(() => this.props.getAvatar())
-            .catch((err) => {
-                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.props.saveError(errorMessage);
-            });
+            .catch((err) => this.props.saveError(err));
     }
     onChange(e) {
         this.setState({file:e.target.files[0]});
@@ -33,10 +30,7 @@ class FileUpload extends React.Component {
         const formData = new FormData();
         formData.append('avatar', file);
         return axios.post(url, formData)
-            .catch((err) => {
-                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.props.saveError(errorMessage);
-            });
+            .catch((err) => this.props.saveError(err));
     }
 
     componentWillMount() {

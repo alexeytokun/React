@@ -68,20 +68,8 @@ class LotPage extends Component {
                 "User-Auth-Token": localStorage.getItem('jwt')
             }
         })
-            .then((res) => {
-                this.setState({redirect: '/lots/user'});
-            })
-            .catch((err) => {
-                let errorMessage;
-                if (err.response) {
-                    errorMessage = (err.response.data && err.response.data.message) || err.message;
-                } else if (err.request) {
-                    errorMessage = 'SERVER_CON_ERROR';
-                } else {
-                    errorMessage = err.message;
-                }
-                this.props.saveError(errorMessage);
-            });
+            .then((res) => this.setState({redirect: '/lots/user'}))
+            .catch((err) => this.props.saveError(err));
     }
 
     componentWillMount() {
@@ -91,13 +79,8 @@ class LotPage extends Component {
                 "User-Auth-Token": localStorage.getItem('jwt')
             }
         })
-            .then((res) => {
-                this.setState({lot: res.data.lot});
-            })
-            .catch((err) => {
-                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.props.saveError(errorMessage);
-            });
+            .then((res) => this.setState({lot: res.data.lot}))
+            .catch((err) => this.props.saveError(err));
     }
 
 

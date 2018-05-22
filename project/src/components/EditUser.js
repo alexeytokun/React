@@ -31,18 +31,10 @@ class EditUser extends Component {
         })
             .then(() => {
                 return axios.get(url)
-                    .then((res) => {
-                        this.props.saveUserdata(res.data);
-                    })
-                    .catch((err) => {
-                        const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                        this.props.saveError(errorMessage);
-                    });
+                    .then((res) => this.props.saveUserdata(res.data))
+                    .catch((err) => this.props.saveError(err));
             })
-            .catch((err) => {
-                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.props.saveError(errorMessage);
-            });
+            .catch((err) => this.props.saveError(err));
     }
 
     getAvatar() {
@@ -51,13 +43,8 @@ class EditUser extends Component {
             {
                 headers: { "User-Auth-Token": localStorage.getItem('jwt')}
             })
-            .then(res => {
-                this.props.saveUserAvatar(res.data.source)
-            })
-            .catch((err) => {
-                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.props.saveError(errorMessage);
-            });
+            .then(res => this.props.saveUserAvatar(res.data.source))
+            .catch((err) => this.props.saveError(err));
     }
 
     render() {

@@ -72,10 +72,7 @@ class Login extends Component {
                 this.props.saveUserdata(res.data.userdata);
                 this.setState({redirect: true});
             })
-            .catch((err) => {
-                const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                this.props.saveError(errorMessage);
-            });
+            .catch((err) => this.props.saveError(err));
     }
 
     render() {

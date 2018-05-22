@@ -150,7 +150,7 @@ class LotForm extends Component {
         return (
             <Container className="reg_wrapper">
                 <Form>
-                    <LotImageUpload initialSrc={this.state.initialSrc} src={this.state.src} onFileSelect={this.onFileSelect} edit={!!this.props.lot}/>
+                    <LotImageUpload saveError={this.props.saveError} initialSrc={this.state.initialSrc} src={this.state.src} onFileSelect={this.onFileSelect} edit={!!this.props.lot}/>
                     <Form.Field>
                         <Form.Input value={this.state.lotname} error={!this.state.validation.lotname} onChange={this.handleChange} name='lotname' placeholder='Lot name' />
                     </Form.Field>

@@ -45,7 +45,7 @@ class LotImageUpload extends React.Component {
     }
 
     handleCloseIconClick() {
-        let {srcs, selectedImage} = this.state;
+        let {srcs, selectedImage} = {...this.state};
         const image = srcs[selectedImage];
 
         if (image && image.image_id) {
@@ -58,10 +58,7 @@ class LotImageUpload extends React.Component {
                     srcs.splice(selectedImage, 1);
                     this.setState({srcs, selectedImage: selectedImage - 1});
                 })
-                .catch((err) => {
-                    const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-                    console.log(errorMessage);
-                });
+                .catch((err) => this.props.saveError(err));
         } else {
             this.setState({
                 files: null,

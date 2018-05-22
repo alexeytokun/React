@@ -13,6 +13,16 @@ class ErrorModal extends Component {
     render() {
         if(!this.props.error) return null;
         console.log(this.props.error);
+        const err = this.props.error;
+
+        let errorMessage;
+        if (err.response) {
+            errorMessage = (err.response.data && err.response.data.message) || err.message;
+        } else if (err.request) {
+            errorMessage = 'SERVER_CON_ERROR';
+        } else {
+            errorMessage = err.message;
+        }
 
         return(
             <Modal size='mini' open={!!this.props.error} onClose={this.handleClose.bind(this)}>
@@ -20,7 +30,7 @@ class ErrorModal extends Component {
                     Error
                 </Modal.Header>
                 <Modal.Content>
-                    <p>{ERRORS[this.props.error] || this.props.error}</p>
+                    <p>{ERRORS[errorMessage] || errorMessage}</p>
                 </Modal.Content>
             </Modal>
         );
