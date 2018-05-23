@@ -21,7 +21,7 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `lots` (
     `lot_id` INT(11) AUTO_INCREMENT,
-    `lot_name` VARCHAR(45),
+    `lot_name` VARCHAR(255),
     `start_time` DATETIME,
     `end_time` DATETIME,
     `price` FLOAT(11),
@@ -82,5 +82,7 @@ DELIMITER ;
 INSERT INTO `categories` (`category_name`) VALUES ('Laptops');
 INSERT INTO `categories` (`category_name`) VALUES ('Tablets');
 INSERT INTO `categories` (`category_name`) VALUES ('Smartphones');
+INSERT INTO `categories` (`category_name`) VALUES ('TVs');
+INSERT INTO `categories` (`category_name`) VALUES ('TEST');
 
 

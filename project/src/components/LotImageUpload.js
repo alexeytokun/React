@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Image, Icon } from 'semantic-ui-react';
-import logo from "../logo-new.svg";
+import placeholder from "../1000px-No_image_available.svg.png";
 import { Carousel } from 'react-responsive-carousel';
 import { SERVER_URL } from "../constants";
 import axios from 'axios/index';
@@ -83,14 +83,20 @@ class LotImageUpload extends React.Component {
             </div>
         );
         const carousel =
-            <div>
-                <Carousel onChange={this.handleImageChange} showThumbs={false} selectedItem={this.state.selectedImage}>{images}</Carousel>
+            <div className='lot_image_edit'>
+                <Carousel
+                    width='500px'
+                    onChange={this.handleImageChange}
+                    showThumbs={false}
+                    selectedItem={this.state.selectedImage}
+                    dynamicHeight={true}
+                >{images}</Carousel>
                 {this.props.edit && <Icon className={'carousel_close_icon'} name='close' onClick={this.handleCloseIconClick}/>}
             </div>;
 
         return (
             <Form.Field onSubmit={this.onFormSubmit}>
-                {(images.length && carousel) || <Image className='lot_img' size='medium' centered src={logo}/>}
+                {(images.length && carousel) || <Image className='lot_img' size='large' centered src={placeholder}/>}
                 <input className='file' id='avatar' name='avatar' type="file" multiple onChange={this.onChange} />
                 <Button as='label' htmlFor='avatar' className='button' style={{color: 'rgba(0,0,0,.6)'}}>{this.state.files ? 'Change images' : 'Add images'}</Button>
             </Form.Field>

@@ -20,7 +20,6 @@ class AddLot extends Component {
     }
 
     handleSubmit(isFormValid, data, files) {
-        console.log(isFormValid, this.props.userData);
         if (!isFormValid || !this.props.userData) return;
 
         data.userid = this.props.userData.id;

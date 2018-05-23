@@ -119,12 +119,12 @@ class LotPage extends Component {
         return(
             <Container className='lot_container'>
                 <Grid stackable>
-                    <Grid.Column width={8}>
-                        <Carousel>
+                    <Grid.Column width={7}>
+                        <Carousel dynamicHeight={true} >
                             {images}
                         </Carousel>
                     </Grid.Column>
-                    <Grid.Column width={7}>
+                    <Grid.Column width={7} className='lot_info'>
                         <h2>{lot.lot_name}</h2>
                         <p>{lot.description}</p>
                         <p>Starting price: {lot.starting_price}$</p>

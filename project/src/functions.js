@@ -16,7 +16,6 @@ export function updateLots(props) {
             props.saveLotsAndCategories({lots: response.lots, categories: response.categories, sortedLots: sortedLots});
         })
         .catch((err) => {
-            const errorMessage = err.response ? err.response.data && err.response.data.message : err.message;
-            props.saveError(errorMessage);
+            props.saveError(err);
         });
 }

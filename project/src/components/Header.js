@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, Button, Container, Dropdown, Image, Divider } from 'semantic-ui-react';
+import { Menu, Button, Container, Dropdown, Image } from 'semantic-ui-react';
 import logo from "../logo-new.svg";
 import { connect } from 'react-redux';
 import {userLogOut} from "../actions/userActions";
