@@ -146,7 +146,7 @@ class LotPage extends Component {
                     <Grid.Column width={7} className='lot_info'>
                         <h2>{lot.lot_name}</h2>
                         <p>{lot.description}</p>
-                        <p>Starting price: {lot.starting_price}$</p>
+                        <p style={{fontWeight: 'bold'}}>Starting price: {lot.starting_price}$</p>
                         {countdown}
                         {bidData}
                         {(isLotOwner && isEdditable) &&

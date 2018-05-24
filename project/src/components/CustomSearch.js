@@ -39,10 +39,10 @@ class CustomSearch extends Component {
     resultRenderer(item) {
         return(
             <Grid>
-                <Grid.Column width={7}>
-                    <Image size='big' src={item.image || defaultImage}/>
+                <Grid.Column width={6}>
+                    <Image size='huge' src={item.image || defaultImage}/>
                 </Grid.Column>
-                <Grid.Column width={8}>
+                <Grid.Column width={9}>
                     <p>{item.title}</p>
                     <p>{item.price}$</p>
                 </Grid.Column>
