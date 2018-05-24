@@ -66,6 +66,11 @@ router.post('/avatar/:id', (req, res, next) => {
     if (!+req.params.id) {
         res.status(400).json({ message: errorsObj.WRONG_ID });
     } else next();
+}, (req, res, next) => {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
+        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+    }
+    return next();
 }, upload.single('avatar'), (req, res, next) => {
     gm(req.file.path)
         .resize('200', '200', '^')

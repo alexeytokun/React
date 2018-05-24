@@ -29,6 +29,7 @@ router.use((req, res, next) => {
                 body.token = 'guest';
             } else if (decoded) {
                 body.token = decoded.role ? decoded.role : 'guest';
+                body.userId = decoded.id;
             } else {
                 body.token = 'guest';
             }
