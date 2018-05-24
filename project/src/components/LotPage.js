@@ -10,6 +10,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import axios from "axios/index";
 import {SERVER_URL} from "../constants";
+import DeleteConfirm from "./DeleteConfirm";
 
 class LotPage extends Component {
 
@@ -153,7 +154,7 @@ class LotPage extends Component {
                             <NavLink to={'/lot_edit/' + lot.lot_id}>
                                 <Button className='lot_page_btn' basic size='medium'>Edit</Button>
                             </NavLink>
-                            <Button onClick={this.handleDelete} className='lot_page_btn' basic size='medium'>Delete</Button>
+                            <DeleteConfirm onConfirm={this.handleDelete}/>
                         </div>}
                     </Grid.Column>
                 </Grid>
