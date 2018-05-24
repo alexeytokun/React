@@ -54,17 +54,28 @@ class CustomSearch extends Component {
         this.setState({redirect: data.result.id.toString()});
     }
 
+    mapLots(lots) {
+        return lots.map((lot) => {
+            return {
+                id: lot.lot_id,
+                title: lot.lot_name,
+                description: lot.description,
+                image: (lot.images.length && lot.images[0].path) || '',
+                price: lot.price ? lot.price.toString() : '0'
+            }
+        });
+    }
+
+    componentWillMount() {
+        if (this.props.lots) {
+            const searchableArray = this.mapLots(this.props.lots);
+            this.setState({options: searchableArray});
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.props !== nextProps) {
-            const searchableArray = this.props.lots.map((lot) => {
-                return {
-                    id: lot.lot_id,
-                    title: lot.lot_name,
-                    description: lot.description,
-                    image: (lot.images.length && lot.images[0].path) || '',
-                    price: lot.price ? lot.price.toString() : '0'
-                }
-            });
+            const searchableArray = this.mapLots(this.props.lots);
             this.setState({options: searchableArray});
         }
     }

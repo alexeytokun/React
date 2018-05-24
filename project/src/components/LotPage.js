@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Image, Grid, Button, Divider } from 'semantic-ui-react';
+import { Container, Grid, Button, Divider } from 'semantic-ui-react';
 import defaultImage from '../default_product.jpg';
 import Countdown from "./Countdown";
 import Bid from './Bid';
@@ -91,6 +91,19 @@ class LotPage extends Component {
             .catch((err) => this.props.saveError(err));
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props !== nextProps) {
+            const id = nextProps.match.params.id;
+            console.log(id);
+            axios.get(SERVER_URL + 'lot/' + id, {
+                headers: {
+                    "User-Auth-Token": localStorage.getItem('jwt')
+                }
+            })
+                .then((res) => this.setState({lot: res.data.lot}))
+                .catch((err) => this.props.saveError(err));
+        }
+    }
 
     render() {
         const lot = this.state.lot;
