@@ -61,7 +61,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/:id', (req, res, next) => {
-        if (req.body.token !== 'admin' && (req.body.token !== 'user' || req.body.userId !== req.params.id)) {
+        if (req.body.token !== 'admin' && req.body.token !== 'user') {
             return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
         }
         return next();
@@ -87,7 +87,7 @@ router.post('/:id', (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-    if (req.body.token !== 'admin' && (req.body.token !== 'user' || req.body.userId !== req.params.id)) {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
         return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
     }
     return next();
@@ -103,7 +103,7 @@ router.delete('/:id', (req, res, next) => {
 });
 
 router.delete('/image/:id', (req, res, next) => {
-    if (req.body.token !== 'admin' && (req.body.token !== 'user' || req.body.userId !== req.params.id)) {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
         return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
     }
     return next();

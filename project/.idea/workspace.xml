@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68fe3880-8a41-46aa-84b7-95312134fd66" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/modules/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/modules/routes/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/modules/routes/lot.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/modules/routes/lot.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/modules/routes/signin.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/modules/routes/signin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/modules/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/modules/routes/user.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,8 +31,8 @@
       <file leaf-file-name="lot.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/modules/routes/lot.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="16" column="40" lean-forward="true" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+            <state relative-caret-position="1428">
+              <caret line="105" column="89" selection-start-line="105" selection-start-column="89" selection-end-line="105" selection-end-column="89" />
             </state>
           </provider>
         </entry>
@@ -98,8 +94,8 @@
       <file leaf-file-name="auth.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/modules/routes/auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="31" column="27" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="27" />
+            <state relative-caret-position="459">
+              <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -367,14 +363,7 @@
       <workItem from="1526885784696" duration="27323000" />
       <workItem from="1526972255014" duration="26087000" />
       <workItem from="1527057781988" duration="19419000" />
-      <workItem from="1527147450677" duration="22412000" />
-    </task>
-    <task id="LOCAL-00027" summary="add lots presentation in Home component">
-      <created>1526028488489</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1526028488489</updated>
+      <workItem from="1527147450677" duration="22674000" />
     </task>
     <task id="LOCAL-00028" summary="fix validation in AddLot component and chaged cards representation">
       <created>1526041753815</created>
@@ -712,11 +701,18 @@
       <option name="project" value="LOCAL" />
       <updated>1527169969808</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="fix server authentication">
+      <created>1527173398691</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1527173398691</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="520183000" />
+    <option name="totallyTimeSpent" value="520445000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -729,7 +725,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1080" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12598841" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32914045" />
@@ -778,7 +773,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add different render cases in LotPage component and create EditLot component with route" />
     <MESSAGE value="fix Search component and change LotPage style" />
     <MESSAGE value="change username regex" />
     <MESSAGE value="add lot update functional" />
@@ -803,7 +797,8 @@
     <MESSAGE value="fix search card size" />
     <MESSAGE value="change database char codes to utf-8" />
     <MESSAGE value="add server lot data validation and success message in EditLot component" />
-    <option name="LAST_COMMIT_MESSAGE" value="add server lot data validation and success message in EditLot component" />
+    <MESSAGE value="fix server authentication" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix server authentication" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1218,15 +1213,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/modules/routes/auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="31" column="27" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="27" />
+        <state relative-caret-position="459">
+          <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/modules/routes/lot.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="16" column="40" lean-forward="true" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+        <state relative-caret-position="1428">
+          <caret line="105" column="89" selection-start-line="105" selection-start-column="89" selection-end-line="105" selection-end-column="89" />
         </state>
       </provider>
     </entry>
