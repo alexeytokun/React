@@ -20,6 +20,7 @@ class LotPage extends Component {
             redirect: false
         };
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleCountdownEnd = this.handleCountdownEnd.bind(this);
     }
 
     countLotStage(start, end) {
@@ -37,7 +38,7 @@ class LotPage extends Component {
                     <div>
                         <Divider/>
                         <span style={{fontSize: 20, color: 'black'}}>Time left:</span>
-                        <Countdown date={lot.end_time}/>
+                        <Countdown onEnd={this.handleCountdownEnd} date={lot.end_time}/>
                     </div>
                 );
             case 'finished':
@@ -52,7 +53,7 @@ class LotPage extends Component {
                     <div>
                         <Divider/>
                         <span style={{fontSize: 20, color: 'black'}}>Auction starts in:</span>
-                        <Countdown date={lot.start_time}/>
+                        <Countdown onEnd={this.handleCountdownEnd} date={lot.start_time}/>
                     </div>
                 );
             default: return null;
@@ -78,6 +79,10 @@ class LotPage extends Component {
         })
             .then((res) => this.setState({redirect: '/lots/user'}))
             .catch((err) => this.props.saveError(err));
+    }
+
+    handleCountdownEnd() {
+        this.forceUpdate();
     }
 
     componentWillMount() {

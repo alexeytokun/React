@@ -60,6 +60,7 @@ class Countdown extends Component {
 
     stop() {
         clearInterval(this.interval);
+        this.props.onEnd();
     }
 
     addLeadingZeros(value) {
