@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
     login(req.body)
         .then(userData => {
             delete userData.password;
-            let token = jwt.sign({ role: userData.role }, jwtKey, { expiresIn: 60 * 60 });
+            let token = jwt.sign({ role: userData.role }, jwtKey, { expiresIn: '365d' });
             return { token: token, userdata: userData };
         })
         .catch(result => {
