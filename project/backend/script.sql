@@ -1,4 +1,6 @@
-CREATE DATABASE project;
+CREATE DATABASE project
+    CHARACTER SET utf8
+    COLLATE utf8_general_ci;
 USE project;
 
 CREATE TABLE `users` (

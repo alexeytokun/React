@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Divider } from 'semantic-ui-react';
+import { Container, Divider, Image } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LotGroup from "./LotGroup";
 import {updateLots} from "../functions";
 import {saveLotsAndCategories} from "../actions/lotsActions";
 import {saveError} from "../actions/errorsActions";
+import logo from "../logo-new.svg";
 
 
 class Home extends Component {
@@ -40,6 +41,7 @@ class Home extends Component {
 
         return (
             <Container>
+                <Image centered size='large' src={logo}/>
                 <div className='home_tagline_container'>
                     <h1 className='home_tagline_main'>THE MOST SIMPLE ONLINE AUCTION</h1>
                     <h2 className='home_tagline_secondary'>Find. Bid. Win. As easy as it should be.</h2>

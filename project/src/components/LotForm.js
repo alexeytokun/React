@@ -117,8 +117,8 @@ class LotForm extends Component {
 
     handleSubmit() {
         const data = {
-            start: moment(this.state.dates.start._d).format('YYYY-MM-DD HH:mm:ss'),
-            end: moment(this.state.dates.end._d).format('YYYY-MM-DD HH:mm:ss'),
+            start: this.state.dates.start ? moment(this.state.dates.start._d).format('YYYY-MM-DD HH:mm:ss') : null,
+            end: this.state.dates.end ? moment(this.state.dates.end._d).format('YYYY-MM-DD HH:mm:ss') : null,
             price: this.state.price,
             category: this.state.category,
             lotname: this.state.lotname,
@@ -158,13 +158,13 @@ class LotForm extends Component {
                     <Form.Field>
                         <Form.Input value={this.state.price}  error={!this.state.validation.price} onChange={this.handleChange} icon='dollar' name='price' type='text' placeholder='Starting price' />
                     </Form.Field>
-                    <Form.Field>
+                    <Form.Field className={this.state.validation.dates ? null : 'error'}>
                         <DatePicker value={[this.state.dates.start, this.state.dates.end]} onDatesSelect={this.onDatesSelect}/>
                     </Form.Field>
                     <Form.Field>
                         <Select value={this.state.category} error={!this.state.validation.category} onChange={this.handleSelectChange} name='category' placeholder="Category" options={this.state.options}/>
                     </Form.Field>
-                    <Form.Field>
+                    <Form.Field className={this.state.validation.description ? null : 'error'}>
                         <TextArea value={this.state.description} onChange={this.handleChange} name='description' autoHeight placeholder='Lot description'/>
                     </Form.Field>
                     <Button onClick={this.handleSubmit} fluid={true} type='submit' className='button'>Save</Button>

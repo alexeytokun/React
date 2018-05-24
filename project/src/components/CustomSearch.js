@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Search, Grid, Image } from 'semantic-ui-react';
-import defaultImage from '../default_product.jpg';
+import defaultImage from '../no_image.png';
 import { Redirect } from 'react-router-dom';
 
 class CustomSearch extends Component {

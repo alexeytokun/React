@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Grid, Button, Divider } from 'semantic-ui-react';
-import defaultImage from '../default_product.jpg';
+import defaultImage from '../no_image.png';
 import Countdown from "./Countdown";
 import Bid from './Bid';
 import {connect} from "react-redux";

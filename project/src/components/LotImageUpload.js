@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Image, Icon } from 'semantic-ui-react';
-import placeholder from "../1000px-No_image_available.svg.png";
+import placeholder from "../no_image.png";
 import { Carousel } from 'react-responsive-carousel';
 import { SERVER_URL } from "../constants";
 import axios from 'axios/index';
