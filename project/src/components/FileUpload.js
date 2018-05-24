@@ -47,8 +47,8 @@ class FileUpload extends React.Component {
             <div>
                 <form onSubmit={this.onFormSubmit} style={{paddingBottom: 30}}>
                     <input className='file' id='avatar' name='avatar' type="file" onChange={this.onChange} />
-                    <Button as='label' htmlFor='avatar'>Choose image</Button>
-                    <Button type="submit" disabled={!this.state.file}>Upload image</Button>
+                    <Button className='file_button' as='label' htmlFor='avatar'>Choose image</Button>
+                    <Button className='file_button' type="submit" disabled={!this.state.file}>Save image</Button>
                 </form>
             </div>
 

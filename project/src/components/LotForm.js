@@ -124,7 +124,6 @@ class LotForm extends Component {
             lotname: this.state.lotname,
             description: this.state.description,
         };
-
         const files = this.state.files;
         this.setState(this.validateAllFields(),
             () => {this.props.handleSubmit(this.state.isFormValid, data, files)});

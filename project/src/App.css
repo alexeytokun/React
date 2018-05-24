@@ -86,6 +86,10 @@ body {
   position: relative;
 }
 
+.file_button {
+  width: 130px;
+}
+
 .home_tagline_container {
   margin-top: 20px;
   margin-bottom: 40px;

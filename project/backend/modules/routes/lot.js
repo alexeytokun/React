@@ -4,6 +4,7 @@ const lotsDB = require('../db/lots');
 const errorsObj = require('../config/errors');
 const path = require('path');
 const multer  = require('multer');
+const validate = require('../config/validation').lot;
 
 const storage = multer.diskStorage({
     destination: './public/lot_images',
@@ -40,8 +41,9 @@ router.post('/', (req, res, next) => {
         return next();
     }, upload.any(), (req, res, next) => {
         req.body.lotdata = JSON.parse(req.body.lotdata);
-        // validation here
-        return next();
+        if (!validate(req.body.lotdata)) {
+            return res.status(406).json({ message: errorsObj.VALIDATION });
+        } else next();
     }, (req, res, next) => {
         lotsDB.addLotToDb(req.body.lotdata)
             .then(result => {
@@ -59,28 +61,29 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/:id', (req, res, next) => {
-    if (req.body.token !== 'admin' && req.body.token !== 'user') {
-        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
-    }
-    return next();
-}, upload.any(), (req, res, next) => {
-    req.body.lotdata = JSON.parse(req.body.lotdata);
-    // validation here
-    return next();
-}, (req, res, next) => {
-    lotsDB.updateLotData(req.body.lotdata, req.params.id)
-        .then(result => {
-            if(!req.files.length) return res.json({ message: 'ok' });
+        if (req.body.token !== 'admin' && req.body.token !== 'user') {
+            return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+        }
+        return next();
+    }, upload.any(), (req, res, next) => {
+        req.body.lotdata = JSON.parse(req.body.lotdata);
+        if (!validate(req.body.lotdata)) {
+            return res.status(406).json({ message: errorsObj.VALIDATION });
+        } else next();
+    }, (req, res, next) => {
+        lotsDB.updateLotData(req.body.lotdata, req.params.id)
+            .then(result => {
+                if(!req.files.length) return res.json({ message: 'ok' });
 
-            const pathesArray = [];
-            for (let i=0; i < req.files.length; i++) {
-                pathesArray.push(req.files[i].path);
-            }
-            lotsDB.addLotImages(pathesArray, req.params.id)
-                .then(() => res.json({ message: 'ok' }))
-                .catch((result) => res.status(result.status).json({ message: result.message }));
-        })
-        .catch(result => res.status(result.status).json({ message: result.message }));
+                const pathesArray = [];
+                for (let i=0; i < req.files.length; i++) {
+                    pathesArray.push(req.files[i].path);
+                }
+                lotsDB.addLotImages(pathesArray, req.params.id)
+                    .then(() => res.json({ message: 'ok' }))
+                    .catch((result) => res.status(result.status).json({ message: result.message }));
+            })
+            .catch(result => res.status(result.status).json({ message: result.message }));
 });
 
 router.delete('/:id', (req, res, next) => {
