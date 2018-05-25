@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Input, Button, Container, Divider } from 'semantic-ui-react';
 import socketIOClient from 'socket.io-client';
 import { SERVER_URL } from "../constants";
+import '../css/Bid.css';
 
 class Bid extends Component {
 
@@ -67,7 +68,7 @@ class Bid extends Component {
             return (
                 <Container className='bid_container'>
                     <Divider/>
-                    <p style={{fontSize: 16, fontWeight: 'bold'}}>
+                    <p className='bid_info'>
                         {'Final Bid: ' + this.state.last_bid + '$' + buyerInfo}
                     </p>
                 </Container>
@@ -77,7 +78,7 @@ class Bid extends Component {
         return (
             <Container className='bid_container'>
                 <Divider/>
-                <p style={{fontSize: 16, fontWeight: 'bold'}}>
+                <p className='bid_info'>
                     {'Current Bid: ' + this.state.last_bid + '$' + buyerInfo}
                 </p>
                 <Input disabled={isDisabled} onChange={this.handleChange} min='0' type='number' action>
