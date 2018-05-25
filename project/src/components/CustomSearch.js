@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Search, Grid, Image } from 'semantic-ui-react';
 import defaultImage from '../no_image.png';
 import { Redirect } from 'react-router-dom';
+import '../css/Search.css';
 
 class CustomSearch extends Component {
     constructor() {
@@ -104,7 +105,7 @@ class CustomSearch extends Component {
                     value={value}
                     size='mini'
                     fluid
-                    style={{minWidth: 250}}
+                    className='search_input'
                 />
         );
     }
