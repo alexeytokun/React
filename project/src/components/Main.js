@@ -24,7 +24,7 @@ class Main extends Component {
                     <Route exact path='/lot' component={AddLot}/>
                     <Route path='/lot/:id' component={LotPage}/>
                     <Route path='/lot_edit/:id' component={EditLot}/>
-                    <Route path='/lots/user' component={UsersLots}/>
+                    <Route path='/lots/user/:id' component={UsersLots}/>
                     <Route path='/category/:id' component={Category}/>
                 </Switch>
             </main>

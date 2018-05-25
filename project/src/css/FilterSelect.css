@@ -1,0 +1,10 @@
+.lots_filter_container {
+    position: absolute;
+    left: 4%;
+    top: 0;
+}
+
+.lots_filter_text {
+    font-size: 16px;
+    padding-right: 5px;
+}

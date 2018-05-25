@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import LotGroup from "./LotGroup";
 import Paginator from "./Paginator";
 import {saveLotsAndCategories} from "../actions/lotsActions";
-import {updateLots} from "../functions";
+import {updateLots, filterLots} from "../functions";
 import {saveError} from "../actions/errorsActions";
+import FilterSelect from "./FilterSelect";
 
 const pageSize = 6;
 
@@ -20,9 +21,11 @@ class UsersLots extends Component {
                 start: 0,
                 end: pageSize
             },
-            error: null
+            error: null,
+            filter: 1
         };
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.handleFilterSelect = this.handleFilterSelect.bind(this);
     }
 
     handlePageChange(page, pagination) {
@@ -30,20 +33,26 @@ class UsersLots extends Component {
         this.setState({page, pagination});
     }
 
+    handleFilterSelect(value) {
+        this.setState({filter: value});
+    }
+
     componentWillMount() {
         updateLots(this.props);
     }
 
     render() {
-        if (!this.props.lots || !this.props.userData) return null;
-        const usersLots = this.props.lots.filter(lot => lot.user_id === this.props.userData.id);
+        if (!this.props.lots) return null;
+        const id = +this.props.match.params.id;
+        let usersLots = this.props.lots.filter(lot => lot.user_id === id);
+        usersLots = filterLots(usersLots, this.state.filter);
         const paginatedLots = [...usersLots].slice(this.state.pagination.start, this.state.pagination.end);
 
         if (!usersLots.length) {
             return (
                 <Container>
                     <div>
-                        <h1>You don`t have any lots</h1>
+                        <h1>User doesn`t have any lots</h1>
                     </div>
                 </Container>
             );
@@ -51,9 +60,10 @@ class UsersLots extends Component {
 
         return (
             <Container>
-                <div>
-                    <h1 className='category_title'>Your lots</h1>
+                <div className='relative'>
+                    <h1 className='category_title'>Lots by {usersLots[0].username}</h1>
                     <Divider/>
+                    <FilterSelect onSelect={this.handleFilterSelect} value={this.state.filter}/>
                     <LotGroup category={true} lots={paginatedLots}/>
                     {
                         usersLots.length > this.state.pageSize &&
@@ -68,7 +78,6 @@ class UsersLots extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        userData: store.user.userdata,
         categories: store.lots.categories,
         lots: store.lots.lots
     };

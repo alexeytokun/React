@@ -22,6 +22,7 @@ class Header extends Component {
                 return <Dropdown.Item as={NavLink} to={'/category/' + i} key={i}>{category.category_name}</Dropdown.Item>
             });
         }
+        const userId = this.props.userData ? this.props.userData.id : null;
 
         return (
             <div className='header_menu'>
@@ -40,7 +41,7 @@ class Header extends Component {
                                 <Dropdown text='User' labeled button icon='user'>
                                     <Dropdown.Menu>
                                         <Dropdown.Item as={NavLink} to='/lot'>Add Lot</Dropdown.Item>
-                                        <Dropdown.Item as={NavLink} to='/lots/user'>Your Lots</Dropdown.Item>
+                                        <Dropdown.Item as={NavLink} to={'/lots/user/' + userId}>Your Lots</Dropdown.Item>
                                         <Dropdown.Item as={NavLink} to='/user/:id'>Edit Profile</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -58,12 +59,13 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (store) => {
     return {
-        loggedIn: state.user.loggedIn,
-        categories: state.lots.categories,
-        lots: state.lots.lots,
-        sortedLots: state.lots.sortedLots
+        userData: store.user.userdata,
+        loggedIn: store.user.loggedIn,
+        categories: store.lots.categories,
+        lots: store.lots.lots,
+        sortedLots: store.lots.sortedLots
     };
 };
 

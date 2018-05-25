@@ -146,7 +146,8 @@ class LotPage extends Component {
                     </Grid.Column>
                     <Grid.Column width={7} className='lot_info'>
                         <h2>{lot.lot_name}</h2>
-                        <p>{lot.description}</p>
+                        <p className='lot_description'>{lot.description}</p>
+                        <span className='lot_seller'>Seller: <NavLink to={'/lots/user/' + lot.user_id}>{lot.username}</NavLink></span>
                         <p className='lot_price'>Starting price: {lot.starting_price}$</p>
                         {countdown}
                         {bidData}

@@ -21,6 +21,17 @@
 }
 
 .lot_price {
+    margin-top: 10px;
+    font-size: 18px;
     font-weight: bold;
+}
+
+.lot_seller {
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.lot_description {
+    margin-bottom: 5px;
 }
 
