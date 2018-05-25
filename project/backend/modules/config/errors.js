@@ -8,7 +8,7 @@ const errorsObj = {
     USERNAME: 'USERNAME_ERROR',
     TOKEN_TIME: 'TOKEN_TIME_ERROR',
     VALIDATION: 'VALIDATION_ERROR',
-    NO_USERS: 'NO_USERS_ERROR'
+    NO_LOTS: 'NO_LOTS_ERROR'
 };
 
 module.exports = errorsObj;

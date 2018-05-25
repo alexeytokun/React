@@ -10,13 +10,13 @@ const login = (user) => {
     return dbObj.getUserData(user.username)
         .then(results => {
             if (results.length) return results[0];
-            throw ({ status: 406, message: errorsObj.AUTH });
+            throw ({ status: 401, message: errorsObj.AUTH });
         })
         .then(userData => {
             return hashingObj.compare(user.pass, userData.password)
                 .then(result => {
                     if (result) return userData;
-                    throw ({ status: 406, message: errorsObj.AUTH });
+                    throw ({ status: 401, message: errorsObj.AUTH });
                 });
         })
         .catch(result => {
@@ -32,7 +32,7 @@ router.post('/', (req, res, next) => {
             return { token: token, userdata: userData };
         })
         .catch(result => {
-            throw ({ status: 406, message: errorsObj.AUTH });
+            throw ({ status: 401, message: errorsObj.AUTH });
         })
         .then(result => {
             return res.json({

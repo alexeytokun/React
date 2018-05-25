@@ -18,7 +18,7 @@ router.get('/:id', (req, res, next) => {
     lotsDB.getLotData(req.params.id)
         .then(result => {
             if(!result.length) {
-                throw {status: 400, message: errorsObj.WRONG_ID};
+                throw {status: 406, message: errorsObj.WRONG_ID};
             }
             req.body.lot = result[0];
             return lotsDB.getLotImages(req.params.id);
@@ -97,7 +97,7 @@ router.delete('/:id', (req, res, next) => {
             if (result.affectedRows !== 0) {
                 return res.status(200).json({message: 'Lot deleted'});
             }
-            return res.status(400).json({message: errorsObj.WRONG_ID});
+            return res.status(406).json({message: errorsObj.WRONG_ID});
         })
         .catch(result => res.status(result.status).json({ message: result.message }));
 });
@@ -113,7 +113,7 @@ router.delete('/image/:id', (req, res, next) => {
             if (result.affectedRows !== 0) {
                 return res.status(200).json({message: 'Image deleted'});
             }
-            return res.status(400).json({message: errorsObj.WRONG_ID});
+            return res.status(406).json({message: errorsObj.WRONG_ID});
         })
         .catch(result => res.status(result.status).json({ message: result.message }));
 });

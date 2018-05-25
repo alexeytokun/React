@@ -44,7 +44,7 @@ router.get('/:id', (req, res, next) => {
             if (result.length) {
                 res.json(result[0]);
             } else {
-                res.status(400).json({ message: errorsObj.WRONG_ID });
+                res.status(406).json({ message: errorsObj.WRONG_ID });
             }
         })
         .catch(result => res.status(result.status).json({ message: result.message }));
@@ -56,7 +56,7 @@ router.get('/avatar/:id', (req, res, next) => {
             if (result.length) {
                 res.json({source: result[0].avatar});
             } else {
-                res.status(400).json({ message: errorsObj.WRONG_ID });
+                res.status(406).json({ message: errorsObj.WRONG_ID });
             }
         })
         .catch(result => res.status(result.status).json({ message: result.message }));
@@ -64,7 +64,7 @@ router.get('/avatar/:id', (req, res, next) => {
 
 router.post('/avatar/:id', (req, res, next) => {
     if (!+req.params.id) {
-        res.status(400).json({ message: errorsObj.WRONG_ID });
+        res.status(406).json({ message: errorsObj.WRONG_ID });
     } else next();
 }, (req, res, next) => {
     if (req.body.token !== 'admin' && req.body.token !== 'user') {

@@ -82,7 +82,7 @@ dbObj.updateUserData = (id, data) => {
             if (result.affectedRows !== 0) {
                 return ({ status: 200, message: 'User data updated' });
             }
-            return ({ status: 400, message: errorsObj.WRONG_ID });
+            return ({ status: 406, message: errorsObj.WRONG_ID });
         })
         .catch(result => {
             throw ({ status: result.status, message: result.message });

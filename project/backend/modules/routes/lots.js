@@ -7,7 +7,7 @@ router.get('/', (req, res, next) => {
     lotsDB.getAllLots()
         .then(result => {
             if(!result.length) {
-                throw {status: 400, message: 'No lots'};
+                throw {status: 400, message: errorsObj.NO_LOTS};
             }
             req.body.lots = result;
             return lotsDB.getCategories();
