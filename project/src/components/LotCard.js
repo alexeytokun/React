@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, Card, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import temp from '../no_image.png';
+import '../css/LotCard.css';
 
 class LotCard extends Component {
 

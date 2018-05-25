@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Pagination } from 'semantic-ui-react';
+import '../css/Paginator.css'
 
 class Paginator extends Component {
 

@@ -148,7 +148,7 @@ class LotForm extends Component {
 
     render() {
         return (
-            <Container className="reg_wrapper">
+            <Container className="form_wrapper">
                 <Form>
                     <LotImageUpload saveError={this.props.saveError} initialSrc={this.state.initialSrc} src={this.state.src} onFileSelect={this.onFileSelect} edit={!!this.props.lot}/>
                     <Form.Field>

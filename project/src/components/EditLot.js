@@ -61,7 +61,7 @@ class EditLot extends Component {
         if(!this.state.lot) return null;
 
         return (
-            <Container className="reg_wrapper">
+            <Container className="form_wrapper">
                 <LotForm categories={this.props.categories} saveError={this.props.saveError} handleSubmit={this.handleSubmit} lot={this.state.lot}/>
             </Container>
         );

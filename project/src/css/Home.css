@@ -1,0 +1,19 @@
+.home_tagline_container {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.home_tagline_main {
+    color: #82B9D5;
+    font-size: 43px;
+    margin-bottom: 5px;
+}
+
+.home_tagline_secondary {
+    margin-top: 0;
+    color: rgba(0,0,0,.6);
+}
+
+.lot_group {
+    margin-bottom: 50px !important;
+}

@@ -7,6 +7,7 @@ import { SERVER_URL } from "../constants";
 import axios from 'axios/index';
 import {connect} from "react-redux";
 import {saveError} from "../actions/errorsActions";
+import '../css/SignUp.css'
 
 
 class SignUp extends Component {
@@ -40,7 +41,7 @@ class SignUp extends Component {
         }
 
         return (
-            <Container className="reg_wrapper">
+            <Container className="form_wrapper">
                 <Image className="reg_logo"  size='large' centered src={logo}/>
                 <UserDataForm handleSubmit={this.handleSubmit}/>
                 <p className="reg_text">

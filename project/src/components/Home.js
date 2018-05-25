@@ -7,6 +7,7 @@ import {updateLots} from "../functions";
 import {saveLotsAndCategories} from "../actions/lotsActions";
 import {saveError} from "../actions/errorsActions";
 import logo from "../logo-new.svg";
+import '../css/Home.css';
 
 
 class Home extends Component {

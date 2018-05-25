@@ -1,0 +1,23 @@
+.lot_image_edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.lot_img {
+    display: inline-block !important;
+    margin-bottom: 30px;
+}
+
+.carousel_image_container {
+    position: relative;
+}
+
+.carousel_close_icon
+{
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    cursor: pointer;
+}

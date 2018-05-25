@@ -7,6 +7,7 @@ import { saveUserdata } from '../actions/userActions';
 import { SERVER_URL } from "../constants";
 import axios from 'axios/index';
 import {saveError} from "../actions/errorsActions";
+import '../css/Login.css';
 
 class Login extends Component {
     constructor(props) {
@@ -81,7 +82,7 @@ class Login extends Component {
         }
 
         return (
-            <Container className="reg_wrapper">
+            <Container className="form_wrapper">
                 <Image className="reg_logo"  size='large' centered src={logo}/>
                 <Form>
                     <Form.Field>

@@ -1,0 +1,22 @@
+.lot_container {
+    margin-top: 10%;
+}
+
+.lot_info {
+    padding-top: 120px !important;
+}
+
+.lot_page_btn {
+    width: 80px;
+}
+
+.lot_page_finished {
+    font-size: 20px;
+    color: red;
+}
+
+.lot_page_pending {
+    font-size: 20px;
+    color: black;
+}
+

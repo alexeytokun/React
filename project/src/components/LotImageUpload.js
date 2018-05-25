@@ -4,6 +4,7 @@ import placeholder from "../no_image.png";
 import { Carousel } from 'react-responsive-carousel';
 import { SERVER_URL } from "../constants";
 import axios from 'axios/index';
+import '../css/LotImageUpload.css';
 
 class LotImageUpload extends React.Component {
 
@@ -78,7 +79,7 @@ class LotImageUpload extends React.Component {
         const {dbSrcs, filesSrcs} = {...this.state};
         const srcs = dbSrcs.concat(filesSrcs);
         const images = srcs.map((src, i) =>
-            <div key={i} className={'carousel_image_container'}>
+            <div key={i} className='carousel_image_container'>
                 <img className='lot_img' src={src.path}/>
             </div>
         );
@@ -91,7 +92,7 @@ class LotImageUpload extends React.Component {
                     selectedItem={this.state.selectedImage}
                     dynamicHeight={true}
                 >{images}</Carousel>
-                {this.props.edit && <Icon className={'carousel_close_icon'} name='close' onClick={this.handleCloseIconClick}/>}
+                {this.props.edit && <Icon className='carousel_close_icon' name='close' onClick={this.handleCloseIconClick}/>}
             </div>;
 
         return (

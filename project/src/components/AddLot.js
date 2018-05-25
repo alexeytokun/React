@@ -46,7 +46,7 @@ class AddLot extends Component {
         }
 
         return (
-            <Container className="reg_wrapper">
+            <Container className="form_wrapper">
                 <LotForm categories={this.props.categories} saveError={this.props.saveError} handleSubmit={this.handleSubmit}/>
             </Container>
         );

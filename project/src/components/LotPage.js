@@ -8,6 +8,7 @@ import {saveError} from "../actions/errorsActions";
 import { NavLink, Redirect } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import '../css/LotPage.css';
 import axios from "axios/index";
 import {SERVER_URL} from "../constants";
 import DeleteConfirm from "./DeleteConfirm";
@@ -38,7 +39,7 @@ class LotPage extends Component {
                 return (
                     <div>
                         <Divider/>
-                        <span style={{fontSize: 20, color: 'black'}}>Time left:</span>
+                        <span className='lot_page_pending'>Time left:</span>
                         <Countdown onEnd={this.handleCountdownEnd} date={lot.end_time}/>
                     </div>
                 );
@@ -46,14 +47,14 @@ class LotPage extends Component {
                 return (
                     <div>
                         <Divider/>
-                        <p style={{fontSize: 20, color: 'red'}}>Finished</p>
+                        <p className='lot_page_finished'>Finished</p>
                     </div>
                 );
             case 'pending':
                 return (
                     <div>
                         <Divider/>
-                        <span style={{fontSize: 20, color: 'black'}}>Auction starts in:</span>
+                        <span className='lot_page_pending'>Auction starts in:</span>
                         <Countdown onEnd={this.handleCountdownEnd} date={lot.start_time}/>
                     </div>
                 );

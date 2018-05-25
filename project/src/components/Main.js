@@ -9,6 +9,7 @@ import LotPage from "./LotPage";
 import Category from "./Category";
 import UsersLots from "./UsersLots";
 import EditLot from './EditLot';
+import '../css/Main.css';
 
 class Main extends Component {
 

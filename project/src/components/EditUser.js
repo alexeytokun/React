@@ -9,6 +9,7 @@ import { SERVER_URL } from "../constants";
 import axios from 'axios/index';
 import {saveError} from "../actions/errorsActions";
 import SuccessMessage from "./SuccessMessage";
+import '../css/EditUser.css';
 
 class EditUser extends Component {
 
@@ -70,7 +71,7 @@ class EditUser extends Component {
             (this.props.userData.avatar ? this.props.userData.avatar : defaultAvatar) : defaultAvatar;
 
         return (
-            <Container className="reg_wrapper">
+            <Container className="form_wrapper">
                 <Image className="reg_logo" circular  size='small' centered src={ avatar }/>
                 <FileUpload saveError={this.props.saveError} userData={this.props.userData} getAvatar={this.getAvatar}/>
                 <UserDataForm handleSubmit={this.handleSubmit} userData={this.props.userData} edit={true}/>

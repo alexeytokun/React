@@ -2,118 +2,17 @@ body {
   height: auto !important;
 }
 
-.main {
-  text-align: center;
-  margin-top: 75px;
-}
-
-.reg_wrapper {
+.form_wrapper {
   display: flex;
   justify-content: center;
 }
 
-/*.reg_btn {*/
-  /*width: 49%;*/
-/*}*/
-
-/*.reg_btn:last-child {*/
-  /*margin-right: 0 !important;*/
-/*}*/
-
-/*.reg_social_btn {*/
-  /*width: 32%;*/
-/*}*/
-
-.reg_text {
-  font-size: 16px;
-  margin: 10px 0;
-  padding: 0;
+.file {
+  display: none;
 }
 
-.reg_password_hint {
-  text-align: right;
-  font-size: 12px;
-
-}
-
-.reg_logo {
-  margin-bottom: 30px;
-}
-
-.menu_item {
-  cursor: pointer;
+.category_title {
   color: rgba(0,0,0,.6);
-  font-weight: 700;
-}
-
-.menu_item:hover {
-  color: black;
-}
-
-.lot_info {
-  padding-top: 120px !important;
-}
-
-.lot_container {
-  margin-top: 10%;
-}
-
-.lot_card {
-  padding: 10px !important;
-}
-
-.lot_group {
-  margin-bottom: 50px !important;
-}
-
-.lot_img {
-  display: inline-block !important;
-  margin-bottom: 30px;
-}
-
-.lots_paginator {
-  margin: 10px 0 !important;
-}
-
-.lot_page_btn {
-  width: 80px;
-}
-
-.lot_image_edit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.file_button {
-  width: 130px;
-}
-
-.home_tagline_container {
-  margin-top: 20px;
-  margin-bottom: 40px;
-}
-
-.home_tagline_main {
-  color: #82B9D5;
-  font-size: 43px;
-  margin-bottom: 5px;
-}
-
-.home_tagline_secondary {
-  margin-top: 0;
-  color: rgba(0,0,0,.6);
-}
-
-.header_menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #FFF;
-  z-index: 99;
-  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 .user.icon,
@@ -130,30 +29,6 @@ body {
   margin-top: 5px !important;
 }
 
-.file {
-  display: none;
-}
-
-.category_title {
-  color: rgba(0,0,0,.6);
-}
-
-.lotpage_finished {
-  font-size: 20px;
-  color: red;
-}
-
-.carousel_image_container {
-  position: relative;
-}
-
-.carousel_close_icon
-{
-  position: absolute;
-  top: 5px;
-  right: -25px;
-  cursor: pointer;
-}
 .rc-calendar-range-right .rc-calendar-time-picker-panel {
   left: 0 !important;
 }

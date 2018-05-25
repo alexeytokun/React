@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { SERVER_URL } from "../constants";
 import axios from 'axios/index';
+import '../css/FileUpload.css';
 
 
 class FileUpload extends React.Component {

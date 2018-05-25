@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {userLogOut} from "../actions/userActions";
 import {saveError} from "../actions/errorsActions";
 import CustomSearch from "./CustomSearch";
+import '../css/Header.css';
 
 class Header extends Component {
 
