@@ -52,7 +52,7 @@ class UsersLots extends Component {
             return (
                 <Container>
                     <div>
-                        <h1>User doesn`t have any lots</h1>
+                        <h1>No lots here...</h1>
                     </div>
                 </Container>
             );

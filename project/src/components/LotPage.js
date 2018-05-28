@@ -33,7 +33,7 @@ class LotPage extends Component {
         return 'pending';
     }
 
-    countLotTime(lot ,stage) {
+    switchLotInfo(lot ,stage) {
         switch (stage) {
             case 'active':
                 return (
@@ -120,10 +120,10 @@ class LotPage extends Component {
             return <Redirect push to={this.state.redirect}/>;
         }
 
-        const stage = this.countLotStage(lot.start_time, lot.end_time);
-        const countdown = this.countLotTime(lot, stage);
         const user = this.props.userData || {};
         const isLotOwner = user.id === lot.user_id;
+        const stage = this.countLotStage(lot.start_time, lot.end_time);
+        const countdown = this.switchLotInfo(lot, stage);
         const isEdditable = stage === 'pending';
         const bidData = this.switchBidData(user, lot, isLotOwner, stage);
 
@@ -139,12 +139,12 @@ class LotPage extends Component {
         return(
             <Container className='lot_container'>
                 <Grid stackable>
-                    <Grid.Column width={7}>
+                    <Grid.Column width={8}>
                         <Carousel dynamicHeight={true} >
                             {images}
                         </Carousel>
                     </Grid.Column>
-                    <Grid.Column width={7} className='lot_info'>
+                    <Grid.Column width={8} className='lot_info'>
                         <h2>{lot.lot_name}</h2>
                         <p className='lot_description'>{lot.description}</p>
                         <span className='lot_seller'>Seller: <NavLink to={'/lots/user/' + lot.user_id}>{lot.username}</NavLink></span>

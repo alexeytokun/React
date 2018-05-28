@@ -52,6 +52,13 @@ lotsDB.getAllLots = () => {
     return query(sql, prop);
 };
 
+lotsDB.getWonLots = (id) => {
+    const sql = 'SELECT l.lot_id FROM `lots` AS l LEFT JOIN `users` AS u ON l.user_id = u.id LEFT JOIN `auctions`' +
+        ' AS a ON l.lot_id = a.lot_id WHERE a.bidder_id = ?';
+    const prop = [id];
+    return query(sql, prop);
+};
+
 lotsDB.getAllLotsImages = () => {
     const sql = 'SELECT CONCAT("' + SERVER_URL + '", l.lot_image_path) AS image, l.lot_id, l.lot_image_id AS image_id' +
         ' FROM `lots_images` AS l';

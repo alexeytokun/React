@@ -42,6 +42,7 @@ class Header extends Component {
                                     <Dropdown.Menu>
                                         <Dropdown.Item as={NavLink} to='/lot'>Add Lot</Dropdown.Item>
                                         <Dropdown.Item as={NavLink} to={'/lots/user/' + userId}>Your Lots</Dropdown.Item>
+                                        <Dropdown.Item as={NavLink} to={'/lots/won/' + userId}>Won Lots</Dropdown.Item>
                                         <Dropdown.Item as={NavLink} to='/user/:id'>Edit Profile</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>

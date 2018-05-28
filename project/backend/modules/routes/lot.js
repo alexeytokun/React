@@ -118,6 +118,25 @@ router.delete('/image/:id', (req, res, next) => {
         .catch(result => res.status(result.status).json({ message: result.message }));
 });
 
+router.get('/won/:id', (req, res, next) => {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
+        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+    }
+    return next();
+}, (req, res, next) => {
+    lotsDB.getWonLots(req.params.id)
+        .then(function (results) {
+            let lots = [];
+            if (results.length) {
+                lots = results.map(
+                    (lot) => lot.lot_id
+                );
+            }
+            return res.status(200).json({lots: lots});
+        })
+        .catch(result => res.status(result.status).json({ message: result.message }));
+});
+
 router.get('/categories', (req, res, next) => {
     lotsDB.getCategories()
         .then(result => res.json(result))

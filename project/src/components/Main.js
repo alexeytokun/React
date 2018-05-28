@@ -10,6 +10,7 @@ import Category from "./Category";
 import UsersLots from "./UsersLots";
 import EditLot from './EditLot';
 import '../css/Main.css';
+import WonLots from "./WonLots";
 
 class Main extends Component {
 
@@ -25,6 +26,7 @@ class Main extends Component {
                     <Route path='/lot/:id' component={LotPage}/>
                     <Route path='/lot_edit/:id' component={EditLot}/>
                     <Route path='/lots/user/:id' component={UsersLots}/>
+                    <Route path='/lots/won/:id' component={WonLots}/>
                     <Route path='/category/:id' component={Category}/>
                 </Switch>
             </main>

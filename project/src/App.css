@@ -1,5 +1,6 @@
 body {
   height: auto !important;
+  background-image: url("../src/brickwall.png") !important;
 }
 
 .relative {
@@ -17,6 +18,7 @@ body {
 
 .category_title {
   color: rgba(0,0,0,.6);
+  margin-top: 10px;
 }
 
 .user.icon,
@@ -60,3 +62,5 @@ ui.icon.input {
 .ui.selection.dropdown {
   min-width: 150px !important;
 }
+
+
