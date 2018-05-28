@@ -107,8 +107,10 @@ lotsDB.getAuctionData = id => {
 };
 
 lotsDB.updateAuctionData = data => {
+    console.log(data);
     const sql = 'UPDATE `auctions` SET `last_bid`=?, `bidder_id`=? WHERE `lot_id` = ?';
     const prop = [data.bid, data.buyer, data.lot_id];
+    console.log(prop);
     return query(sql, prop);
 };
 
