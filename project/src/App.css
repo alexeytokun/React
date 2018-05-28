@@ -63,4 +63,8 @@ ui.icon.input {
   min-width: 150px !important;
 }
 
+.carousel .slide {
+  background-color: transparent !important;
+}
+
 

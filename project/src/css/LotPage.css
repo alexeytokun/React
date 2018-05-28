@@ -1,5 +1,5 @@
 .lot_container {
-    margin-top: 10%;
+    margin-top: 120px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 10px;
@@ -38,3 +38,11 @@
     margin-bottom: 5px;
 }
 
+.comments_container {
+    margin: 10px 0;
+    text-align: left;
+}
+
+.hidden {
+    display: none !important;
+}

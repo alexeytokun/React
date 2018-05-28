@@ -12,6 +12,7 @@ import '../css/LotPage.css';
 import axios from "axios/index";
 import {SERVER_URL} from "../constants";
 import DeleteConfirm from "./DeleteConfirm";
+import Comments from "./Comments";
 
 class LotPage extends Component {
 
@@ -19,10 +20,12 @@ class LotPage extends Component {
         super(props);
         this.state = {
             lot: null,
-            redirect: false
+            redirect: false,
+            showComments: false
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCountdownEnd = this.handleCountdownEnd.bind(this);
+        this.toggleComments = this.toggleComments.bind(this);
     }
 
     countLotStage(start, end) {
@@ -112,6 +115,11 @@ class LotPage extends Component {
         }
     }
 
+    toggleComments(e) {
+        e.target.blur();
+        this.setState({showComments: !this.state.showComments});
+    }
+
     render() {
         const lot = this.state.lot;
         if (!lot) return null;
@@ -137,30 +145,38 @@ class LotPage extends Component {
         }
 
         return(
-            <Container className='lot_container'>
-                <Grid stackable>
-                    <Grid.Column width={8}>
-                        <Carousel dynamicHeight={true} >
-                            {images}
-                        </Carousel>
-                    </Grid.Column>
-                    <Grid.Column width={8} className='lot_info'>
-                        <h2>{lot.lot_name}</h2>
-                        <p className='lot_description'>{lot.description}</p>
-                        <span className='lot_seller'>Seller: <NavLink to={'/lots/user/' + lot.user_id}>{lot.username}</NavLink></span>
-                        <p className='lot_price'>Starting price: {lot.starting_price}$</p>
-                        {countdown}
-                        {bidData}
-                        {(isLotOwner && isEdditable) &&
-                        <div>
-                            <NavLink to={'/lot_edit/' + lot.lot_id}>
-                                <Button className='lot_page_btn' basic size='medium'>Edit</Button>
-                            </NavLink>
-                            <DeleteConfirm onConfirm={this.handleDelete}/>
-                        </div>}
-                    </Grid.Column>
-                </Grid>
-            </Container>
+            <div>
+                <Container className='lot_container'>
+                    <Grid stackable>
+                        <Grid.Column width={8}>
+                            <Carousel dynamicHeight={true} >
+                                {images}
+                            </Carousel>
+                        </Grid.Column>
+                        <Grid.Column width={8} className='lot_info'>
+                            <h2>{lot.lot_name}</h2>
+                            <p className='lot_description'>{lot.description}</p>
+                            <span className='lot_seller'>Seller: <NavLink to={'/lots/user/' + lot.user_id}>{lot.username}</NavLink></span>
+                            <p className='lot_price'>Starting price: {lot.starting_price}$</p>
+                            {countdown}
+                            {bidData}
+                            {(isLotOwner && isEdditable) &&
+                            <div>
+                                <NavLink to={'/lot_edit/' + lot.lot_id}>
+                                    <Button className='lot_page_btn' basic size='medium'>Edit</Button>
+                                </NavLink>
+                                <DeleteConfirm onConfirm={this.handleDelete}/>
+                            </div>}
+                        </Grid.Column>
+                    </Grid>
+                </Container>
+                <Container className='comments_container'>
+                    <Button style={{width: '100%'}} basic onClick={this.toggleComments}>
+                        {this.state.showComments ? 'Hide comments' : 'Show comments'}
+                    </Button>
+                    <Comments showComments={this.state.showComments}/>
+                </Container>
+            </div>
         );
     }
 }
