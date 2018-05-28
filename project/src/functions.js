@@ -2,10 +2,7 @@ import {SERVER_URL} from "./constants";
 import axios from "axios/index";
 
 export function updateLots(props) {
-    axios.get(SERVER_URL + 'lots',
-        {
-            headers: { "User-Auth-Token": localStorage.getItem('jwt')}
-        })
+    axios.get(SERVER_URL + 'lots')
         .then(res => {
             let response = res.data;
             let sortedLots = [];
