@@ -39,17 +39,27 @@ export function filterLots(lots, filter) {
                 (a,b) => b.price - a.price
             );
         case 5:
-            console.log(unsortedLots);
             return sortedLots = unsortedLots.sort(
                 (a,b) => new Date(a.start_time) - new Date(b.start_time)
             );
         case 6:
-            console.log(unsortedLots);
             return sortedLots = unsortedLots.sort(
                 (a,b) => new Date(a.end_time) - new Date(b.end_time)
             );
+        case 7:
+            return sortedLots = unsortedLots.filter(
+                (lot) => new Date(lot.start_time) > Date.now()
+            );
+        case 8:
+            return sortedLots = unsortedLots.filter(
+                (lot) => (new Date(lot.start_time) <= Date.now() && new Date(lot.end_time) > Date.now())
+            );
+        case 9:
+            return sortedLots = unsortedLots.filter(
+                (lot) => new Date(lot.end_time) <= Date.now()
+            );
         default:
-            return
+            return unsortedLots;
     }
 }
 
