@@ -40,7 +40,6 @@ class Bid extends Component {
         });
 
         socket.on('bid', (data) => {
-            console.log(data);
             this.setState({last_bid: data.bid, buyer: data.buyer});
         });
 

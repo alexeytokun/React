@@ -174,7 +174,7 @@ class LotPage extends Component {
                     <Button style={{width: '100%'}} basic onClick={this.toggleComments}>
                         {this.state.showComments ? 'Hide comments' : 'Show comments'}
                     </Button>
-                    <Comments showComments={this.state.showComments}/>
+                    <Comments lotId={lot.lot_id} userData={this.props.userData} showComments={this.state.showComments}/>
                 </Container>
             </div>
         );

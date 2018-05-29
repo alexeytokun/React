@@ -4,4 +4,5 @@
 
 .ui.comments textarea {
     height: 6em !important;
+    opacity: 0.9;
 }
