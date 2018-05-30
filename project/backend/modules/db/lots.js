@@ -134,4 +134,12 @@ lotsDB.addComment = (comment) => {
     return query(sql, prop);
 };
 
+lotsDB.editComment = (comment, id) => {
+    const sql = 'UPDATE `comments` SET `post_text`=?, `post_time`=? WHERE `comment_id`=?';
+    const prop = [comment.post_text, comment.post_time, id];
+    console.log('here');
+    console.log(prop);
+    return query(sql, prop);
+};
+
 module.exports = lotsDB;

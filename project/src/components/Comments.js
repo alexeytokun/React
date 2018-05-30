@@ -15,21 +15,47 @@ class Comments extends Component {
         this.state = {
             comments: [],
             value: '',
-            reply: null
+            reply: null,
+            edit: false
         };
 
         this.handleReply = this.handleReply.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.startEdit = this.startEdit.bind(this);
+        this.clear = this.clear.bind(this);
     }
 
     handleReply(e) {
         this.setState({value: e.target.dataset.username + ', ', reply: e.target.dataset.id});
     }
 
+    startEdit(e) {
+        window.scrollTo(0, document.body.scrollHeight);
+        this.setState({
+            edit: e.target.dataset.id,
+            value: e.target.dataset.text
+        });
+    }
+
     handleEdit() {
-        console.log('ok');
+        const now = moment().format('YYYY-MM-DD HH:mm:ss');
+        const comment_id = this.state.edit;
+        let comment = {
+            post_time: now,
+            post_text: this.state.value
+        };
+
+        axios.post(SERVER_URL + 'lot/comment/' + comment_id, {comment}, {
+            headers: {
+                "User-Auth-Token": localStorage.getItem('jwt')
+            }
+        })
+            .then((res) => this.setState({edit: false, reply: null}, ()=> this.updateComments()))
+            .catch((err) => {
+                this.props.saveError(err);
+            });
     }
 
     handleChange(e) {
@@ -42,7 +68,6 @@ class Comments extends Component {
         if(!userId) return;
 
         const now = moment().format('YYYY-MM-DD HH:mm:ss');
-        console.log(this.state.value);
         let comment = {
             post_time: now,
             post_text: this.state.value,
@@ -50,21 +75,21 @@ class Comments extends Component {
             reply: this.state.reply,
             lot_id: this.props.lotId
         };
-        console.log(comment);
 
         axios.post(SERVER_URL + 'lot/comment/new', {comment}, {
             headers: {
                 "User-Auth-Token": localStorage.getItem('jwt')
             }
         })
-            .then((res) => this.updateComments())
+            .then((res) => this.setState({reply: null}, ()=> this.updateComments()))
             .catch((err) => {
                 this.props.saveError(err);
             });
     }
 
     mapReplies(replies, userId) {
-        const mappedReplies = this.mapComments(replies, userId);
+        const sortedReplies = replies.sort((a, b) => a.comment_id > b.comment_id);
+        const mappedReplies = this.mapComments(sortedReplies, userId);
 
         return (
             <Comment.Group size='large'>
@@ -88,8 +113,17 @@ class Comments extends Component {
                             </Comment.Metadata>
                             <Comment.Text>{comment.post_text}</Comment.Text>
                             <Comment.Actions>
-                                <Comment.Action data-id={comment.comment_id} data-username={comment.username} onClick={this.handleReply}>Reply</Comment.Action>
-                                {(userId && userId === comment.user_id) && <Comment.Action onClick={this.handleEdit.bind(this)}>Edit</Comment.Action>}
+                                <Comment.Action
+                                    data-id={comment.comment_id}
+                                    data-username={comment.username}
+                                    onClick={this.handleReply}
+                                >Reply</Comment.Action>
+                                {(userId && userId === comment.user_id) &&
+                                    <Comment.Action
+                                        onClick={this.startEdit}
+                                        data-text={comment.post_text}
+                                        data-id={comment.comment_id}
+                                    >Edit</Comment.Action>}
                             </Comment.Actions>
                             {comment.replies && this.mapReplies(comment.replies, userId)}
                         </Comment.Content>
@@ -106,10 +140,16 @@ class Comments extends Component {
     }
 
     componentWillMount() {
-        const lotId = this.props.lotId;
-        axios.get(SERVER_URL + 'lot/comments/' + lotId)
-            .then((res) => this.setState({comments: res.data.comments}))
-            .catch((err) => this.props.saveError(err));
+        this.updateComments();
+    }
+
+    clear(e) {
+        e.target.blur();
+        this.setState({
+            value: '',
+            edit: false,
+            reply: null
+        });
     }
 
     render() {
@@ -128,7 +168,18 @@ class Comments extends Component {
 
                 <Form reply>
                     <Form.TextArea value={this.state.value} onChange={this.handleChange}/>
-                    <Button onClick={this.handleSubmit} content='Add Comment' labelPosition='left' icon='edit' basic/>
+                    <Button
+                        onClick={this.state.edit ? this.handleEdit : this.handleSubmit}
+                        content={this.state.edit ? 'Edit Comment' : 'Add Comment'}
+                        labelPosition='left'
+                        icon='edit'
+                        basic
+                    />
+                    <Button
+                        onClick={this.clear}
+                        content='Clear'
+                        basic
+                    />
                 </Form>
             </Comment.Group>
         );

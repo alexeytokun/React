@@ -184,4 +184,21 @@ router.post('/comment/new', (req, res, next) => {
         .catch(result => res.status(result.status).json({ message: result.message }));
 });
 
+router.post('/comment/:id', (req, res, next) => {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
+        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+    }
+    return next();
+}, (req, res, next) => {
+    // if (!validate(req.body.comment)) {
+    //     return res.status(406).json({ message: errorsObj.VALIDATION });
+    // } else next();
+    return next();
+}, (req, res, next) => {
+    console.log(req.body);
+    lotsDB.editComment(req.body.comment, req.params.id)
+        .then(() => res.json({ message: 'ok' }))
+        .catch(result => res.status(result.status).json({ message: result.message }));
+});
+
 module.exports = router;
