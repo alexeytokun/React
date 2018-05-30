@@ -125,7 +125,7 @@ router.get('/won/:id', (req, res, next) => {
     return next();
 }, (req, res, next) => {
     lotsDB.getWonLots(req.params.id)
-        .then(function (results) {
+        .then(results => {
             let lots = [];
             if (results.length) {
                 lots = results.map(
@@ -140,6 +140,47 @@ router.get('/won/:id', (req, res, next) => {
 router.get('/categories', (req, res, next) => {
     lotsDB.getCategories()
         .then(result => res.json(result))
+        .catch(result => res.status(result.status).json({ message: result.message }));
+});
+
+router.get('/comments/:id', (req, res, next) => {
+    lotsDB.getComments(req.params.id)
+        .then(results => {
+            let comments = [];
+            if (results.length) {
+                for (let i = 0; i < results.length; i++) {
+                    if (!results[i].reply) {
+                        comments.push(results[i]);
+                        continue;
+                    }
+                    let parent = results.find((item) => item.comment_id === results[i].reply);
+                    if(!parent) {
+                        comments.push(results[i]);
+                        continue;
+                    }
+                    if(!parent.replies) parent.replies = [];
+                    parent.replies.push(results[i]);
+                }
+            }
+            return res.status(200).json({comments: comments});
+        })
+        .catch(result => res.status(result.status).json({ message: result.message }));
+});
+
+router.post('/comment/new', (req, res, next) => {
+    if (req.body.token !== 'admin' && req.body.token !== 'user') {
+        return res.status(403).json({ message: errorsObj.ACCESS_DENIED });
+    }
+    return next();
+}, (req, res, next) => {
+    // if (!validate(req.body.comment)) {
+    //     return res.status(406).json({ message: errorsObj.VALIDATION });
+    // } else next();
+   return next();
+}, (req, res, next) => {
+    console.log(req.body);
+    lotsDB.addComment(req.body.comment)
+        .then(() => res.json({ message: 'ok' }))
         .catch(result => res.status(result.status).json({ message: result.message }));
 });
 

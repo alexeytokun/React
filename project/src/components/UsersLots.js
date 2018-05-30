@@ -61,7 +61,7 @@ class UsersLots extends Component {
         return (
             <Container>
                 <div className='relative'>
-                    <h1 className='category_title'>Lots by {usersLots[0].username}</h1>
+                    <h1 className='category_title'>Lots of {usersLots[0].username}</h1>
                     <Divider/>
                     <FilterSelect onSelect={this.handleFilterSelect} value={this.state.filter}/>
                     <LotGroup category={true} lots={paginatedLots}/>

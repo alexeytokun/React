@@ -62,6 +62,22 @@ CREATE TABLE `auctions` (
     PRIMARY KEY(`auction_id`)
 );
 
+CREATE TABLE `comments` (
+    `comment_id` INT(11) AUTO_INCREMENT,
+    `lot_id` INT(11),
+    `user_id` INT(11),
+    `post_text` VARCHAR(255),
+    `post_time` DATETIME,
+    `reply` INT(11),
+    FOREIGN KEY(`user_id`)
+        REFERENCES `users`(`id`)
+        ON DELETE SET NULL,
+    FOREIGN KEY(`lot_id`)
+        REFERENCES `lots`(`lot_id`)
+        ON DELETE CASCADE,
+    PRIMARY KEY(`comment_id`)
+);
+
 DELIMITER $$
 DROP TRIGGER IF EXISTS project.lots_AFTER_INSERT$$
 USE `project`$$

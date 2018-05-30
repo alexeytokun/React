@@ -114,10 +114,23 @@ lotsDB.getAuctionData = id => {
 };
 
 lotsDB.updateAuctionData = data => {
-    console.log(data);
     const sql = 'UPDATE `auctions` SET `last_bid`=?, `bidder_id`=? WHERE `lot_id` = ?';
     const prop = [data.bid, data.buyer, data.lot_id];
-    console.log(prop);
+    return query(sql, prop);
+};
+
+lotsDB.getComments = id => {
+    const sql = 'SELECT c.comment_id, c.user_id, c.post_time, c.post_text, c.reply, CONCAT("' + SERVER_URL
+        + '", u.avatar) AS avatar, u.username FROM `comments` AS c LEFT JOIN `users` AS u' +
+        ' ON c.user_id = u.id WHERE c.lot_id = ?';
+    const prop = [id];
+    return query(sql, prop);
+};
+
+lotsDB.addComment = (comment) => {
+    const sql = 'INSERT INTO `comments` (`lot_id`, `user_id`, `post_text`, `post_time`, `reply`)' +
+        ' VALUES (?, ?, ?, ?, ?)';
+    const prop = [comment.lot_id, comment.user_id, comment.post_text, comment.post_time, comment.reply];
     return query(sql, prop);
 };
 
