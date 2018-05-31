@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Comment, Form, Header } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import '../css/Comments.css';
 import moment from 'moment';
-import axios from "axios/index";
-import { SERVER_URL } from "../constants";
-import placeholder from "../default-avatar.png";
+import axios from 'axios/index';
+import '../css/Comments.css';
+import { SERVER_URL } from '../constants';
+import placeholder from '../default-avatar.png';
 
 class Comments extends Component {
-
     constructor(props) {
         super(props);
 
@@ -16,7 +15,7 @@ class Comments extends Component {
             comments: [],
             value: '',
             reply: null,
-            edit: false
+            edit: false,
         };
 
         this.handleReply = this.handleReply.bind(this);
@@ -27,61 +26,65 @@ class Comments extends Component {
         this.clear = this.clear.bind(this);
     }
 
+    componentWillMount() {
+        this.updateComments();
+    }
+
     handleReply(e) {
-        this.setState({value: e.target.dataset.username + ', ', reply: e.target.dataset.id});
+        this.setState({ value: `${e.target.dataset.username}, `, reply: e.target.dataset.id });
     }
 
     startEdit(e) {
         window.scrollTo(0, document.body.scrollHeight);
         this.setState({
             edit: e.target.dataset.id,
-            value: e.target.dataset.text
+            value: e.target.dataset.text,
         });
     }
 
     handleEdit() {
         const now = moment().format('YYYY-MM-DD HH:mm:ss');
-        const comment_id = this.state.edit;
-        let comment = {
+        const commentId = this.state.edit;
+        const comment = {
             post_time: now,
-            post_text: this.state.value
+            post_text: this.state.value,
         };
 
-        axios.post(SERVER_URL + 'lot/comment/' + comment_id, {comment}, {
+        axios.post(`${SERVER_URL}lot/comment/${commentId}`, { comment }, {
             headers: {
-                "User-Auth-Token": localStorage.getItem('jwt')
-            }
+                'User-Auth-Token': localStorage.getItem('jwt'),
+            },
         })
-            .then((res) => this.setState({edit: false, reply: null}, ()=> this.updateComments()))
+            .then(() => this.setState({ edit: false, reply: null }, () => this.updateComments()))
             .catch((err) => {
                 this.props.saveError(err);
             });
     }
 
     handleChange(e) {
-        this.setState({value: e.target.value});
+        this.setState({ value: e.target.value });
     }
 
     handleSubmit(e) {
         e.target.blur();
         const userId = this.props.userData && this.props.userData.id;
-        if(!userId) return;
+        if (!userId) return;
 
         const now = moment().format('YYYY-MM-DD HH:mm:ss');
-        let comment = {
+        const comment = {
             post_time: now,
             post_text: this.state.value,
             user_id: userId,
             reply: this.state.reply,
-            lot_id: this.props.lotId
+            lot_id: this.props.lotId,
         };
 
-        axios.post(SERVER_URL + 'lot/comment/new', {comment}, {
+        axios.post(`${SERVER_URL}lot/comment/new`, { comment }, {
             headers: {
-                "User-Auth-Token": localStorage.getItem('jwt')
-            }
+                'User-Auth-Token': localStorage.getItem('jwt'),
+            },
         })
-            .then((res) => this.setState({reply: null}, ()=> this.updateComments()))
+            .then(() => this.setState({ reply: null }, () => this.updateComments()))
             .catch((err) => {
                 this.props.saveError(err);
             });
@@ -92,56 +95,53 @@ class Comments extends Component {
         const mappedReplies = this.mapComments(sortedReplies, userId);
 
         return (
-            <Comment.Group size='large'>
+            <Comment.Group size="large">
                 {mappedReplies}
             </Comment.Group>
         );
     }
 
     mapComments(comments, userId) {
-        return comments.map(
-            (comment) => {
-                return (
-                    <Comment key={comment.comment_id}>
-                        <Comment.Avatar src={comment.avatar || placeholder}/>
-                        <Comment.Content>
-                            <Comment.Author as='span'>
-                                <NavLink as='a' to={'/lots/user/' + comment.user_id}>{comment.username}</NavLink>
-                            </Comment.Author>
-                            <Comment.Metadata>
-                                <div>{moment(comment.post_time).calendar()}</div>
-                            </Comment.Metadata>
-                            <Comment.Text>{comment.post_text}</Comment.Text>
-                            <Comment.Actions>
-                                <Comment.Action
-                                    data-id={comment.comment_id}
-                                    data-username={comment.username}
-                                    onClick={this.handleReply}
-                                >Reply</Comment.Action>
-                                {(userId && userId === comment.user_id) &&
-                                    <Comment.Action
-                                        onClick={this.startEdit}
-                                        data-text={comment.post_text}
-                                        data-id={comment.comment_id}
-                                    >Edit</Comment.Action>
-                                }
-                            </Comment.Actions>
-                            {comment.replies && this.mapReplies(comment.replies, userId)}
-                        </Comment.Content>
-                    </Comment>
-                );
-            });
+        return comments.map(comment => (
+            <Comment key={comment.comment_id}>
+                <Comment.Avatar src={comment.avatar || placeholder} />
+                <Comment.Content>
+                    <Comment.Author as="span">
+                        <NavLink as="a" to={`/lots/user/${comment.user_id}`}>{comment.username}</NavLink>
+                    </Comment.Author>
+                    <Comment.Metadata>
+                        <div>{moment(comment.post_time).calendar()}</div>
+                    </Comment.Metadata>
+                    <Comment.Text>{comment.post_text}</Comment.Text>
+                    <Comment.Actions>
+                        <Comment.Action
+                            data-id={comment.comment_id}
+                            data-username={comment.username}
+                            onClick={this.handleReply}
+                        >
+                            Reply
+                        </Comment.Action>
+                        {(userId && userId === comment.user_id) &&
+                        <Comment.Action
+                            onClick={this.startEdit}
+                            data-text={comment.post_text}
+                            data-id={comment.comment_id}
+                        >
+                            Edit
+                        </Comment.Action>
+                        }
+                    </Comment.Actions>
+                    {comment.replies && this.mapReplies(comment.replies, userId)}
+                </Comment.Content>
+            </Comment>
+        ));
     }
 
     updateComments() {
-        const lotId = this.props.lotId;
-        axios.get(SERVER_URL + 'lot/comments/' + lotId)
-            .then((res) => this.setState({comments: res.data.comments, value: '', reply: null}))
-            .catch((err) => this.props.saveError(err));
-    }
-
-    componentWillMount() {
-        this.updateComments();
+        const { lotId } = this.props;
+        axios.get(`${SERVER_URL}lot/comments/${lotId}`)
+            .then(res => this.setState({ comments: res.data.comments, value: '', reply: null }))
+            .catch(err => this.props.saveError(err));
     }
 
     clear(e) {
@@ -149,12 +149,12 @@ class Comments extends Component {
         this.setState({
             value: '',
             edit: false,
-            reply: null
+            reply: null,
         });
     }
 
     render() {
-        if(!this.props.showComments) return null;
+        if (!this.props.showComments) return null;
         const userId = (this.props.userData && this.props.userData.id) || null;
         const commentsArray = this.state.comments;
 
@@ -162,23 +162,23 @@ class Comments extends Component {
             this.mapComments(commentsArray, userId) : 'Be the first to post a comment';
 
         return (
-            <Comment.Group size='large'>
-                <Header as='h3' dividing>Comments</Header>
+            <Comment.Group size="large">
+                <Header as="h3" dividing>Comments</Header>
 
                 {mappedComments}
 
                 <Form reply>
-                    <Form.TextArea value={this.state.value} onChange={this.handleChange}/>
+                    <Form.TextArea value={this.state.value} onChange={this.handleChange} />
                     <Button
                         onClick={this.state.edit ? this.handleEdit : this.handleSubmit}
                         content={this.state.edit ? 'Edit Comment' : 'Add Comment'}
-                        labelPosition='left'
-                        icon='edit'
+                        labelPosition="left"
+                        icon="edit"
                         basic
                     />
                     <Button
                         onClick={this.clear}
-                        content='Clear'
+                        content="Clear"
                         basic
                     />
                 </Form>
