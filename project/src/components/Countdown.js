@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import '../css/Countdown.css';
 
 class Countdown extends Component {
@@ -10,13 +10,13 @@ class Countdown extends Component {
             hours: 0,
             min: 0,
             sec: 0,
-        }
+        };
     }
 
     componentDidMount() {
         this.interval = setInterval(() => {
             const date = this.calculateCountdown(this.props.date);
-            date ? this.setState(date) : this.stop();
+            return date ? this.setState(date) : this.stop();
         }, 1000);
     }
 
@@ -34,7 +34,7 @@ class Countdown extends Component {
             days: 0,
             hours: 0,
             min: 0,
-            sec: 0
+            sec: 0,
         };
 
         if (diff >= (365.25 * 86400)) {
@@ -63,10 +63,10 @@ class Countdown extends Component {
         this.props.onEnd();
     }
 
-    addLeadingZeros(value) {
-        value = String(value);
+    addLeadingZeros(val) {
+        let value = String(val);
         while (value.length < 2) {
-            value = '0' + value;
+            value = `0${value}`;
         }
         return value;
     }
@@ -76,33 +76,30 @@ class Countdown extends Component {
 
         return (
             <div className="Countdown">
-               <span className="Countdown-col">
-                 <span className="Countdown-col-element">
-                     <strong>{this.addLeadingZeros(countDown.days)}</strong>
-                     <span className="Countdown-text">{countDown.days === 1 ? 'Day' : 'Days'}</span>
-                 </span>
-               </span>
-
                 <span className="Countdown-col">
-                 <span className="Countdown-col-element">
-                   <strong>{this.addLeadingZeros(countDown.hours)}</strong>
-                   <span className="Countdown-text">Hours</span>
-                 </span>
-               </span>
-
+                    <span className="Countdown-col-element">
+                        <strong>{this.addLeadingZeros(countDown.days)}</strong>
+                        <span className="Countdown-text">{countDown.days === 1 ? 'Day' : 'Days'}</span>
+                    </span>
+                </span>
                 <span className="Countdown-col">
-                 <span className="Countdown-col-element">
-                   <strong>{this.addLeadingZeros(countDown.min)}</strong>
-                   <span className="Countdown-text">Min</span>
-                 </span>
-               </span>
-
-               <span className="Countdown-col">
-                 <span className="Countdown-col-element">
-                   <strong>{this.addLeadingZeros(countDown.sec)}</strong>
-                   <span className="Countdown-text">Sec</span>
-                 </span>
-               </span>
+                    <span className="Countdown-col-element">
+                        <strong>{this.addLeadingZeros(countDown.hours)}</strong>
+                        <span className="Countdown-text">Hours</span>
+                    </span>
+                </span>
+                <span className="Countdown-col">
+                    <span className="Countdown-col-element">
+                        <strong>{this.addLeadingZeros(countDown.min)}</strong>
+                        <span className="Countdown-text">Min</span>
+                    </span>
+                </span>
+                <span className="Countdown-col">
+                    <span className="Countdown-col-element">
+                        <strong>{this.addLeadingZeros(countDown.sec)}</strong>
+                        <span className="Countdown-text">Sec</span>
+                    </span>
+                </span>
             </div>
         );
     }

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import '../css/Comments.css';
 import moment from 'moment';
 import axios from "axios/index";
-import {SERVER_URL} from "../constants";
+import { SERVER_URL } from "../constants";
 import placeholder from "../default-avatar.png";
 
 class Comments extends Component {
@@ -123,7 +123,8 @@ class Comments extends Component {
                                         onClick={this.startEdit}
                                         data-text={comment.post_text}
                                         data-id={comment.comment_id}
-                                    >Edit</Comment.Action>}
+                                    >Edit</Comment.Action>
+                                }
                             </Comment.Actions>
                             {comment.replies && this.mapReplies(comment.replies, userId)}
                         </Comment.Content>

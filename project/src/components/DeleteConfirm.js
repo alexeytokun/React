@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Button, Confirm } from 'semantic-ui-react';
 
 class DeleteConfirm extends Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
-            open: false
+            open: false,
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleConfirm = this.handleConfirm.bind(this);
@@ -21,7 +20,7 @@ class DeleteConfirm extends Component {
     handleConfirm() {
         this.setState(
             { open: false },
-            () => this.props.onConfirm()
+            () => this.props.onConfirm(),
         );
     }
 
@@ -30,9 +29,16 @@ class DeleteConfirm extends Component {
     }
 
     render() {
-        return(
+        return (
             <span>
-                <Button onClick={this.handleClick} className='lot_page_btn' basic size='medium'>Delete</Button>
+                <Button
+                    onClick={this.handleClick}
+                    className="lot_page_btn"
+                    basic
+                    size="medium"
+                >
+                    Delete
+                </Button>
                 <Confirm
                     open={this.state.open}
                     onConfirm={this.handleConfirm}

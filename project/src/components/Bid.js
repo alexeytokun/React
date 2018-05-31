@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Input, Button, Container, Divider } from 'semantic-ui-react';
 import socketIOClient from 'socket.io-client';
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from '../constants';
 import '../css/Bid.css';
 
 class Bid extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -13,15 +12,11 @@ class Bid extends Component {
             bid: '',
             endpoint: SERVER_URL.slice(0, -1),
             socket: null,
-            buyer: null
+            buyer: null,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
-
-    send = (data) => {
-        this.state.socket.emit('bid', data);
-    };
 
     componentWillMount() {
         if (this.props.lot) {
@@ -33,29 +28,33 @@ class Bid extends Component {
         this.state.socket.close();
     }
 
-    initSocket = () => {
+    send(data) {
+        this.state.socket.emit('bid', data);
+    }
+
+    initSocket() {
         const socket = socketIOClient(this.state.endpoint);
         socket.on('connect', () => {
             socket.emit('room', this.props.lot.lot_id);
         });
 
         socket.on('bid', (data) => {
-            this.setState({last_bid: data.bid, buyer: data.buyer});
+            this.setState({ last_bid: data.bid, buyer: data.buyer });
         });
 
-        this.setState({socket});
-    };
+        this.setState({ socket });
+    }
 
     handleChange(e) {
-        this.setState({bid: +e.target.value});
+        this.setState({ bid: +e.target.value });
     }
 
     handleClick() {
-        if (this.state.bid <= this.state.last_bid) return; //show notification
+        if (this.state.bid <= this.state.last_bid) return;
         const data = {
             bid: this.state.bid,
             lot_id: this.props.lot.lot_id,
-            buyer: this.props.user.id
+            buyer: this.props.user.id,
         };
         this.send(data);
     }
@@ -66,22 +65,26 @@ class Bid extends Component {
 
         if (this.props.finished) {
             return (
-                <Container className='bid_container'>
-                    <Divider/>
-                    <p className='bid_info'>
-                        {'Final Bid: ' + this.state.last_bid + '$' + buyerInfo}
+                <Container className="bid_container">
+                    <Divider />
+                    <p className="bid_info">
+                        {`Final Bid: ${this.state.last_bid}$${buyerInfo}`}
                     </p>
                 </Container>
             );
         }
 
         return (
-            <Container className='bid_container'>
-                <Divider/>
-                <p className='bid_info'>
-                    {'Current Bid: ' + this.state.last_bid + '$' + buyerInfo}
-                </p>
-                <Input disabled={isDisabled} onChange={this.handleChange} min='0' type='number' action>
+            <Container className="bid_container">
+                <Divider />
+                <p className="bid_info">{`Current Bid: ${this.state.last_bid}$${buyerInfo}`}</p>
+                <Input
+                    disabled={isDisabled}
+                    onChange={this.handleChange}
+                    min="0"
+                    type="number"
+                    action
+                >
                     <input />
                     <Button disabled={isDisabled} onClick={this.handleClick}>Bid</Button>
                 </Input>
