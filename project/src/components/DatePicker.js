@@ -35,7 +35,7 @@ function disabledDate(current) {
     return current.valueOf() < date.valueOf();
 }
 
-function disabledTime(time, type) {
+function disabledTime() {
     return {
         disabledHours() {
             return [];
@@ -65,32 +65,35 @@ export default class DatePicker extends React.Component {
             value: [],
             hoverValue: [],
         };
+        this.onChange = this.onChange.bind(this);
+        this.onHoverChange = this.onHoverChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props !== nextProps && nextProps.value) {
-            this.setState({value: nextProps.value});
+            this.setState({ value: nextProps.value });
         }
     }
 
-    onChange = (value) => {
+    onChange(value) {
         this.setState({ value });
-    };
+    }
 
-    onHoverChange = (hoverValue) => {
+    onHoverChange(hoverValue) {
         this.setState({ hoverValue });
-    };
+    }
 
-    onSubmit = () => {
-        let dates = {
-            start:this.state.value[0],
-            end: this.state.value[1]
+    onSubmit() {
+        const dates = {
+            start: this.state.value[0],
+            end: this.state.value[1],
         };
         this.props.onDatesSelect(dates);
-    };
+    }
 
     render() {
-        const state = this.state;
+        const { state } = this;
         const calendar = (
             <RangeCalendar
                 hoverValue={state.hoverValue}
@@ -113,17 +116,17 @@ export default class DatePicker extends React.Component {
                 calendar={calendar}
             >
                 {
-                    ({ value }) => {
-                        return (<span>
-                <input
-                    placeholder="Trading period"
-                    disabled={state.disabled}
-                    readOnly
-                    className="ant-calendar-picker-input ant-input"
-                    value={isValidRange(value) && `${format(value[0])} - ${format(value[1])}` || ''}
-                />
-                </span>);
-                    }
+                    ({ value }) => (
+                        <span>
+                            <input
+                                placeholder="Trading period"
+                                disabled={state.disabled}
+                                readOnly
+                                className="ant-calendar-picker-input ant-input"
+                                value={isValidRange(value) && `${format(value[0])} - ${format(value[1])}` || ''}
+                            />
+                        </span>
+                    )
                 }
             </Picker>);
     }

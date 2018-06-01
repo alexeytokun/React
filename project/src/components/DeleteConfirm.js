@@ -14,7 +14,7 @@ class DeleteConfirm extends Component {
     }
 
     handleClick() {
-        this.setState({open: true});
+        this.setState({ open: true });
     }
 
     handleConfirm() {

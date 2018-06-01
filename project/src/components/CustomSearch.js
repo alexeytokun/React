@@ -20,6 +20,26 @@ class CustomSearch extends Component {
         this.handleResultSelect = this.handleResultSelect.bind(this);
     }
 
+    componentWillMount() {
+        if (this.props.lots) {
+            const searchableArray = this.mapLots(this.props.lots);
+            this.setState({ options: searchableArray });
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props !== nextProps) {
+            const searchableArray = this.mapLots(this.props.lots);
+            this.setState({ options: searchableArray });
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.state.redirect) {
+            this.setState({ redirect: false });
+        }
+    }
+
     handleSearchChange(e, { value }) {
         this.setState({ isLoading: true, value });
 
@@ -62,26 +82,6 @@ class CustomSearch extends Component {
             image: (lot.images.length && lot.images[0].path) || '',
             price: lot.price ? lot.price.toString() : '0',
         }));
-    }
-
-    componentWillMount() {
-        if (this.props.lots) {
-            const searchableArray = this.mapLots(this.props.lots);
-            this.setState({ options: searchableArray });
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props !== nextProps) {
-            const searchableArray = this.mapLots(this.props.lots);
-            this.setState({ options: searchableArray });
-        }
-    }
-
-    componentDidUpdate() {
-        if (this.state.redirect) {
-            this.setState({ redirect: false });
-        }
     }
 
     render() {
